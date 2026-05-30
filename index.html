@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>牧哥生物 — 火锅供应链先行者</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    /* 前端 PDF 导出按钮 */
+    .pdf-export-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 16px; border-radius: 999px; border: 1.5px solid var(--color-line);
+      background: var(--color-white); color: var(--color-ink-soft);
+      font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+      cursor: pointer; transition: all var(--transition-normal);
+      white-space: nowrap; margin-left: auto;
+    }
+    .pdf-export-btn:hover {
+      border-color: var(--color-accent); color: var(--color-accent); background: var(--color-accent-light);
+    }
+    .pdf-export-btn.loading { opacity: 0.6; pointer-events: none; }
+    /* PDF 进度条 */
+    .pdf-progress-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 99999;
+      height: 3px; background: rgba(200,169,110,0.2);
+      transition: opacity 0.3s ease;
+    }
+    .pdf-progress-bar.hidden { opacity: 0; pointer-events: none; }
+    .pdf-progress-fill {
+      height: 100%; width: 0%; background: var(--color-accent);
+      transition: width 0.3s ease;
+    }
+    .pdf-progress-label {
+      position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
+      z-index: 99999; font-family: var(--font-mono); font-size: 12px;
+      color: var(--color-ink-soft); background: var(--color-white);
+      padding: 6px 16px; border-radius: 999px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      transition: opacity 0.3s ease; white-space: nowrap;
+    }
+    .pdf-progress-label.hidden { opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- 音乐按钮 -->
+  <button class="audio-btn" :class="musicClass" @click.stop="toggleMusic" type="button" aria-label="切换背景音乐">
+    <span class="play-tri"></span>
+    <span class="ico"><i></i><i></i><i></i></span>
+    <span class="lbl"></span>
+  </button>
+
+  <audio ref="bgm" :src="currentBgm" preload="auto" loop style="display:none"></audio>
+
+  <!-- 顶部导航 -->
+  <nav class="navbar">
+    <div class="logo"><img src="images/logo.png" alt="牧哥生物" style="height:32px;width:auto;vertical-align:middle;"></div>
+    <div class="nav-links">
+      <a v-for="s in seriesList" :key="s.id" :href="'#series-' + s.id"
+         class="nav-link" :class="{ active: activeSeriesId === s.id }"
+         @click.prevent="scrollTo(s.id)">{{ s.name }}</a>
+    </div>
+    <button class="pdf-export-btn" @click="exportAllPdf" :class="{ loading: pdfExporting }" title="下载产品手册">
+      <span>📄</span><span>下载产品手册</span>
+    </button>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <h1>牧哥<span class="accent">生物</span></h1>
+    <p class="subtitle">火锅供应链先行者</p>
+  </header>
+
+  <!-- 产品展示区域 -->
+  <main>
+    <section v-for="(s, si) in seriesList" :key="s.id"
+             :id="'series-' + s.id"
+             class="series-section" :class="{ 'series-alt': si % 2 === 1 }">
+      <div class="series-banner">
+        <div class="container">
+          <div class="chip" style="margin-bottom:12px">SERIES · {{ pad(si + 1) }}</div>
+          <h2>{{ s.name.replace('系列','') }}<span class="accent">系列</span></h2>
+          <p>{{ s.description }}</p>
+        </div>
+      </div>
+      <div class="container">
+        <div class="card-grid">
+          <template v-if="s.products.length">
+            <div v-for="(p, pi) in s.products" :key="p.id"
+                 class="card" :style="'animation-delay:' + (pi * 0.10) + 's'"
+                 @click="openModal(p)">
+              <img :src="imgUrl(p.image)" :alt="p.name" loading="lazy"
+                   @load="onImgLoad"
+                   @error="onImgError($event, p)">
+              <div class="card-body">
+                <div class="card-intro">
+                  <h3>{{ p.name }}</h3>
+                  <p class="card-subtitle">{{ getDisplaySubtitle(p) }}</p>
+                  <p class="card-desc">{{ p.description }}</p>
+                </div>
+                <div class="card-craft">
+                  <div v-for="c in p.crafts" class="craft-item">
+                    <span class="craft-icon">{{ c.icon }}</span>
+                    <span class="craft-label">{{ c.label }}</span>
+                  </div>
+                </div>
+                <div class="card-specs">
+                  <div v-for="s in p.specs" class="spec-row">
+                    <span class="spec-label">{{ s.label }}</span>
+                    <span class="spec-value">{{ s.value }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+          <p v-else style="grid-column:1/-1;text-align:center;color:var(--color-ink-muted);padding:var(--space-8) 0;font-family:var(--font-mono);font-size:var(--text-sm);letter-spacing:0.1em;">暂无产品，敬请期待</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 产品详情弹窗 -->
+  <div class="modal-overlay" :class="{ hidden: !selectedProduct }" @click.self="closeModal">
+    <div class="modal" ref="modalBox" v-if="selectedProduct" @scroll="onModalScroll">
+      <button class="modal-close" @click="closeModal">&times;</button>
+      <img class="modal-image" :src="imgUrl(selectedProduct.image)" :alt="selectedProduct.name" loading="eager">
+      <div class="modal-scroll-indicator" v-show="showOilDrop">
+        <div class="modal-oil-drop" ref="oilDrop" :style="{ top: oilDropY + 'px' }"></div>
+        <div class="modal-oil-trail" ref="oilTrail" :style="{ top: '20px', height: Math.max(oilDropY - 20, 4) + 'px' }"></div>
+      </div>
+      <div class="modal-body">
+        <h2>{{ selectedProduct.name }}</h2>
+        <p class="modal-tag">{{ getDisplaySubtitle(selectedProduct) }}</p>
+        <p class="modal-desc">{{ selectedProduct.description }}</p>
+        <div class="modal-detail-grid">
+          <div>
+            <h4>工艺亮点</h4>
+            <ul class="modal-craft-list">
+              <li v-for="(c, i) in selectedProduct.crafts" :key="i"
+                  :style="'animation-delay:' + (0.42 + i * 0.10) + 's'">
+                <span class="craft-dot"></span>{{ c.icon }} {{ c.label }}
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4>产品规格</h4>
+            <div class="modal-spec-list">
+              <div v-for="(s, i) in selectedProduct.specs" :key="i" class="spec-row"
+                   :style="'animation-delay:' + (0.42 + (selectedProduct.crafts.length + i) * 0.10) + 's'">
+                <span class="spec-label">{{ s.label }}</span>
+                <span class="spec-value">{{ s.value }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 应用场景 -->
+        <div class="modal-scenarios" v-if="selectedProduct.scenarios && selectedProduct.scenarios.length > 0">
+          <h4>应用场景</h4>
+          <div class="modal-scenario-list">
+            <div v-for="(sc, i) in selectedProduct.scenarios" :key="i" class="modal-scenario-item"
+                 :style="'animation-delay:' + (0.42 + (selectedProduct.crafts.length + (selectedProduct.specs || []).length + i) * 0.10) + 's'">
+              <span class="scenario-icon">{{ sc.icon }}</span>
+              <span class="scenario-label">{{ sc.label }}</span>
+            </div>
+          </div>
+        </div>
+        <!-- SOP 操作流程 -->
+        <div class="modal-sop" v-if="selectedProduct.sop && ((selectedProduct.sop.steps && selectedProduct.sop.steps.length > 0) || (selectedProduct.sop.materials && selectedProduct.sop.materials.length > 0) || (selectedProduct.sop.auxiliaries && selectedProduct.sop.auxiliaries.length > 0))">
+          <div class="modal-sop-toggle" :class="{ open: sopExpanded }" @click="sopExpanded = !sopExpanded">
+            <span class="sop-arrow">▶</span>
+            <span>操作流程（SOP）</span>
+            <span style="font-size:11px;color:var(--color-ink-muted);" v-if="selectedProduct.sop.steps && selectedProduct.sop.steps.length">共 {{ selectedProduct.sop.steps.length }} 步</span>
+          </div>
+          <div class="modal-sop-body" :class="{ open: sopExpanded }">
+            <!-- 主料 + 辅料 -->
+            <div class="modal-sop-ingredients" v-if="(selectedProduct.sop.materials && selectedProduct.sop.materials.length) || (selectedProduct.sop.auxiliaries && selectedProduct.sop.auxiliaries.length)">
+              <div class="modal-sop-ing-grid">
+                <div class="modal-sop-ing-block" v-if="selectedProduct.sop.materials && selectedProduct.sop.materials.length">
+                  <div class="modal-sop-ing-title">主 料<span class="modal-sop-ing-en">Main Ingredients</span></div>
+                  <div class="modal-sop-ing-item" v-for="(m, mi) in selectedProduct.sop.materials" :key="'m'+mi">{{ m }}</div>
+                </div>
+                <div class="modal-sop-ing-block" v-if="selectedProduct.sop.auxiliaries && selectedProduct.sop.auxiliaries.length">
+                  <div class="modal-sop-ing-title">辅 料<span class="modal-sop-ing-en">Auxiliary Ingredients</span></div>
+                  <div class="modal-sop-ing-item" v-for="(a, ai) in selectedProduct.sop.auxiliaries" :key="'a'+ai">{{ a }}</div>
+                </div>
+              </div>
+            </div>
+            <!-- 步骤 -->
+            <div class="modal-sop-steps" v-if="selectedProduct.sop.steps && selectedProduct.sop.steps.length > 0">
+              <div v-for="(step, i) in selectedProduct.sop.steps" :key="i" class="modal-sop-step">
+                <div class="modal-sop-icon">
+                  <img v-if="step.icon && resolveSopIcon(step.icon)" :src="resolveSopIcon(step.icon)" alt="">
+                </div>
+                <div class="modal-sop-info">
+                  <div class="modal-sop-type">{{ step.type }}</div>
+                  <div class="modal-sop-title">{{ step.title }}</div>
+                  <div class="modal-sop-content">{{ step.content }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-video" @click="openVideo(selectedProduct)">
+            <span class="play-icon"></span>
+            观看教学视频
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 视频播放弹窗 -->
+  <div class="video-overlay" :class="{ hidden: !showVideo }" @click.self="closeVideo">
+    <div class="video-container" ref="videoContainer" :style="{ aspectRatio: videoAspect }" v-if="showVideo">
+      <button class="video-close" @click="closeVideo">&times;</button>
+      <iframe ref="videoFrame" :src="embedVideoUrl" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    牧哥生物 · 火锅供应链先行者
+  </footer>
+
+</div>
+
+<!-- Vue 3 CDN -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+<script>
+  // 优先读取后台保存的数据，否则用默认数据
+  var saved = localStorage.getItem('muge_products');
+  var imgVersion = localStorage.getItem('muge_version') || '1';
+  var DEFAULT_DATA = [{"id":"beef","name":"牛油系列","description":"精选西门塔尔牛种，鲜脂火炼，传统工艺熬制，香味浓郁醇厚","products":[{"id":1,"name":"蜀忆老火锅牛油","subtitle":"PRODUCT · 01","description":"牧哥牛油与杭州川野食品联合为工厂客户推出的定制产品，优选西门塔尔牛种，鲜脂火炼，香味更浓","image":"images/product1.webp","bgm":"music/Plastic-Sunlight.mp3","video":"https://www.douyin.com/video/7642174138106318134","videoAspect":"9/16","crafts":[{"icon":"🔥","label":"手工熬制"},{"icon":"⏱","label":"8 小时慢熬"},{"icon":"🌶","label":"正宗川味"},{"icon":"🏅","label":"品质认证"}],"specs":[{"label":"规格","value":"20kg / 箱"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}],"scenarios":[{"icon":"🏪","label":"火锅餐饮"},{"icon":"🍲","label":"川味火锅店"},{"icon":"🏠","label":"家庭聚餐"}]}]},{"id":"hotpot","name":"火锅底料","description":"牛油、清油、番茄、菌汤、藤椒等多种口味火锅底料，满足不同餐饮场景","products":[{"id":2,"name":"牛油火锅底料","subtitle":"PRODUCT · 02","description":"传统牛油火锅底料，麻辣鲜香，汤色红亮，适合各类川味火锅场景。","image":"images/product2.jpg","bgm":"music/Velvet-Thunder.mp3","video":"videos/咸蛋海鲜粥.mp4","videoAspect":"9/16","crafts":[{"icon":"🔥","label":"传统工艺"},{"icon":"🌶","label":"麻辣鲜香"},{"icon":"🥘","label":"汤色红亮"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":3,"name":"清油火锅底料","subtitle":"PRODUCT · 03","description":"纯植物油脂炼制，汤色清亮不糊口，麻辣清爽不油腻，适合养生火锅场景。","image":"images/product3.jpg","bgm":"music/Paper-Circuit.mp3","video":"","crafts":[{"icon":"🌿","label":"植物油脂"},{"icon":"💧","label":"清爽不腻"},{"icon":"🌶","label":"麻辣鲜香"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":4,"name":"番茄火锅底料","subtitle":"PRODUCT · 04","description":"新疆日照番茄为原料，酸甜浓郁，汤底可直接饮用，老少皆宜。","image":"images/product4.jpg","bgm":"music/Circuit-Cabbage.mp3","video":"","crafts":[{"icon":"🍅","label":"新疆番茄"},{"icon":"☀","label":"日照充足"},{"icon":"👶","label":"老少皆宜"},{"icon":"💧","label":"汤底可饮"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":5,"name":"菌汤火锅底料","subtitle":"PRODUCT · 05","description":"云南野生菌菇拼配，松茸提鲜、牛肝菌增香，汤色金黄，鲜味醇厚。","image":"images/product1.webp","bgm":"music/Reverb-Ledger.mp3","video":"","crafts":[{"icon":"🍄","label":"云南野菌"},{"icon":"⭐","label":"松茸提鲜"},{"icon":"⏱","label":"慢火炖煮"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":6,"name":"麻辣香锅底料","subtitle":"PRODUCT · 06","description":"多种辣椒黄金配比，搭配十余种香辛料，干锅翻炒酱香浓郁、辣而不燥。","image":"images/product2.jpg","bgm":"music/Velvet-Thunder.mp3","video":"videos/咸蛋海鲜粥.mp4","videoAspect":"9/16","crafts":[{"icon":"🌶","label":"多椒配比"},{"icon":"🧂","label":"十余种香辛料"},{"icon":"🔥","label":"酱香浓郁"},{"icon":"✅","label":"辣而不燥"}],"specs":[{"label":"规格","value":"1kg / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":7,"name":"藤椒火锅底料","subtitle":"PRODUCT · 07","description":"洪雅鲜藤椒入料，清香麻爽，入口微麻回甘，夏季火锅的上选之品。","image":"images/product1.webp","bgm":"music/Plastic-Sunlight.mp3","video":"","crafts":[{"icon":"🌿","label":"洪雅藤椒"},{"icon":"❄","label":"鲜麻清爽"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]}]},{"id":"fish","name":"烤鱼料","description":"专为烤鱼场景研发，酱香浓郁，入味透彻，适用于各类烤鱼餐饮","products":[]},{"id":"lobster","name":"龙虾料","description":"小龙虾调味料，麻辣鲜香，入味快，适合夜宵排档和餐饮门店","products":[]},{"id":"soup","name":"汤料","description":"多种汤底调味料，骨汤、菌汤、番茄汤等，一料多用","products":[]}];
+  const PRODUCT_DATA = saved ? JSON.parse(saved) : DEFAULT_DATA;
+
+  // 自动迁移旧路径（bare filename → images/music/videos/ 前缀）
+  if (saved) {
+    var needSave = false;
+    PRODUCT_DATA.forEach(function (s) {
+      s.products.forEach(function (p) {
+        ['image', 'bgm', 'video'].forEach(function (key) {
+          var val = p[key];
+          if (!val || val.indexOf('/') !== -1 || val.indexOf('data:') === 0 || val.indexOf('http') === 0) return;
+          if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(val)) { p[key] = 'images/' + val; needSave = true; }
+          else if (/\.mp3$/i.test(val)) { p[key] = 'music/' + val; needSave = true; }
+          else if (/\.mp4$/i.test(val)) { p[key] = 'videos/' + val; needSave = true; }
+        });
+        // 迁移旧 SOP 数据（无 materials/auxiliaries 字段）
+        if (p.sop && p.sop.steps && !p.sop.materials) { p.sop.materials = []; needSave = true; }
+        if (p.sop && p.sop.steps && !p.sop.auxiliaries) { p.sop.auxiliaries = []; needSave = true; }
+      });
+    });
+    if (needSave) { localStorage.setItem('muge_products', JSON.stringify(PRODUCT_DATA)); }
+  }
+</script>
+
+<script>
+  // ======== SOP 预设 Icon ========
+  var SOP_ICONS = {
+    product: 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 8l9-5 9 5"/><line x1="12" y1="13" x2="12" y2="17"/></svg>'),
+    main: 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12a1 1 0 011 1v2a1 1 0 01-1 1H6a1 1 0 01-1-1V5a1 1 0 011-1z"/><path d="M4 8l1 11a2 2 0 002 2h10a2 2 0 002-2l1-11"/><circle cx="12" cy="13" r="3"/></svg>'),
+    aux: 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><polyline points="7 8 2 12 7 16"/><polyline points="17 8 22 12 17 16"/></svg>'),
+    process: 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1 4-3 7-3 10a3 3 0 006 0c0-3-2-6-3-10z"/><path d="M8 16c-3 1-6 2-7 4 0 1 2 2 4 2"/><path d="M16 16c3 1 6 2 7 4 0 1-2 2-4 2"/></svg>'),
+    check: 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6.4-4.8-6.4 4.8 2.4-7.2-6-4.8h7.6z"/><polyline points="8 10 11 13 16 7"/></svg>')
+  };
+  function resolveSopIcon(icon) {
+    if (!icon) return '';
+    if (icon.indexOf('data:') === 0 || icon.indexOf('http') === 0) return icon;
+    if (SOP_ICONS[icon]) return SOP_ICONS[icon];
+    return icon;
+  }
+
+  const { createApp, nextTick } = Vue;
+
+  createApp({
+    data() {
+      return {
+        seriesList: PRODUCT_DATA,
+        selectedProduct: null,
+        showVideo: false,
+        videoUrl: '',
+        videoAspect: '9/16',
+        currentBgm: 'music/Plastic-Sunlight.mp3',
+        imgVersion: imgVersion,
+        musicStarted: false,
+        musicPlaying: false,
+        activeSeriesId: '',
+        oilDropY: 20,
+        showOilDrop: true,
+        scrollTimer: null,
+        sopExpanded: false,
+        pdfExporting: false
+      };
+    },
+
+    computed: {
+      musicClass() {
+        if (!this.musicStarted) return 'idle';
+        return this.musicPlaying ? 'playing' : 'muted';
+      },
+
+      embedVideoUrl() {
+        if (!this.videoUrl) return '';
+        var bv = this.videoUrl.match(/BV[a-zA-Z0-9]+/);
+        if (bv) return 'https://player.bilibili.com/player.html?bvid=' + bv[0] + '&high_quality=1&danmaku=0';
+        return this.videoUrl;
+      }
+    },
+
+    methods: {
+      pad(n) { return String(n).padStart(2, '0'); },
+      getDisplaySubtitle(product) {
+        for (var i = 0; i < this.seriesList.length; i++) {
+          var s = this.seriesList[i];
+          for (var j = 0; j < s.products.length; j++) {
+            if (s.products[j].id === product.id) {
+              return 'PRODUCT · ' + String(j + 1).padStart(2, '0');
+            }
+          }
+        }
+        return product.subtitle || '';
+      },
+      imgUrl(filename) {
+        if (!filename) return '';
+        if (filename.indexOf('data:') === 0) return filename;
+        return filename + '?v=' + this.imgVersion;
+      },
+      onImgLoad(e) { e.target.classList.add('loaded'); },
+      onImgError(e, product) {
+        e.target.classList.add('img-error');
+        e.target.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect fill="#F4EFE6" width="400" height="300"/><text fill="#C0B8A8" font-family="sans-serif" font-size="14" text-anchor="middle" x="200" y="145">图片加载失败</text><text fill="#D8442C" font-family="sans-serif" font-size="24" text-anchor="middle" x="200" y="170">' + (product ? product.name : '') + '</text></svg>');
+      },
+
+      // === 弹窗 ===
+      openModal(product) {
+        if (product.bgm && this.$refs.bgm.src !== product.bgm) {
+          this.$refs.bgm.src = product.bgm;
+          if (this.musicPlaying) this.$refs.bgm.play().catch(function(){});
+        }
+        this.selectedProduct = product;
+        this.sopExpanded = false;
+        document.body.style.overflow = 'hidden';
+        var self = this;
+        nextTick(function () {
+          self.updateOilDrop();
+        });
+      },
+
+      closeModal() {
+        this.selectedProduct = null;
+        this.sopExpanded = false;
+        document.body.style.overflow = '';
+      },
+
+      resolveSopIcon(icon) {
+        return resolveSopIcon(icon);
+      },
+
+      // === 油滴滚动指示器 ===
+      onModalScroll() {
+        var self = this;
+        clearTimeout(this.scrollTimer);
+        self.updateOilDrop();
+        var box = this.$refs.modalBox;
+        if (box) box.classList.add('scrolling');
+        this.scrollTimer = setTimeout(function () {
+          if (box) box.classList.remove('scrolling');
+        }, 200);
+      },
+
+      updateOilDrop() {
+        var box = this.$refs.modalBox;
+        if (!box) { this.showOilDrop = false; return; }
+        var h = box.scrollHeight - box.clientHeight;
+        if (h <= 0) { this.showOilDrop = false; return; }
+        this.showOilDrop = true;
+        this.oilDropY = 20 + (box.scrollTop / h) * (box.clientHeight - 40);
+      },
+
+      // === 视频 ===
+      openVideo(product) {
+        if (!product.video) { alert('该产品暂未上传教学视频'); return; }
+        if (product.video.indexOf('weixin.qq.com') !== -1) {
+          window.open(product.video, '_blank');
+          return;
+        }
+        this.videoUrl = product.video;
+        this.videoAspect = product.videoAspect || '9/16';
+        this.showVideo = true;
+        document.body.style.overflow = 'hidden';
+      },
+
+      closeVideo() {
+        this.showVideo = false;
+        this.videoUrl = '';
+        document.body.style.overflow = '';
+      },
+
+      // === 音乐 ===
+      tryPlay() {
+        if (this.musicStarted) return;
+        var bgm = this.$refs.bgm;
+        var self = this;
+        bgm.play().then(function () {
+          self.musicStarted = true;
+          self.musicPlaying = true;
+        }).catch(function () {});
+      },
+
+      toggleMusic() {
+        if (!this.musicStarted) {
+          this.musicStarted = true;
+          this.musicPlaying = true;
+          this.$refs.bgm.play().catch(function () {});
+          return;
+        }
+        if (this.musicPlaying) {
+          this.musicPlaying = false;
+          this.$refs.bgm.pause();
+        } else {
+          this.musicPlaying = true;
+          this.$refs.bgm.play().catch(function () {});
+        }
+      },
+
+      // === 导航 ===
+      scrollTo(seriesId) {
+        var el = document.getElementById('series-' + seriesId);
+        if (el) {
+          var offset = document.querySelector('.navbar').offsetHeight + 16;
+          window.scrollTo({ top: el.offsetTop - offset, behavior: 'smooth' });
+        }
+      },
+
+      // === PDF 导出 ===
+      exportAllPdf() {
+        var self = this;
+        if (this.pdfExporting) return;
+
+        // 微信浏览器检测：PDF 下载可能被拦截
+        if (/MicroMessenger/i.test(navigator.userAgent)) {
+          if (!confirm('检测到微信浏览器，PDF 文件可能无法直接下载。\n建议点击右上角"在浏览器打开"后重试。\n\n是否继续导出？')) {
+            return;
+          }
+        }
+
+        this.pdfExporting = true;
+
+        // 收集所有有产品的系列
+        var activeSeries = this.seriesList.filter(function (s) { return s.products.length > 0; });
+        if (activeSeries.length === 0) { this.pdfExporting = false; return; }
+
+        // 构建页面队列
+        var pages = [];
+        pages.push({ type: 'cover' });
+        var seriesIndex = 0;
+        var productIndex = 0;
+        activeSeries.forEach(function (s) {
+          seriesIndex++;
+          pages.push({ type: 'divider', series: s, seriesIndex: seriesIndex });
+          s.products.forEach(function (p) {
+            productIndex++;
+            var pc = Object.assign({}, p, {
+              subtitle: 'PRODUCT · ' + String(productIndex).padStart(2, '0')
+            });
+            pages.push({ type: 'product', product: pc, series: s });
+          });
+        });
+
+        var total = pages.length;
+        var version = this.imgVersion;
+
+        function buildCoverHTML() {
+          var s = '';
+          s += '<div style="width:1100px;height:740px;background:#0c0b08;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;font-family:\'Noto Serif SC\',serif;">';
+          s += '<div style="position:absolute;top:40px;left:80px;right:80px;height:1px;z-index:2;background:rgba(200,169,110,0.3);"></div>';
+          s += '<div style="position:absolute;bottom:40px;left:80px;right:80px;height:1px;z-index:2;background:rgba(200,169,110,0.2);"></div>';
+          s += '<div style="position:absolute;top:50%;left:50%;width:600px;height:400px;transform:translate(-50%,-50%);z-index:0;box-shadow:0 0 200px 100px rgba(200,169,110,0.04);border-radius:50%;"></div>';
+          s += '<div style="position:relative;z-index:3;text-align:center;">';
+          s += '<div style="font-size:48px;color:rgba(200,169,110,0.3);letter-spacing:0.3em;margin-bottom:24px;">◆ ◆ ◆</div>';
+          s += '<img src="images/logo.png?v=' + version + '" style="max-width:340px;height:auto;margin-bottom:24px;filter:sepia(100%) saturate(400%) hue-rotate(350deg) brightness(0.85);">';
+          s += '<div style="font-family:\'Noto Sans SC\',sans-serif;font-size:22px;font-weight:300;color:rgba(232,228,220,0.6);letter-spacing:0.3em;margin-bottom:48px;">产 品 手 册</div>';
+          s += '<div style="width:120px;height:1px;background:#C8A96E;margin:0 auto 48px;"></div>';
+          s += '<div style="font-family:\'JetBrains Mono\',monospace;font-size:14px;letter-spacing:0.2em;color:rgba(200,169,110,0.5);">MUGE BIOTECH · PRODUCT CATALOG</div>';
+          s += '</div></div>';
+          return s;
+        }
+
+        function buildDividerHTML(series, si) {
+          var desc = series.description || '';
+          var s = '';
+          s += '<div style="width:1100px;height:740px;background:#0c0b08;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;font-family:\'Noto Serif SC\',serif;">';
+          s += '<div style="position:absolute;top:40px;left:80px;right:80px;height:1px;z-index:2;background:rgba(200,169,110,0.2);"></div>';
+          s += '<div style="position:absolute;bottom:40px;left:80px;right:80px;height:1px;z-index:2;background:rgba(200,169,110,0.15);"></div>';
+          s += '<div style="position:absolute;top:50%;left:50%;width:500px;height:350px;transform:translate(-50%,-50%);z-index:0;box-shadow:0 0 180px 80px rgba(200,169,110,0.03);border-radius:50%;"></div>';
+          s += '<div style="position:relative;z-index:3;text-align:center;">';
+          s += '<div style="font-family:\'JetBrains Mono\',monospace;font-size:13px;letter-spacing:0.2em;color:rgba(200,169,110,0.4);margin-bottom:16px;">SERIES ' + (si < 10 ? '0' : '') + si + '</div>';
+          s += '<div style="font-family:\'Noto Serif SC\',serif;font-size:52px;font-weight:900;color:#C8A96E;letter-spacing:0.1em;text-shadow:0 2px 32px rgba(200,169,110,0.25);margin-bottom:20px;">' + series.name + '</div>';
+          s += '<div style="width:80px;height:2px;background:#C8A96E;margin:0 auto 24px;"></div>';
+          if (desc) {
+            s += '<div style="font-family:\'Noto Sans SC\',sans-serif;font-size:16px;font-weight:300;color:rgba(232,228,220,0.5);letter-spacing:0.15em;max-width:480px;line-height:1.8;">' + desc + '</div>';
+          }
+          s += '</div></div>';
+          return s;
+        }
+
+        function buildProductHTML(p) {
+          var imgSrc = p.image;
+          if (imgSrc && imgSrc.indexOf('data:') !== 0 && imgSrc.indexOf('blob:') !== 0 && imgSrc.indexOf('http') !== 0) {
+            imgSrc = imgSrc + '?v=' + version;
+          }
+          if (!imgSrc) { imgSrc = ''; }
+
+          var h = '<div style="position:relative;width:1100px;height:740px;background-color:#0c0b08;display:flex;flex-direction:column;justify-content:flex-end;font-family:\'Noto Sans SC\',system-ui,sans-serif;color:#E8E4DC;">';
+          if (imgSrc) {
+            h += '<img src="' + imgSrc + '" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;">';
+          }
+          h += '<div style="position:absolute;top:24px;left:48px;right:48px;height:2px;z-index:2;background:rgba(200,169,110,0.3);"></div>';
+          h += '<div style="position:absolute;bottom:24px;left:48px;right:48px;height:2px;z-index:2;background:rgba(200,169,110,0.2);"></div>';
+          h += '<div style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:1;background:linear-gradient(to bottom,rgba(12,11,8,0.01) 0%,rgba(12,11,8,0.01) 32%,rgba(12,11,8,0.78) 52%,rgba(12,11,8,0.78) 100%);"></div>';
+          h += '<div style="position:relative;z-index:3;padding:0 56px 40px;">';
+          if (p.subtitle) {
+            h += '<div style="font-family:\'JetBrains Mono\',monospace;font-size:12px;letter-spacing:0.22em;color:rgba(200,169,110,0.7);margin-bottom:8px;">' + p.subtitle + '</div>';
+          }
+          h += '<div style="font-family:\'Noto Serif SC\',serif;font-size:42px;font-weight:900;color:#C8A96E;letter-spacing:0.04em;line-height:1.15;margin-bottom:10px;text-shadow:0 2px 24px rgba(0,0,0,0.6);">' + p.name + '</div>';
+          h += '<div style="width:56px;height:2px;background:#C8A96E;margin-bottom:12px;"></div>';
+          if (p.description) {
+            h += '<div style="font-size:15px;line-height:1.8;color:rgba(232,228,220,0.7);max-width:580px;text-shadow:0 1px 8px rgba(0,0,0,0.5);margin-bottom:28px;">' + p.description + '</div>';
+          }
+          h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 52px;margin-bottom:28px;"><div>';
+          if (p.crafts && p.crafts.length > 0) {
+            h += '<div style="font-family:\'Noto Serif SC\',serif;font-size:14px;font-weight:700;color:#C8A96E;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid rgba(200,169,110,0.25);letter-spacing:0.06em;text-shadow:0 1px 8px rgba(0,0,0,0.5);">工艺亮点</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:0 12px;">';
+            p.crafts.forEach(function (c) {
+              h += '<div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#E8E4DC;padding:10px 0;border-bottom:1px solid rgba(200,169,110,0.1);text-shadow:0 1px 4px rgba(0,0,0,0.4);"><span style="font-size:18px;width:28px;text-align:center;flex-shrink:0;">' + c.icon + '</span><span>' + c.label + '</span></div>';
+            });
+            h += '</div>';
+          }
+          if (p.scenarios && p.scenarios.length > 0) {
+            h += '<div style="font-family:\'Noto Serif SC\',serif;font-size:14px;font-weight:700;color:#C8A96E;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid rgba(200,169,110,0.25);letter-spacing:0.06em;text-shadow:0 1px 8px rgba(0,0,0,0.5);margin-top:20px;">应用场景</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:0 12px;">';
+            p.scenarios.forEach(function (sc) {
+              h += '<div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#E8E4DC;padding:10px 0;border-bottom:1px solid rgba(200,169,110,0.1);text-shadow:0 1px 4px rgba(0,0,0,0.4);"><span style="font-size:18px;width:28px;text-align:center;flex-shrink:0;">' + sc.icon + '</span><span>' + sc.label + '</span></div>';
+            });
+            h += '</div>';
+          }
+          h += '</div><div>';
+          if (p.specs && p.specs.length > 0) {
+            h += '<div style="font-family:\'Noto Serif SC\',serif;font-size:14px;font-weight:700;color:#C8A96E;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid rgba(200,169,110,0.25);letter-spacing:0.06em;text-shadow:0 1px 8px rgba(0,0,0,0.5);">产品规格</div><div style="display:flex;flex-direction:column;">';
+            p.specs.forEach(function (s) {
+              h += '<div style="display:flex;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(200,169,110,0.1);font-size:13px;text-shadow:0 1px 4px rgba(0,0,0,0.4);"><span style="width:72px;flex-shrink:0;font-family:\'JetBrains Mono\',monospace;font-size:11px;letter-spacing:0.08em;color:rgba(232,228,220,0.4);">' + s.label + '</span><span style="flex:1;color:#E8E4DC;font-size:14px;font-weight:500;">' + s.value + '</span></div>';
+            });
+            h += '</div>';
+          }
+          h += '</div></div>';
+          h += '<div style="text-align:center;font-family:\'JetBrains Mono\',monospace;font-size:13px;letter-spacing:0.14em;color:rgba(200,169,110,0.55);text-shadow:0 1px 4px rgba(0,0,0,0.4);">牧哥生物 · 火锅供应链先行者</div>';
+          h += '</div></div>';
+          return h;
+        }
+
+        // 构建全部页面
+        var allHTML = '';
+        for (var i = 0; i < pages.length; i++) {
+          var page = pages[i];
+          var inner = '';
+          if (page.type === 'cover') { inner = buildCoverHTML(); }
+          else if (page.type === 'divider') { inner = buildDividerHTML(page.series, page.seriesIndex); }
+          else { inner = buildProductHTML(page.product); }
+          allHTML += '<div style="width:1100px;height:740px;overflow:hidden;background:#0c0b08;">' + inner + '</div>';
+        }
+
+        // 显示进度条
+        var progressBar = document.getElementById('pdf-progress-bar');
+        var progressFill = document.getElementById('pdf-progress-fill');
+        var progressLabel = document.getElementById('pdf-progress-label');
+        if (progressBar) progressBar.classList.remove('hidden');
+        if (progressLabel) progressLabel.classList.remove('hidden');
+
+        // 创建临时容器
+        var container = document.getElementById('pdf-frontend-container');
+        container.innerHTML = allHTML;
+        container.style.cssText = 'position:fixed;left:-9999px;top:0;width:1100px;z-index:-1;opacity:0;pointer-events:none;';
+
+        function doRender() {
+          var pageEls = container.children;
+          var pdf = new jspdf.jsPDF({ unit: 'mm', format: [292, 196], orientation: 'landscape' });
+          var h2cOpts = { scale: 1, backgroundColor: '#0c0b08', logging: false, width: 1100, height: 740 };
+
+          function renderNext(idx) {
+            if (idx >= total) {
+              pdf.save('牧哥生物-产品手册.pdf');
+              cleanup();
+              return;
+            }
+            var pageName = pages[idx].product ? pages[idx].product.name : (pages[idx].type === 'cover' ? '封面' : pages[idx].series.name);
+            if (progressLabel) progressLabel.textContent = '生成中… ' + (idx + 1) + '/' + total;
+            if (progressFill) progressFill.style.width = ((idx / total) * 100) + '%';
+
+            html2canvas(pageEls[idx], h2cOpts).then(function (canvas) {
+              if (idx > 0) { pdf.addPage(); }
+              pdf.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, 292, 196);
+              setTimeout(function () { renderNext(idx + 1); }, 50);
+            }).catch(function () {
+              // 失败则跳过该页
+              if (idx > 0) { pdf.addPage(); }
+              setTimeout(function () { renderNext(idx + 1); }, 50);
+            });
+          }
+
+          function cleanup() {
+            container.innerHTML = '';
+            container.style.cssText = '';
+            if (progressBar) progressBar.classList.add('hidden');
+            if (progressLabel) progressLabel.classList.add('hidden');
+            if (progressFill) progressFill.style.width = '0%';
+            self.pdfExporting = false;
+          }
+
+          renderNext(0);
+        }
+
+        // 预加载图片后开始渲染
+        var imgs = container.querySelectorAll('img');
+        function startRender() {
+          container.offsetHeight;
+          setTimeout(doRender, 300);
+        }
+        if (imgs.length === 0) {
+          startRender();
+        } else {
+          var imgCheckTimer = setTimeout(startRender, 15000);
+          function checkImgs() {
+            var allDone = true;
+            for (var j = 0; j < imgs.length; j++) {
+              if (!imgs[j].complete) { allDone = false; break; }
+            }
+            if (allDone) { clearTimeout(imgCheckTimer); startRender(); }
+            else { setTimeout(checkImgs, 200); }
+          }
+          checkImgs();
+        }
+      },
+
+      initObserver() {
+        var self = this;
+        var links = document.querySelectorAll('.nav-link');
+        var sections = document.querySelectorAll('.series-section');
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              self.activeSeriesId = entry.target.id.replace('series-', '');
+            }
+          });
+        }, { rootMargin: '-30% 0px -60% 0px' });
+        sections.forEach(function (s) { observer.observe(s); });
+      }
+    },
+
+    mounted() {
+      var self = this;
+
+      // 尝试自动播放音乐
+      this.$refs.bgm.play().then(function () {
+        self.musicStarted = true;
+        self.musicPlaying = true;
+      }).catch(function () {});
+
+      // 首次交互启动
+      var once = { once: true };
+      document.addEventListener('click', function () { self.tryPlay(); }, once);
+      document.addEventListener('scroll', function () { self.tryPlay(); }, once);
+      document.addEventListener('touchstart', function () { self.tryPlay(); }, once);
+      document.addEventListener('keydown', function () { self.tryPlay(); }, once);
+
+      // ESC 关闭
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (self.showVideo) self.closeVideo();
+          else if (self.selectedProduct) self.closeModal();
+        }
+      });
+
+      // 初始化滚动观察
+      nextTick(function () { self.initObserver(); });
+    }
+  }).mount('#app');
+</script>
+
+  <!-- PDF 进度条 -->
+  <div id="pdf-progress-bar" class="pdf-progress-bar hidden">
+    <div id="pdf-progress-fill" class="pdf-progress-fill"></div>
+  </div>
+  <div id="pdf-progress-label" class="pdf-progress-label hidden">准备中…</div>
+
+  <!-- PDF 前端导出渲染容器 -->
+  <div id="pdf-frontend-container"></div>
+
+</body>
+</html>

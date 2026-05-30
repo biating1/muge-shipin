@@ -1,0 +1,132 @@
+/* ============================================
+   产品展示网站 — Design System (设计系统)
+   参考："卷"主题演讲 PPT 设计风格
+   核心：暖纸底色 + 朱红点缀 + 深蓝辅色 + 芥末黄高亮
+   ============================================ */
+
+:root {
+  /* ======== 颜色系统 ======== */
+
+  /* 暖纸色 — 页面主背景 */
+  --color-bg:          #F4EFE6;
+  --color-bg-alt:      #EDE5D2;
+
+  /* 墨色 — 文字用色 */
+  --color-ink:         #16140F;
+  --color-ink-soft:    #3A352A;
+  --color-ink-muted:   rgba(22, 20, 15, 0.55);
+
+  /* 朱红 — 主强调色（按钮、标签、关键文字） */
+  --color-accent:      #D8442C;
+  --color-accent-light: rgba(216, 68, 44, 0.12);
+
+  /* 深蓝 — 辅强调色（链接、次要标记） */
+  --color-blue:        #1A4D8F;
+  --color-blue-light:  rgba(26, 77, 143, 0.12);
+
+  /* 芥末黄 — 高亮/荧光笔效果 */
+  --color-highlight:   #F0C419;
+  --color-highlight-light: rgba(240, 196, 25, 0.55);
+
+  /* 墨绿 — 成功/完成 */
+  --color-green:       #3F6B3D;
+
+  /* 分割线 */
+  --color-line:        rgba(22, 20, 15, 0.18);
+
+  /* 白色卡片背景 */
+  --color-white:       #ffffff;
+  --color-dark-bg:     #0c0b08;
+
+
+  /* ======== 字体系统 ======== */
+
+  /* 衬线体 — 标题 */
+  --font-serif:  "Noto Serif SC", "STSong", "SimSun", serif;
+  /* 无衬线体 — 正文 */
+  --font-sans:   "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  /* 等宽字体 — 标签、编号、代码 */
+  --font-mono:   "JetBrains Mono", "SF Mono", "Cascadia Code", Consolas, monospace;
+
+  /* 字号层级 */
+  --text-xs:   0.75rem;    /* 12px — 标签、小字备注 */
+  --text-sm:   0.875rem;   /* 14px — 辅助文字 */
+  --text-base: 1rem;       /* 16px — 正文 */
+  --text-lg:   1.125rem;   /* 18px — 强调正文 */
+  --text-xl:   1.25rem;    /* 20px — 小标题 */
+  --text-2xl:  1.5rem;     /* 24px — 卡片标题 */
+  --text-3xl:  1.875rem;   /* 30px — 区块标题 */
+  --text-4xl:  2.25rem;    /* 36px — 页面大标题 */
+  --text-5xl:  3rem;       /* 48px — Hero 标题 */
+
+  /* 字重 */
+  --font-normal:   400;
+  --font-medium:   500;
+  --font-semibold: 600;
+  --font-bold:     700;
+  --font-black:    900;
+
+  /* 行高 */
+  --leading-tight:  1.15;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.75;
+
+
+  /* ======== 间距系统（基于 4px 网格） ======== */
+
+  --space-1:  0.25rem;   /* 4px */
+  --space-2:  0.5rem;    /* 8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+
+
+  /* ======== 圆角 ======== */
+
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   8px;
+  --radius-xl:   12px;
+  --radius-full: 9999px;
+
+
+  /* ======== 阴影 ======== */
+
+  --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md:  0 4px 6px -1px rgba(0, 0, 0, 0.08),
+                0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --shadow-lg:  0 12px 40px rgba(0, 0, 0, 0.08),
+                0 2px 6px rgba(0, 0, 0, 0.06);
+  --shadow-xl:  0 18px 50px rgba(0, 0, 0, 0.18),
+                0 4px 10px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 16px 48px rgba(0, 0, 0, 0.15);
+
+
+  /* ======== 过渡动画 ======== */
+
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:   400ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  --transition-spring: 700ms cubic-bezier(0.2, 1.4, 0.4, 1);
+
+  /* ======== 布局尺寸 ======== */
+
+  --container-max: 1200px;
+  --header-height: 64px;
+  --section-gap: var(--space-24);
+
+  /* ======== Z-Index 层级 ======== */
+
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-toast:    500;
+}

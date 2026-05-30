@@ -1,0 +1,276 @@
+/* ============================================
+   产品卡片共享样式 — index.html & admin.html PDF 导出共用
+   依赖: design-system/design-tokens.css (CSS 变量)
+   ============================================ */
+
+/* ======== 卡片网格 ======== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+/* ======== 卡片 ======== */
+.card {
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transition: transform var(--transition-slow),
+              box-shadow var(--transition-slow);
+  will-change: transform;
+  animation: riseIn 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.15s; }
+.card:nth-child(3) { animation-delay: 0.25s; }
+.card:nth-child(4) { animation-delay: 0.35s; }
+.card:nth-child(5) { animation-delay: 0.45s; }
+.card:nth-child(6) { animation-delay: 0.55s; }
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* 卡片图片 — 无包裹直接 <img> */
+.card > img {
+  width: 100%;
+  max-height: 260px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-slow);
+}
+
+.card:hover > img {
+  transform: scale(1.08);
+}
+
+/* 图片容器包裹方式 */
+.card-img-wrap {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  max-height: 260px;
+  background: var(--color-line);
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.45s ease, transform var(--transition-slow);
+}
+
+.card-img-wrap img.loaded {
+  opacity: 1;
+}
+
+.card-img-wrap img.img-error {
+  opacity: 1;
+  object-fit: contain;
+  padding: var(--space-4);
+  background: var(--color-bg);
+}
+
+.card:hover .card-img-wrap img.loaded {
+  transform: scale(1.08);
+}
+
+/* ======== 卡片主体 ======== */
+.card-body {
+  padding: var(--space-6);
+}
+
+.card-body h3 {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-ink);
+  margin-bottom: var(--space-1);
+  transition: color var(--transition-normal);
+}
+
+.card:hover .card-body h3 {
+  color: var(--color-accent);
+}
+
+.card-body .card-subtitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-ink-muted);
+  letter-spacing: 0.1em;
+}
+
+/* ======== 区域一：产品介绍 ======== */
+.card-intro {
+  margin-bottom: var(--space-5);
+}
+
+.card-desc {
+  margin-top: var(--space-3);
+  color: var(--color-ink-soft);
+  line-height: var(--leading-relaxed);
+  font-size: var(--text-sm);
+}
+
+/* ======== 区域二：工艺 icon ======== */
+.card-craft {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+  margin-bottom: var(--space-5);
+}
+
+.craft-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-1) var(--space-1);
+}
+
+.craft-icon {
+  font-size: 20px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  transition: transform var(--transition-normal);
+}
+
+.card:hover .craft-icon {
+  transform: scale(1.15);
+}
+
+.craft-icon-svg {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.craft-icon-inline {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  vertical-align: middle;
+  display: inline;
+}
+
+.craft-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  color: var(--color-ink-soft);
+  font-weight: var(--font-medium);
+}
+
+/* ======== 区域三：规格 ======== */
+.card-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.spec-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: 3px 0;
+}
+
+.spec-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink-muted);
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+  min-width: 56px;
+}
+
+.spec-value {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+  font-weight: var(--font-medium);
+}
+
+/* ======== 触屏取消悬浮 ======== */
+@media (hover: none) and (pointer: coarse) {
+  .card:hover {
+    transform: none;
+    box-shadow: var(--shadow-lg);
+  }
+  .card:hover > img,
+  .card:hover .card-img-wrap img {
+    transform: none;
+  }
+  .card:hover .card-body h3 {
+    color: var(--color-ink);
+  }
+  .card:hover .craft-icon {
+    transform: none;
+  }
+}
+
+/* ======== 响应式：平板 ======== */
+@media (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ======== 响应式：手机 ======== */
+@media (max-width: 640px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-body {
+    padding: var(--space-4);
+  }
+
+  .card-body h3 {
+    font-size: var(--text-xl);
+  }
+}
+
+/* ======== PDF 导出模式 — 禁用动画和交互效果 ======== */
+.pdf-mode .card {
+  animation: none;
+  opacity: 1;
+  transform: none;
+  page-break-inside: avoid;
+}
+
+.pdf-mode .card:hover {
+  transform: none;
+  box-shadow: var(--shadow-lg);
+}
+
+.pdf-mode .card:hover > img {
+  transform: none;
+}
+
+.pdf-mode .card:hover .card-body h3 {
+  color: var(--color-ink);
+}
+
+.pdf-mode .card:hover .craft-icon {
+  transform: none;
+}

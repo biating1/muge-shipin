@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图片压缩对比测试</title>
+<style>
+  body { font-family: 'Noto Sans SC', sans-serif; background: #16140F; color: #E8E4DC; padding: 24px; }
+  h1 { color: #C8A96E; font-size: 24px; margin-bottom: 8px; }
+  .sub { color: #8A857C; font-size: 14px; margin-bottom: 32px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 24px; }
+  .card { background: #1E1C18; border: 1px solid #2A2824; border-radius: 12px; overflow: hidden; }
+  .card img { width: 100%; height: auto; display: block; cursor: zoom-in; }
+  .card .info { padding: 16px; }
+  .card .label { color: #C8A96E; font-weight: 700; font-size: 15px; }
+  .card .size { color: #8A857C; font-size: 13px; margin-top: 4px; }
+  .card .ratio { color: #4CAF50; font-size: 13px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 8px; }
+  .badge-best { background: #4CAF50; color: #fff; }
+  .warn { background: #2A2824; border-left: 3px solid #C8A96E; padding: 20px; margin-top: 32px; border-radius: 4px; font-size: 14px; line-height: 1.8; }
+  .warn strong { color: #C8A96E; }
+  h2 { color: #C8A96E; font-size: 18px; margin: 32px 0 16px; border-bottom: 1px solid #2A2824; padding-bottom: 8px; }
+</style>
+</head>
+<body>
+<h1>图片压缩对比测试 — product1.jpg</h1>
+<p class="sub">原始文件 21,650 KB（6777×4518 JPEG） | 点击任意图片可放大查看细节</p>
+
+<h2>1920px 宽（网页全屏尺寸）</h2>
+<div class="grid">
+  <div class="card">
+    <a href="../product1.jpg" target="_blank"><img src="../product1.jpg" alt="原始"></a>
+    <div class="info">
+      <div class="label">原始 JPEG</div>
+      <div class="size">21,650 KB | 6777×4518</div>
+    </div>
+  </div>
+  <div class="card">
+    <a href="product1-q85-1920.webp" target="_blank"><img src="product1-q85-1920.webp" alt="q85"></a>
+    <div class="info">
+      <div class="label">WebP 质量 85<span class="badge badge-best">推荐</span></div>
+      <div class="size">278 KB | 1920×1280</div>
+      <div class="ratio">缩小 78 倍</div>
+    </div>
+  </div>
+  <div class="card">
+    <a href="product1-q90-1920.webp" target="_blank"><img src="product1-q90-1920.webp" alt="q90"></a>
+    <div class="info">
+      <div class="label">WebP 质量 90</div>
+      <div class="size">373 KB | 1920×1280</div>
+      <div class="ratio">缩小 58 倍</div>
+    </div>
+  </div>
+  <div class="card">
+    <a href="product1-q95-1920.webp" target="_blank"><img src="product1-q95-1920.webp" alt="q95"></a>
+    <div class="info">
+      <div class="label">WebP 质量 95</div>
+      <div class="size">553 KB | 1920×1280</div>
+      <div class="ratio">缩小 39 倍</div>
+    </div>
+  </div>
+</div>
+
+<h2>4096px 宽（4K 大屏）</h2>
+<div class="grid">
+  <div class="card">
+    <a href="product1-q85-4096.webp" target="_blank"><img src="product1-q85-4096.webp" alt="q85-4096"></a>
+    <div class="info">
+      <div class="label">WebP 质量 85 + 4096px<span class="badge badge-best">4K选择</span></div>
+      <div class="size">747 KB | 4096×2731</div>
+      <div class="ratio">缩小 29 倍</div>
+    </div>
+  </div>
+  <div class="card">
+    <a href="product1-q85-origsize.webp" target="_blank"><img src="product1-q85-origsize.webp" alt="q85-orig"></a>
+    <div class="info">
+      <div class="label">WebP 质量 85 原尺寸</div>
+      <div class="size">1,518 KB | 6777×4518</div>
+      <div class="ratio">缩小 14 倍</div>
+    </div>
+  </div>
+  <div class="card">
+    <a href="product1-q90-origsize.webp" target="_blank"><img src="product1-q90-origsize.webp" alt="q90-orig"></a>
+    <div class="info">
+      <div class="label">WebP 质量 90 原尺寸</div>
+      <div class="size">2,215 KB | 6777×4518</div>
+      <div class="ratio">缩小 10 倍</div>
+    </div>
+  </div>
+</div>
+
+<div class="warn">
+  <strong>总结</strong><br>
+  <br>
+  <strong>1920px 系列：</strong>原始 21MB → WebP q85 仅 278KB。在网页上全屏展示，肉眼无法区分。适合产品卡片封面图。<br>
+  <strong>4096px 系列：</strong>747KB，4K 屏幕上全屏查看依然锐利，适合详情弹窗中大图预览。<br>
+  <strong>原尺寸系列：</strong>1.5-2.2MB，保留全部像素，适合打印/PDF 导出场景。<br>
+  <br>
+  建议策略：<strong>卡片展示用 1920px / 弹窗大图用 4096px / PDF 导出用原尺寸</strong>，各取所需。
+</div>
+</body>
+</html>

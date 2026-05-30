@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF 产品页风格调试</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    background: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 24px;
+  }
+  .controls {
+    background: #fff;
+    padding: 16px 24px;
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    font-family: system-ui, sans-serif;
+    font-size: 13px;
+    position: sticky;
+    top: 10px;
+    z-index: 999;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  .controls label { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .controls input[type="range"] { width: 120px; }
+  .controls output { font-family: monospace; min-width: 36px; display: inline-block; }
+  .controls select { padding: 4px 8px; }
+
+  /* ====== 页面容器 ====== */
+  .demo-wrap {
+    transform-origin: top center;
+  }
+  .demo-label {
+    color: #aaa;
+    font-family: system-ui, sans-serif;
+    font-size: 12px;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  /* ====== 当前黑金风格（与 admin.html CSS 一致） ====== */
+  .pdf-page {
+    position: relative;
+    width: 1100px; height: 740px;
+    background-color: #0c0b08;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    font-family: "Noto Sans SC", system-ui, sans-serif;
+    color: #E8E4DC;
+    overflow: hidden;
+  }
+  .pdf-page .bg-img {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; z-index: 0;
+  }
+  .pdf-overlay {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 1;
+  }
+  .pdf-line-top {
+    position: absolute; top: 24px; left: 48px; right: 48px;
+    height: 2px; z-index: 2;
+    background: rgba(200,169,110,0.3);
+  }
+  .pdf-line-bottom {
+    position: absolute; bottom: 24px; left: 48px; right: 48px;
+    height: 2px; z-index: 2;
+    background: rgba(200,169,110,0.2);
+  }
+  .pdf-content {
+    position: relative; z-index: 3;
+    padding: 0 56px 40px;
+  }
+  .pdf-subtitle {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px; letter-spacing: 0.22em;
+    color: rgba(200,169,110,0.7);
+    margin-bottom: 8px;
+  }
+  .pdf-name {
+    font-family: "Noto Serif SC", serif;
+    font-size: 42px; font-weight: 900;
+    color: #C8A96E;
+    letter-spacing: 0.04em; line-height: 1.15;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.6);
+  }
+  .pdf-name-line {
+    width: 56px; height: 2px;
+    background: #C8A96E; margin-bottom: 12px;
+  }
+  .pdf-desc {
+    font-size: 15px; line-height: 1.8;
+    color: rgba(232,228,220,0.7);
+    max-width: 580px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    margin-bottom: 28px;
+  }
+  .pdf-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 52px;
+    margin-bottom: 28px;
+  }
+  .pdf-section-title {
+    font-family: "Noto Serif SC", serif;
+    font-size: 14px; font-weight: 700;
+    color: #C8A96E;
+    margin-bottom: 12px; padding-bottom: 7px;
+    border-bottom: 1px solid rgba(200,169,110,0.25);
+    letter-spacing: 0.06em;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  }
+  .pdf-crafts {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0 12px;
+  }
+  .pdf-craft-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: #E8E4DC;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(200,169,110,0.1);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+  .pdf-craft-emoji { font-size: 18px; width: 28px; text-align: center; flex-shrink: 0; }
+  .pdf-specs { display: flex; flex-direction: column; }
+  .pdf-spec-row {
+    display: flex; align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(200,169,110,0.1);
+    font-size: 13px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+  .pdf-spec-row:last-child { border-bottom: none; }
+  .pdf-spec-row .pdf-spec-label {
+    width: 72px; flex-shrink: 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px; letter-spacing: 0.08em;
+    color: rgba(232,228,220,0.4);
+  }
+  .pdf-spec-row .pdf-spec-value {
+    flex: 1; color: #E8E4DC; font-size: 14px; font-weight: 500;
+  }
+  .pdf-footer {
+    text-align: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px; letter-spacing: 0.14em;
+    color: rgba(200,169,110,0.55);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+
+  /* ====== 调试指示器 ====== */
+  .overlay-indicator {
+    position: absolute; left: 8px; right: 8px; z-index: 10;
+    border-left: 2px dashed rgba(255,255,0,0.5);
+    pointer-events: none;
+  }
+  .overlay-indicator span {
+    position: absolute; left: 4px;
+    font-family: monospace; font-size: 9px;
+    color: rgba(255,255,0,0.7);
+    background: rgba(0,0,0,0.6);
+    padding: 1px 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <label>上半（图片区）透明度 <input type="range" id="topAlpha" min="0" max="0.3" step="0.01" value="0.03"><output id="topAlphaVal">0.03</output></label>
+  <label>过渡区起始 <input type="range" id="blendStart" min="20" max="50" step="1" value="30"><output id="blendStartVal">30</output>%</label>
+  <label>分隔位置 <input type="range" id="splitAt" min="30" max="60" step="1" value="45"><output id="splitAtVal">45</output>%</label>
+  <label>下半（文字区）透明度 <input type="range" id="bottomAlpha" min="0.5" max="1" step="0.02" value="0.90"><output id="bottomAlphaVal">0.90</output></label>
+  <label>缩放 <input type="range" id="zoom" min="0.2" max="1" step="0.05" value="0.5"><output id="zoomVal">0.5</output></label>
+</div>
+
+<div id="demoWrap" class="demo-wrap">
+  <div class="demo-label">1100 × 740 px — PDF 产品页（实时预览）</div>
+  <div class="pdf-page" id="pdfPage">
+    <img class="bg-img" src="images/product1.jpg" alt=""
+         onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%221100%22 height=%22740%22><rect fill=%22%23444%22 width=%221100%22 height=%22740%22/><text x=%22550%22 y=%22370%22 text-anchor=%22middle%22 fill=%22%23888%22 font-size=%2224%22 font-family=%22sans-serif%22>产品图片占位</text></svg>'">
+    <div class="pdf-line-top"></div>
+    <div class="pdf-line-bottom"></div>
+    <div class="pdf-overlay" id="overlayEl"></div>
+    <div class="overlay-indicator" id="splitLine" style="top:45%;"><span>split 45%</span></div>
+    <div class="pdf-content">
+      <div class="pdf-subtitle">PRODUCT · 01</div>
+      <div class="pdf-name">蜀忆老火锅牛油</div>
+      <div class="pdf-name-line"></div>
+      <div class="pdf-desc">牧哥牛油与杭州川野食品联合为工厂客户推出的定制产品，优选西门塔尔牛种，鲜脂火炼，香味更浓。</div>
+      <div class="pdf-info">
+        <div>
+          <div class="pdf-section-title">工艺亮点</div>
+          <div class="pdf-crafts">
+            <div class="pdf-craft-item"><span class="pdf-craft-emoji">🔥</span><span>手工熬制</span></div>
+            <div class="pdf-craft-item"><span class="pdf-craft-emoji">⏱</span><span>8 小时慢熬</span></div>
+            <div class="pdf-craft-item"><span class="pdf-craft-emoji">🌶</span><span>正宗川味</span></div>
+            <div class="pdf-craft-item"><span class="pdf-craft-emoji">🏅</span><span>品质认证</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="pdf-section-title">产品规格</div>
+          <div class="pdf-specs">
+            <div class="pdf-spec-row"><span class="pdf-spec-label">规格</span><span class="pdf-spec-value">20kg / 箱</span></div>
+            <div class="pdf-spec-row"><span class="pdf-spec-label">保质期</span><span class="pdf-spec-value">12 个月</span></div>
+            <div class="pdf-spec-row"><span class="pdf-spec-label">储存方式</span><span class="pdf-spec-value">阴凉干燥处保存</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="pdf-footer">牧哥生物 · 火锅供应链先行者</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var overlayEl   = document.getElementById('overlayEl');
+  var splitLine   = document.getElementById('splitLine');
+  var demoWrap    = document.getElementById('demoWrap');
+
+  var topAlpha    = document.getElementById('topAlpha');
+  var topAlphaVal = document.getElementById('topAlphaVal');
+  var blendStart  = document.getElementById('blendStart');
+  var blendStartVal = document.getElementById('blendStartVal');
+  var splitAt     = document.getElementById('splitAt');
+  var splitAtVal  = document.getElementById('splitAtVal');
+  var bottomAlpha = document.getElementById('bottomAlpha');
+  var bottomAlphaVal = document.getElementById('bottomAlphaVal');
+  var zoomInput   = document.getElementById('zoom');
+  var zoomVal     = document.getElementById('zoomVal');
+
+  function applyOverlay() {
+    var topA   = parseFloat(topAlpha.value);
+    var blendS = parseInt(blendStart.value);
+    var splitP = parseInt(splitAt.value);
+    var botA   = parseFloat(bottomAlpha.value);
+
+    // 渐变: 0%→blendStart: 保持 topA; blendStart→splitAt: 过渡到 botA; splitAt→100%: 保持 botA
+    var g = 'linear-gradient(to bottom,'
+      + 'rgba(12,11,8,' + topA.toFixed(3) + ') 0%,'
+      + 'rgba(12,11,8,' + topA.toFixed(3) + ') ' + blendS + '%,'
+      + 'rgba(12,11,8,' + botA.toFixed(3) + ') ' + splitP + '%,'
+      + 'rgba(12,11,8,' + botA.toFixed(3) + ') 100%)';
+
+    overlayEl.style.background = g;
+    overlayEl.style.top = '0';
+    overlayEl.style.bottom = '0';
+    overlayEl.style.height = '';
+    overlayEl.style.left = '0';
+    overlayEl.style.right = '0';
+
+    splitLine.style.top = splitP + '%';
+  }
+
+  function updateAll() {
+    topAlphaVal.textContent = parseFloat(topAlpha.value).toFixed(2);
+    blendStartVal.textContent = blendStart.value;
+    splitAtVal.textContent = splitAt.value;
+    bottomAlphaVal.textContent = parseFloat(bottomAlpha.value).toFixed(2);
+    applyOverlay();
+  }
+
+  topAlpha.addEventListener('input', updateAll);
+  blendStart.addEventListener('input', updateAll);
+  splitAt.addEventListener('input', updateAll);
+  bottomAlpha.addEventListener('input', updateAll);
+
+  zoomInput.addEventListener('input', function () {
+    var z = parseFloat(this.value);
+    zoomVal.textContent = z.toFixed(2);
+    demoWrap.style.transform = 'scale(' + z + ')';
+  });
+
+  demoWrap.style.transform = 'scale(0.5)';
+  applyOverlay();
+</script>
+</body>
+</html>

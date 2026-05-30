@@ -1,0 +1,38 @@
+# 后台管理（不上传公网）
+admin.html
+admin.html.bak
+
+# 本地服务器脚本
+server.ps1
+server.js
+
+# 部署脚本
+deploy.ps1
+
+# 资源压缩
+optimize.ps1
+resources-original/
+
+# Node.js
+node_modules/
+package.json
+package-lock.json
+
+# 备份
+backup-*/
+
+# 环境 / 系统
+.env
+.DS_Store
+Thumbs.db
+
+# 临时文件
+*.bak
+*.log
+
+# 安装包
+GitInstaller.exe
+node-installer.msi
+
+# Claude 记忆
+.claude/
