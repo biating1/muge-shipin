@@ -44,9 +44,21 @@ ffmpeg.zip
 # 参考文档
 产品手册参考样式.pdf
 
+# 视频压缩缓存
+videos/.cache/
+
+# 图片压缩测试残留
+images/test-compare/
+
 # 开发测试文件
 pdf-style-test.html
 images/*.webp
+
+# 本地计划文档
+产品展示网页实施计划.md
+
+# 重复文件（根部，images/ 下为正式文件）
+盾牌.png
 
 # 测试脚本
 test-*.js

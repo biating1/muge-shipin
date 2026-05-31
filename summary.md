@@ -1,6 +1,6 @@
 # 项目总结
 
-> 最后更新：2026-05-31（第三轮优化）
+> 最后更新：2026-05-31（第四轮 — PDF 封面盾牌布局调整）
 
 ---
 
@@ -78,13 +78,63 @@
 - 黑金色 `#E9C499`（原 `#C8A96E`），2026-05-31 第三轮调整
 - LOGO 黑金：Canvas `ctx.filter` 预处理，不用 CSS filter（html2canvas 不支持）
   - `processLogo` 自适应多尺寸（`parseFloat(img.style.height)`）
-  - 右上角 logo 56px（原 42px）
-  - 封面居中盾牌 logo（`images/盾牌.png`）72px + 垂直镜像倒影 + `#E9C499` 金色，替换原有牧哥文字 logo
+  - 右上角牧哥 logo 56px
+- **封面布局（2026-05-31 第四轮调整）：**
+  - 盾牌 logo（`images/盾牌.png`）放在「牧哥生物」左侧，高度 180px（2.5× 文字高度）
+  - 两者整体左右居中，flex row，gap 28px
+  - 盾牌金色处理同走 `processLogo` Canvas 流程
 - **坑：`createPattern 0×0`** — 渐变中不能用 `transparent`/`rgba(…,0)`，用 `rgba(…,0.005)` 或纯色 + box-shadow
 
 ---
 
-## 六、后续不再做的
+## 六、Git 追踪建议
+
+### 需要推送（项目必要文件）
+- `index.html` / `style.css` / `card-shared.css` — 前台展示
+- `products.json` — 唯一数据源，必须追踪
+- `images/logo.png` / `images/盾牌.png` — **盾牌.png 当前未追踪，需 `git add`**
+- `images/product1~7.jpg` — 产品图
+- `music/*.mp3` — 背景音乐
+- `videos/*.mp4`（仅原片，缓存不要）— 教学视频
+- `design-system/` / `README.md` / `summary.md` — 文档
+
+### 已在 .gitignore 无需推送
+- `admin.html` / `server.js` / `deploy.ps1` / `optimize.ps1` — 本地管理
+- `node_modules/` / `package.json` / `package-lock.json` — 依赖
+- `ffmpeg/` / `ffmpeg.zip` — 工具包
+- `backup-*/` — 备份
+- `.claude/` / `.env` — 隐私与配置
+- `GitInstaller.exe` / `node-installer.msi` — 安装包
+
+### 建议追加到 .gitignore 并清理追踪
+
+```gitignore
+# 视频压缩缓存
+videos/.cache/
+
+# 图片测试残留
+images/test-compare/
+
+# 本地计划文档
+产品展示网页实施计划.md
+```
+
+然后执行：
+```bash
+git rm --cached -r videos/.cache/
+git rm --cached -r images/test-compare/
+git rm --cached images/封面3.webp
+git rm --cached 产品展示网页实施计划.md
+git rm --cached pdf-style-test.html
+git rm --cached images/*.webp     # 有产品图 .webp 已误追踪
+git add images/盾牌.png
+git commit -m "chore: 清理追踪文件，添加盾牌logo"
+```
+> ⚠ `git rm --cached` 从 Git 删除但保留本地文件。`images/*.webp` 中 product1/5/7 的 .webp 已生产使用，如果前端仍在引用则不要删，只删测试图。
+
+---
+
+## 七、后续不再做的
 
 - ❌ 前端 PDF 导出按钮 — 后台导出已够用
 - ❌ SQLite 后端 — 破坏 GitHub Pages 兼容性
