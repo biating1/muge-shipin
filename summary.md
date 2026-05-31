@@ -25,7 +25,7 @@
 | 导航 | 固定导航 + IntersectionObserver 滚动高亮 |
 | 公司简介 | Hero 下方介绍区，左对齐排版，后台可编辑 |
 | SOP 折叠展示 | 主料/辅料双栏 + 步骤列表，详情弹窗内折叠 |
-| PDF 导出 | 后台操作，黑金横版（封面+分隔+产品+SOP 页），~7MB |
+| PDF 导出 | 后台操作，黑金横版，封面居中盾牌 logo + 倒影，~7MB |
 | 视频自动压缩 | server.js 中间件，首次请求 lazy 压缩，71MB→20MB |
 | 产品图压缩 | 3 张大图 21MB→1MB/张 |
 | Excel 导入导出 | 后台 SheetJS，增量/替换两种模式 |
@@ -78,7 +78,8 @@
 - 黑金色 `#E9C499`（原 `#C8A96E`），2026-05-31 第三轮调整
 - LOGO 黑金：Canvas `ctx.filter` 预处理，不用 CSS filter（html2canvas 不支持）
   - `processLogo` 自适应多尺寸（`parseFloat(img.style.height)`）
-  - 右上角 logo 56px（原 42px），封面大 logo 72px 带倒影
+  - 右上角 logo 56px（原 42px）
+  - 封面居中盾牌 logo（`images/盾牌.png`）72px + 垂直镜像倒影 + `#E9C499` 金色，替换原有牧哥文字 logo
 - **坑：`createPattern 0×0`** — 渐变中不能用 `transparent`/`rgba(…,0)`，用 `rgba(…,0.005)` 或纯色 + box-shadow
 
 ---
