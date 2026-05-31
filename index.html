@@ -37,8 +37,19 @@
   <!-- Hero -->
   <header class="hero">
     <h1>牧哥<span class="accent">生物</span></h1>
-    <p class="subtitle">火锅供应链先行者</p>
+    <p class="subtitle">{{ sloganText }}</p>
   </header>
+
+  <!-- 公司简介 -->
+  <section class="about-section">
+    <div class="container">
+      <div class="about-content">
+        <div class="chip">ABOUT</div>
+        <div class="about-ornament"></div>
+        <p class="about-text">{{ aboutText }}</p>
+      </div>
+    </div>
+  </section>
 
   <!-- 产品展示区域 -->
   <main>
@@ -189,7 +200,7 @@
 
   <!-- 页脚 -->
   <footer class="footer">
-    牧哥生物 · 火锅供应链先行者
+    牧哥生物 · {{ sloganText }}
   </footer>
 
 </div>
@@ -230,6 +241,28 @@
     })();
   }
 
+  // ======== 公司简介 & Slogan ========
+  var DEFAULT_ABOUT = '重庆牧哥生物科技有限公司隶属于重庆牧哥食品有限公司，是一家专注于为餐饮企业、餐饮连锁机构、底料生产工厂提供定制化牛油生产、新产品风味研发及火锅牛油应用的企业。';
+  var ABOUT_TEXT = localStorage.getItem('muge_about') || DEFAULT_ABOUT;
+  var DEFAULT_SLOGAN = '火锅供应链先行者';
+  var SLOGAN_TEXT = localStorage.getItem('muge_slogan') || DEFAULT_SLOGAN;
+
+  // 从 products.json 加载 about / slogan（GitHub Pages 静态部署用）
+  (function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'products.json?_=' + Date.now(), false);
+    try {
+      xhr.send();
+      if (xhr.status === 200) {
+        var parsed = JSON.parse(xhr.responseText);
+        if (!Array.isArray(parsed) && parsed) {
+          if (parsed._about) { ABOUT_TEXT = parsed._about; }
+          if (parsed._slogan) { SLOGAN_TEXT = parsed._slogan; }
+        }
+      }
+    } catch(e) {}
+  })();
+
   // 没有 localStorage 数据 → 从 products.json 加载（支持 GitHub Pages 静态部署）
   if (!saved) {
     (function() {
@@ -239,7 +272,10 @@
         xhr.send();
         if (xhr.status === 200) {
           var parsed = JSON.parse(xhr.responseText);
-          if (Array.isArray(parsed) && parsed.length) {
+          // 新格式：{ series: [...], _about: "..." }
+          if (!Array.isArray(parsed) && parsed && parsed.series) {
+            PRODUCT_DATA = parsed.series;
+          } else if (Array.isArray(parsed) && parsed.length) {
             PRODUCT_DATA = parsed;
           }
         }
@@ -272,6 +308,8 @@
     data() {
       return {
         seriesList: PRODUCT_DATA,
+        aboutText: ABOUT_TEXT,
+        sloganText: SLOGAN_TEXT,
         selectedProduct: null,
         showVideo: false,
         videoUrl: '',
@@ -280,6 +318,7 @@
         imgVersion: imgVersion,
         musicStarted: false,
         musicPlaying: false,
+        musicWasPlaying: false,
         activeSeriesId: '',
         oilDropY: 20,
         showOilDrop: true,
@@ -383,12 +422,24 @@
         this.videoAspect = product.videoAspect || '9/16';
         this.showVideo = true;
         document.body.style.overflow = 'hidden';
+        // 打开视频时暂停背景音乐
+        if (this.musicPlaying) {
+          this.musicWasPlaying = true;
+          this.musicPlaying = false;
+          this.$refs.bgm.pause();
+        }
       },
 
       closeVideo() {
         this.showVideo = false;
         this.videoUrl = '';
         document.body.style.overflow = '';
+        // 关闭视频时恢复背景音乐
+        if (this.musicWasPlaying) {
+          this.musicWasPlaying = false;
+          this.musicPlaying = true;
+          this.$refs.bgm.play().catch(function () {});
+        }
       },
 
       // === 音乐 ===
@@ -451,6 +502,9 @@
         self.musicStarted = true;
         self.musicPlaying = true;
       }).catch(function () {});
+
+      // 同步标题（slogan 可能从服务器加载）
+      document.title = '牧哥生物 — ' + this.sloganText;
 
       // 首次交互启动
       var once = { once: true };
