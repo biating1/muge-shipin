@@ -362,6 +362,34 @@
 
 `http://localhost:3000/admin.html` → 导出 PDF
 
+---
+
+## 十一、产品图压缩（2026-05-31）
+
+### 最终参数
+
+| 图片 | 原大小 | 压缩后 | 方案 |
+|------|--------|--------|------|
+| product1.jpg | 21.2MB (6777×4518) | **989KB** (4000×2667) | ffmpeg `-q:v 5` |
+| product5.jpg | 21.2MB (6777×4518) | **989KB** (4000×2667) | ffmpeg `-q:v 5` |
+| product7.jpg | 21.2MB (6777×4518) | **989KB** (4000×2667) | ffmpeg `-q:v 5` |
+
+- 其余 product2/3/4/6.jpg 原 200-300KB 未修改
+- `resources-original/` 保留原始文件备份
+- `images/*.webp` 已排除不提交（旧测试图）
+
+### 压缩命令
+
+```bash
+ffmpeg -y -i "resources-original/product1.jpg" ^
+  -vf "scale=4000:-1" -q:v 5 -update 1 -frames:v 1 ^
+  "images/product1.jpg"
+```
+
+- `scale=4000:-1`：宽边 4000px，高按比例
+- `-q:v 5`：JPEG 质量 5/31（值越小质量越高），约 1MB
+- 画质：肉眼与原图无异
+
 ## 十一、PDF 封面 LOGO 黑金修复（2026-05-31）
 
 ### 问题
