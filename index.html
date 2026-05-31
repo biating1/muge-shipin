@@ -8,41 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    /* 前端 PDF 导出按钮 */
-    .pdf-export-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 16px; border-radius: 999px; border: 1.5px solid var(--color-line);
-      background: var(--color-white); color: var(--color-ink-soft);
-      font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
-      cursor: pointer; transition: all var(--transition-normal);
-      white-space: nowrap; margin-left: auto;
-    }
-    .pdf-export-btn:hover {
-      border-color: var(--color-accent); color: var(--color-accent); background: var(--color-accent-light);
-    }
-    .pdf-export-btn.loading { opacity: 0.6; pointer-events: none; }
-    /* PDF 进度条 */
-    .pdf-progress-bar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 99999;
-      height: 3px; background: rgba(200,169,110,0.2);
-      transition: opacity 0.3s ease;
-    }
-    .pdf-progress-bar.hidden { opacity: 0; pointer-events: none; }
-    .pdf-progress-fill {
-      height: 100%; width: 0%; background: var(--color-accent);
-      transition: width 0.3s ease;
-    }
-    .pdf-progress-label {
-      position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
-      z-index: 99999; font-family: var(--font-mono); font-size: 12px;
-      color: var(--color-ink-soft); background: var(--color-white);
-      padding: 6px 16px; border-radius: 999px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-      transition: opacity 0.3s ease; white-space: nowrap;
-    }
-    .pdf-progress-label.hidden { opacity: 0; pointer-events: none; }
   </style>
 </head>
 <body>
@@ -66,9 +32,6 @@
          class="nav-link" :class="{ active: activeSeriesId === s.id }"
          @click.prevent="scrollTo(s.id)">{{ s.name }}</a>
     </div>
-    <button class="pdf-export-btn" @click="exportAllPdf" :class="{ loading: pdfExporting }" title="下载产品手册">
-      <span>📄</span><span>下载产品手册</span>
-    </button>
   </nav>
 
   <!-- Hero -->
@@ -238,7 +201,7 @@
   // 优先读取后台保存的数据，否则用默认数据
   var saved = localStorage.getItem('muge_products');
   var imgVersion = localStorage.getItem('muge_version') || '1';
-  var DEFAULT_DATA = [{"id":"beef","name":"牛油系列","description":"精选西门塔尔牛种，鲜脂火炼，传统工艺熬制，香味浓郁醇厚","products":[{"id":1,"name":"蜀忆老火锅牛油","subtitle":"PRODUCT · 01","description":"牧哥牛油与杭州川野食品联合为工厂客户推出的定制产品，优选西门塔尔牛种，鲜脂火炼，香味更浓","image":"images/product1.webp","bgm":"music/Plastic-Sunlight.mp3","video":"https://www.douyin.com/video/7642174138106318134","videoAspect":"9/16","crafts":[{"icon":"🔥","label":"手工熬制"},{"icon":"⏱","label":"8 小时慢熬"},{"icon":"🌶","label":"正宗川味"},{"icon":"🏅","label":"品质认证"}],"specs":[{"label":"规格","value":"20kg / 箱"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}],"scenarios":[{"icon":"🏪","label":"火锅餐饮"},{"icon":"🍲","label":"川味火锅店"},{"icon":"🏠","label":"家庭聚餐"}]}]},{"id":"hotpot","name":"火锅底料","description":"牛油、清油、番茄、菌汤、藤椒等多种口味火锅底料，满足不同餐饮场景","products":[{"id":2,"name":"牛油火锅底料","subtitle":"PRODUCT · 02","description":"传统牛油火锅底料，麻辣鲜香，汤色红亮，适合各类川味火锅场景。","image":"images/product2.jpg","bgm":"music/Velvet-Thunder.mp3","video":"videos/咸蛋海鲜粥.mp4","videoAspect":"9/16","crafts":[{"icon":"🔥","label":"传统工艺"},{"icon":"🌶","label":"麻辣鲜香"},{"icon":"🥘","label":"汤色红亮"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":3,"name":"清油火锅底料","subtitle":"PRODUCT · 03","description":"纯植物油脂炼制，汤色清亮不糊口，麻辣清爽不油腻，适合养生火锅场景。","image":"images/product3.jpg","bgm":"music/Paper-Circuit.mp3","video":"","crafts":[{"icon":"🌿","label":"植物油脂"},{"icon":"💧","label":"清爽不腻"},{"icon":"🌶","label":"麻辣鲜香"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":4,"name":"番茄火锅底料","subtitle":"PRODUCT · 04","description":"新疆日照番茄为原料，酸甜浓郁，汤底可直接饮用，老少皆宜。","image":"images/product4.jpg","bgm":"music/Circuit-Cabbage.mp3","video":"","crafts":[{"icon":"🍅","label":"新疆番茄"},{"icon":"☀","label":"日照充足"},{"icon":"👶","label":"老少皆宜"},{"icon":"💧","label":"汤底可饮"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":5,"name":"菌汤火锅底料","subtitle":"PRODUCT · 05","description":"云南野生菌菇拼配，松茸提鲜、牛肝菌增香，汤色金黄，鲜味醇厚。","image":"images/product1.webp","bgm":"music/Reverb-Ledger.mp3","video":"","crafts":[{"icon":"🍄","label":"云南野菌"},{"icon":"⭐","label":"松茸提鲜"},{"icon":"⏱","label":"慢火炖煮"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":6,"name":"麻辣香锅底料","subtitle":"PRODUCT · 06","description":"多种辣椒黄金配比，搭配十余种香辛料，干锅翻炒酱香浓郁、辣而不燥。","image":"images/product2.jpg","bgm":"music/Velvet-Thunder.mp3","video":"videos/咸蛋海鲜粥.mp4","videoAspect":"9/16","crafts":[{"icon":"🌶","label":"多椒配比"},{"icon":"🧂","label":"十余种香辛料"},{"icon":"🔥","label":"酱香浓郁"},{"icon":"✅","label":"辣而不燥"}],"specs":[{"label":"规格","value":"1kg / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":7,"name":"藤椒火锅底料","subtitle":"PRODUCT · 07","description":"洪雅鲜藤椒入料，清香麻爽，入口微麻回甘，夏季火锅的上选之品。","image":"images/product1.webp","bgm":"music/Plastic-Sunlight.mp3","video":"","crafts":[{"icon":"🌿","label":"洪雅藤椒"},{"icon":"❄","label":"鲜麻清爽"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]}]},{"id":"fish","name":"烤鱼料","description":"专为烤鱼场景研发，酱香浓郁，入味透彻，适用于各类烤鱼餐饮","products":[]},{"id":"lobster","name":"龙虾料","description":"小龙虾调味料，麻辣鲜香，入味快，适合夜宵排档和餐饮门店","products":[]},{"id":"soup","name":"汤料","description":"多种汤底调味料，骨汤、菌汤、番茄汤等，一料多用","products":[]}];
+  var DEFAULT_DATA = [{"id":"beef","name":"牛油系列","description":"精选西门塔尔牛种，鲜脂火炼，传统工艺熬制，香味浓郁醇厚","products":[{"id":1,"name":"蜀忆老火锅牛油","subtitle":"PRODUCT · 01","description":"牧哥牛油与杭州川野食品联合为工厂客户推出的定制产品，优选西门塔尔牛种，鲜脂火炼，香味更浓","image":"images/product1.jpg","bgm":"music/Plastic-Sunlight.mp3","video":"https://www.douyin.com/video/7642174138106318134","videoAspect":"9/16","crafts":[{"icon":"🔥","label":"手工熬制"},{"icon":"⏱","label":"8 小时慢熬"},{"icon":"🌶","label":"正宗川味"},{"icon":"🏅","label":"品质认证"}],"specs":[{"label":"规格","value":"20kg / 箱"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}],"scenarios":[{"icon":"🏪","label":"火锅餐饮"},{"icon":"🍲","label":"川味火锅店"},{"icon":"🏠","label":"家庭聚餐"}]}]},{"id":"hotpot","name":"火锅底料","description":"牛油、清油、番茄、菌汤、藤椒等多种口味火锅底料，满足不同餐饮场景","products":[{"id":2,"name":"牛油火锅底料","subtitle":"PRODUCT · 02","description":"传统牛油火锅底料，麻辣鲜香，汤色红亮，适合各类川味火锅场景。","image":"images/product2.jpg","bgm":"music/Velvet-Thunder.mp3","video":"videos/咸蛋海鲜粥.mp4","videoAspect":"9/16","crafts":[{"icon":"🔥","label":"传统工艺"},{"icon":"🌶","label":"麻辣鲜香"},{"icon":"🥘","label":"汤色红亮"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":3,"name":"清油火锅底料","subtitle":"PRODUCT · 03","description":"纯植物油脂炼制，汤色清亮不糊口，麻辣清爽不油腻，适合养生火锅场景。","image":"images/product3.jpg","bgm":"music/Paper-Circuit.mp3","video":"","crafts":[{"icon":"🌿","label":"植物油脂"},{"icon":"💧","label":"清爽不腻"},{"icon":"🌶","label":"麻辣鲜香"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":4,"name":"番茄火锅底料","subtitle":"PRODUCT · 04","description":"新疆日照番茄为原料，酸甜浓郁，汤底可直接饮用，老少皆宜。","image":"images/product4.jpg","bgm":"music/Circuit-Cabbage.mp3","video":"","crafts":[{"icon":"🍅","label":"新疆番茄"},{"icon":"☀","label":"日照充足"},{"icon":"👶","label":"老少皆宜"},{"icon":"💧","label":"汤底可饮"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":5,"name":"菌汤火锅底料","subtitle":"PRODUCT · 05","description":"云南野生菌菇拼配，松茸提鲜、牛肝菌增香，汤色金黄，鲜味醇厚。","image":"images/product1.jpg","bgm":"music/Reverb-Ledger.mp3","video":"","crafts":[{"icon":"🍄","label":"云南野菌"},{"icon":"⭐","label":"松茸提鲜"},{"icon":"⏱","label":"慢火炖煮"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":6,"name":"麻辣香锅底料","subtitle":"PRODUCT · 06","description":"多种辣椒黄金配比，搭配十余种香辛料，干锅翻炒酱香浓郁、辣而不燥。","image":"images/product2.jpg","bgm":"music/Velvet-Thunder.mp3","video":"videos/咸蛋海鲜粥.mp4","videoAspect":"9/16","crafts":[{"icon":"🌶","label":"多椒配比"},{"icon":"🧂","label":"十余种香辛料"},{"icon":"🔥","label":"酱香浓郁"},{"icon":"✅","label":"辣而不燥"}],"specs":[{"label":"规格","value":"1kg / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":7,"name":"藤椒火锅底料","subtitle":"PRODUCT · 07","description":"洪雅鲜藤椒入料，清香麻爽，入口微麻回甘，夏季火锅的上选之品。","image":"images/product1.jpg","bgm":"music/Plastic-Sunlight.mp3","video":"","crafts":[{"icon":"🌿","label":"洪雅藤椒"},{"icon":"❄","label":"鲜麻清爽"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]}]},{"id":"fish","name":"烤鱼料","description":"专为烤鱼场景研发，酱香浓郁，入味透彻，适用于各类烤鱼餐饮","products":[]},{"id":"lobster","name":"龙虾料","description":"小龙虾调味料，麻辣鲜香，入味快，适合夜宵排档和餐饮门店","products":[]},{"id":"soup","name":"汤料","description":"多种汤底调味料，骨汤、菌汤、番茄汤等，一料多用","products":[]}];
   const PRODUCT_DATA = saved ? JSON.parse(saved) : DEFAULT_DATA;
 
   // 自动迁移旧路径（bare filename → images/music/videos/ 前缀）
@@ -253,6 +216,11 @@
           else if (/\.mp3$/i.test(val)) { p[key] = 'music/' + val; needSave = true; }
           else if (/\.mp4$/i.test(val)) { p[key] = 'videos/' + val; needSave = true; }
         });
+        // 迁移旧 .webp 图片路径 → .jpg（测试图→原图）
+        if (p.image && /\.webp$/i.test(p.image)) {
+          p.image = p.image.replace(/\.webp$/i, '.jpg');
+          needSave = true;
+        }
         // 迁移旧 SOP 数据（无 materials/auxiliaries 字段）
         if (p.sop && p.sop.steps && !p.sop.materials) { p.sop.materials = []; needSave = true; }
         if (p.sop && p.sop.steps && !p.sop.auxiliaries) { p.sop.auxiliaries = []; needSave = true; }
@@ -296,8 +264,7 @@
         oilDropY: 20,
         showOilDrop: true,
         scrollTimer: null,
-        sopExpanded: false,
-        pdfExporting: false
+        sopExpanded: false
       };
     },
 
@@ -440,212 +407,6 @@
         }
       },
 
-      // === PDF 导出 ===
-      exportAllPdf() {
-        var self = this;
-        if (this.pdfExporting) return;
-
-        // 微信浏览器检测：PDF 下载可能被拦截
-        if (/MicroMessenger/i.test(navigator.userAgent)) {
-          if (!confirm('检测到微信浏览器，PDF 文件可能无法直接下载。\n建议点击右上角"在浏览器打开"后重试。\n\n是否继续导出？')) {
-            return;
-          }
-        }
-
-        this.pdfExporting = true;
-
-        // 收集所有有产品的系列
-        var activeSeries = this.seriesList.filter(function (s) { return s.products.length > 0; });
-        if (activeSeries.length === 0) { this.pdfExporting = false; return; }
-
-        // 构建页面队列
-        var pages = [];
-        pages.push({ type: 'cover' });
-        var seriesIndex = 0;
-        var productIndex = 0;
-        activeSeries.forEach(function (s) {
-          seriesIndex++;
-          pages.push({ type: 'divider', series: s, seriesIndex: seriesIndex });
-          s.products.forEach(function (p) {
-            productIndex++;
-            var pc = Object.assign({}, p, {
-              subtitle: 'PRODUCT · ' + String(productIndex).padStart(2, '0')
-            });
-            pages.push({ type: 'product', product: pc, series: s });
-          });
-        });
-
-        var total = pages.length;
-        var version = this.imgVersion;
-
-        function buildCoverHTML() {
-          var s = '';
-          s += '<div style="width:1100px;height:740px;background:#0c0b08;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;font-family:\'Noto Serif SC\',serif;">';
-          s += '<div style="position:absolute;top:40px;left:80px;right:80px;height:1px;z-index:2;background:rgba(200,169,110,0.3);"></div>';
-          s += '<div style="position:absolute;bottom:40px;left:80px;right:80px;height:1px;z-index:2;background:rgba(200,169,110,0.2);"></div>';
-          s += '<div style="position:absolute;top:50%;left:50%;width:600px;height:400px;transform:translate(-50%,-50%);z-index:0;box-shadow:0 0 200px 100px rgba(200,169,110,0.04);border-radius:50%;"></div>';
-          s += '<div style="position:relative;z-index:3;text-align:center;">';
-          s += '<div style="font-size:48px;color:rgba(200,169,110,0.3);letter-spacing:0.3em;margin-bottom:24px;">◆ ◆ ◆</div>';
-          s += '<img src="images/logo.png?v=' + version + '" style="max-width:340px;height:auto;margin-bottom:24px;filter:sepia(100%) saturate(400%) hue-rotate(350deg) brightness(0.85);">';
-          s += '<div style="font-family:\'Noto Sans SC\',sans-serif;font-size:22px;font-weight:300;color:rgba(232,228,220,0.6);letter-spacing:0.3em;margin-bottom:48px;">产 品 手 册</div>';
-          s += '<div style="width:120px;height:1px;background:#C8A96E;margin:0 auto 48px;"></div>';
-          s += '<div style="font-family:\'JetBrains Mono\',monospace;font-size:14px;letter-spacing:0.2em;color:rgba(200,169,110,0.5);">MUGE BIOTECH · PRODUCT CATALOG</div>';
-          s += '</div></div>';
-          return s;
-        }
-
-        function buildDividerHTML(series, si) {
-          var desc = series.description || '';
-          var s = '';
-          s += '<div style="width:1100px;height:740px;background:#0c0b08;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;font-family:\'Noto Serif SC\',serif;">';
-          s += '<div style="position:absolute;top:40px;left:80px;right:80px;height:1px;z-index:2;background:rgba(200,169,110,0.2);"></div>';
-          s += '<div style="position:absolute;bottom:40px;left:80px;right:80px;height:1px;z-index:2;background:rgba(200,169,110,0.15);"></div>';
-          s += '<div style="position:absolute;top:50%;left:50%;width:500px;height:350px;transform:translate(-50%,-50%);z-index:0;box-shadow:0 0 180px 80px rgba(200,169,110,0.03);border-radius:50%;"></div>';
-          s += '<div style="position:relative;z-index:3;text-align:center;">';
-          s += '<div style="font-family:\'JetBrains Mono\',monospace;font-size:13px;letter-spacing:0.2em;color:rgba(200,169,110,0.4);margin-bottom:16px;">SERIES ' + (si < 10 ? '0' : '') + si + '</div>';
-          s += '<div style="font-family:\'Noto Serif SC\',serif;font-size:52px;font-weight:900;color:#C8A96E;letter-spacing:0.1em;text-shadow:0 2px 32px rgba(200,169,110,0.25);margin-bottom:20px;">' + series.name + '</div>';
-          s += '<div style="width:80px;height:2px;background:#C8A96E;margin:0 auto 24px;"></div>';
-          if (desc) {
-            s += '<div style="font-family:\'Noto Sans SC\',sans-serif;font-size:16px;font-weight:300;color:rgba(232,228,220,0.5);letter-spacing:0.15em;max-width:480px;line-height:1.8;">' + desc + '</div>';
-          }
-          s += '</div></div>';
-          return s;
-        }
-
-        function buildProductHTML(p) {
-          var imgSrc = p.image;
-          if (imgSrc && imgSrc.indexOf('data:') !== 0 && imgSrc.indexOf('blob:') !== 0 && imgSrc.indexOf('http') !== 0) {
-            imgSrc = imgSrc + '?v=' + version;
-          }
-          if (!imgSrc) { imgSrc = ''; }
-
-          var h = '<div style="position:relative;width:1100px;height:740px;background-color:#0c0b08;display:flex;flex-direction:column;justify-content:flex-end;font-family:\'Noto Sans SC\',system-ui,sans-serif;color:#E8E4DC;">';
-          if (imgSrc) {
-            h += '<img src="' + imgSrc + '" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;">';
-          }
-          h += '<div style="position:absolute;top:24px;left:48px;right:48px;height:2px;z-index:2;background:rgba(200,169,110,0.3);"></div>';
-          h += '<div style="position:absolute;bottom:24px;left:48px;right:48px;height:2px;z-index:2;background:rgba(200,169,110,0.2);"></div>';
-          h += '<div style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:1;background:linear-gradient(to bottom,rgba(12,11,8,0.01) 0%,rgba(12,11,8,0.01) 32%,rgba(12,11,8,0.78) 52%,rgba(12,11,8,0.78) 100%);"></div>';
-          h += '<div style="position:relative;z-index:3;padding:0 56px 40px;">';
-          if (p.subtitle) {
-            h += '<div style="font-family:\'JetBrains Mono\',monospace;font-size:12px;letter-spacing:0.22em;color:rgba(200,169,110,0.7);margin-bottom:8px;">' + p.subtitle + '</div>';
-          }
-          h += '<div style="font-family:\'Noto Serif SC\',serif;font-size:42px;font-weight:900;color:#C8A96E;letter-spacing:0.04em;line-height:1.15;margin-bottom:10px;text-shadow:0 2px 24px rgba(0,0,0,0.6);">' + p.name + '</div>';
-          h += '<div style="width:56px;height:2px;background:#C8A96E;margin-bottom:12px;"></div>';
-          if (p.description) {
-            h += '<div style="font-size:15px;line-height:1.8;color:rgba(232,228,220,0.7);max-width:580px;text-shadow:0 1px 8px rgba(0,0,0,0.5);margin-bottom:28px;">' + p.description + '</div>';
-          }
-          h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 52px;margin-bottom:28px;"><div>';
-          if (p.crafts && p.crafts.length > 0) {
-            h += '<div style="font-family:\'Noto Serif SC\',serif;font-size:14px;font-weight:700;color:#C8A96E;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid rgba(200,169,110,0.25);letter-spacing:0.06em;text-shadow:0 1px 8px rgba(0,0,0,0.5);">工艺亮点</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:0 12px;">';
-            p.crafts.forEach(function (c) {
-              h += '<div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#E8E4DC;padding:10px 0;border-bottom:1px solid rgba(200,169,110,0.1);text-shadow:0 1px 4px rgba(0,0,0,0.4);"><span style="font-size:18px;width:28px;text-align:center;flex-shrink:0;">' + c.icon + '</span><span>' + c.label + '</span></div>';
-            });
-            h += '</div>';
-          }
-          if (p.scenarios && p.scenarios.length > 0) {
-            h += '<div style="font-family:\'Noto Serif SC\',serif;font-size:14px;font-weight:700;color:#C8A96E;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid rgba(200,169,110,0.25);letter-spacing:0.06em;text-shadow:0 1px 8px rgba(0,0,0,0.5);margin-top:20px;">应用场景</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:0 12px;">';
-            p.scenarios.forEach(function (sc) {
-              h += '<div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#E8E4DC;padding:10px 0;border-bottom:1px solid rgba(200,169,110,0.1);text-shadow:0 1px 4px rgba(0,0,0,0.4);"><span style="font-size:18px;width:28px;text-align:center;flex-shrink:0;">' + sc.icon + '</span><span>' + sc.label + '</span></div>';
-            });
-            h += '</div>';
-          }
-          h += '</div><div>';
-          if (p.specs && p.specs.length > 0) {
-            h += '<div style="font-family:\'Noto Serif SC\',serif;font-size:14px;font-weight:700;color:#C8A96E;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid rgba(200,169,110,0.25);letter-spacing:0.06em;text-shadow:0 1px 8px rgba(0,0,0,0.5);">产品规格</div><div style="display:flex;flex-direction:column;">';
-            p.specs.forEach(function (s) {
-              h += '<div style="display:flex;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(200,169,110,0.1);font-size:13px;text-shadow:0 1px 4px rgba(0,0,0,0.4);"><span style="width:72px;flex-shrink:0;font-family:\'JetBrains Mono\',monospace;font-size:11px;letter-spacing:0.08em;color:rgba(232,228,220,0.4);">' + s.label + '</span><span style="flex:1;color:#E8E4DC;font-size:14px;font-weight:500;">' + s.value + '</span></div>';
-            });
-            h += '</div>';
-          }
-          h += '</div></div>';
-          h += '<div style="text-align:center;font-family:\'JetBrains Mono\',monospace;font-size:13px;letter-spacing:0.14em;color:rgba(200,169,110,0.55);text-shadow:0 1px 4px rgba(0,0,0,0.4);">牧哥生物 · 火锅供应链先行者</div>';
-          h += '</div></div>';
-          return h;
-        }
-
-        // 构建全部页面
-        var allHTML = '';
-        for (var i = 0; i < pages.length; i++) {
-          var page = pages[i];
-          var inner = '';
-          if (page.type === 'cover') { inner = buildCoverHTML(); }
-          else if (page.type === 'divider') { inner = buildDividerHTML(page.series, page.seriesIndex); }
-          else { inner = buildProductHTML(page.product); }
-          allHTML += '<div style="width:1100px;height:740px;overflow:hidden;background:#0c0b08;">' + inner + '</div>';
-        }
-
-        // 显示进度条
-        var progressBar = document.getElementById('pdf-progress-bar');
-        var progressFill = document.getElementById('pdf-progress-fill');
-        var progressLabel = document.getElementById('pdf-progress-label');
-        if (progressBar) progressBar.classList.remove('hidden');
-        if (progressLabel) progressLabel.classList.remove('hidden');
-
-        // 创建临时容器
-        var container = document.getElementById('pdf-frontend-container');
-        container.innerHTML = allHTML;
-        container.style.cssText = 'position:fixed;left:-9999px;top:0;width:1100px;z-index:-1;opacity:0;pointer-events:none;';
-
-        function doRender() {
-          var pageEls = container.children;
-          var pdf = new jspdf.jsPDF({ unit: 'mm', format: [292, 196], orientation: 'landscape' });
-          var h2cOpts = { scale: 1, backgroundColor: '#0c0b08', logging: false, width: 1100, height: 740 };
-
-          function renderNext(idx) {
-            if (idx >= total) {
-              pdf.save('牧哥生物-产品手册.pdf');
-              cleanup();
-              return;
-            }
-            var pageName = pages[idx].product ? pages[idx].product.name : (pages[idx].type === 'cover' ? '封面' : pages[idx].series.name);
-            if (progressLabel) progressLabel.textContent = '生成中… ' + (idx + 1) + '/' + total;
-            if (progressFill) progressFill.style.width = ((idx / total) * 100) + '%';
-
-            html2canvas(pageEls[idx], h2cOpts).then(function (canvas) {
-              if (idx > 0) { pdf.addPage(); }
-              pdf.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, 292, 196);
-              setTimeout(function () { renderNext(idx + 1); }, 50);
-            }).catch(function () {
-              // 失败则跳过该页
-              if (idx > 0) { pdf.addPage(); }
-              setTimeout(function () { renderNext(idx + 1); }, 50);
-            });
-          }
-
-          function cleanup() {
-            container.innerHTML = '';
-            container.style.cssText = '';
-            if (progressBar) progressBar.classList.add('hidden');
-            if (progressLabel) progressLabel.classList.add('hidden');
-            if (progressFill) progressFill.style.width = '0%';
-            self.pdfExporting = false;
-          }
-
-          renderNext(0);
-        }
-
-        // 预加载图片后开始渲染
-        var imgs = container.querySelectorAll('img');
-        function startRender() {
-          container.offsetHeight;
-          setTimeout(doRender, 300);
-        }
-        if (imgs.length === 0) {
-          startRender();
-        } else {
-          var imgCheckTimer = setTimeout(startRender, 15000);
-          function checkImgs() {
-            var allDone = true;
-            for (var j = 0; j < imgs.length; j++) {
-              if (!imgs[j].complete) { allDone = false; break; }
-            }
-            if (allDone) { clearTimeout(imgCheckTimer); startRender(); }
-            else { setTimeout(checkImgs, 200); }
-          }
-          checkImgs();
-        }
-      },
 
       initObserver() {
         var self = this;
@@ -691,15 +452,6 @@
     }
   }).mount('#app');
 </script>
-
-  <!-- PDF 进度条 -->
-  <div id="pdf-progress-bar" class="pdf-progress-bar hidden">
-    <div id="pdf-progress-fill" class="pdf-progress-fill"></div>
-  </div>
-  <div id="pdf-progress-label" class="pdf-progress-label hidden">准备中…</div>
-
-  <!-- PDF 前端导出渲染容器 -->
-  <div id="pdf-frontend-container"></div>
 
 </body>
 </html>

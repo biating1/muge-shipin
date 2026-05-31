@@ -9,7 +9,7 @@
         "name": "蜀忆老火锅牛油",
         "subtitle": "PRODUCT · 01",
         "description": "牧哥牛油与杭州川野食品联合为工厂客户推出的定制产品，优选西门塔尔牛种，鲜脂火炼，香味更浓",
-        "image": "images/product1.webp",
+        "image": "images/product1.jpg",
         "bgm": "music/Plastic-Sunlight.mp3",
         "video": "https://www.bilibili.com/video/BV115DDBkEvD/",
         "crafts": [
@@ -95,7 +95,7 @@
         "name": "菌汤火锅底料",
         "subtitle": "PRODUCT · 05",
         "description": "云南野生菌菇拼配，松茸提鲜、牛肝菌增香，汤色金黄，鲜味醇厚。",
-        "image": "images/product1.webp",
+        "image": "images/product1.jpg",
         "bgm": "music/Reverb-Ledger.mp3",
         "video": "",
         "crafts": [
@@ -134,7 +134,7 @@
         "name": "藤椒火锅底料",
         "subtitle": "PRODUCT · 07",
         "description": "洪雅鲜藤椒入料，清香麻爽，入口微麻回甘，夏季火锅的上选之品。",
-        "image": "images/product1.webp",
+        "image": "images/product1.jpg",
         "bgm": "music/Plastic-Sunlight.mp3",
         "video": "",
         "crafts": [

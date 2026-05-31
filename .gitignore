@@ -36,3 +36,17 @@ node-installer.msi
 
 # Claude 记忆
 .claude/
+
+# ffmpeg 工具包（非网站资源）
+ffmpeg/
+ffmpeg.zip
+
+# 参考文档
+产品手册参考样式.pdf
+
+# 开发测试文件
+pdf-style-test.html
+images/*.webp
+
+# 测试脚本
+test-*.js

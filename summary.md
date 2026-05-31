@@ -1,6 +1,6 @@
 # 项目总结
 
-> 最后更新：2026-05-30（新增：Excel 导入导出、应用场景字段、序号重算、音乐按钮位置修复）
+> 最后更新：2026-05-31（代码清理：删除死代码 + 抽取 versionUrl 共用函数）
 
 ---
 
@@ -316,3 +316,94 @@
 - **推送上线**：用户安装 Git → 创建 GitHub 仓库 → 运行 `deploy.ps1`
 - **Step 14**：Express + SQLite 后端（部署完成后再做）
 - **视频压缩**：下载 ffmpeg 后运行 `optimize.ps1` 自动压缩视频
+
+---
+
+## 十、PDF 导出体积优化（2026-05-31）
+
+### 最终方案：单层 JPEG 直通
+
+放弃双层 PNG 叠加方案，改用**单层 JPEG 高品质渲染**。
+
+**原因**：jsPDF 无法直通 PNG 数据，需解压 RGBA → Flate 重压缩 + 生成 Alpha 软遮罩 → 膨胀 **10 倍**（诊断 10MB 数据 → 103MB PDF）
+
+| 方案 | 每页数据 | PDF 实际大小 | 效果 |
+|---|---|---|---|
+| ~~双层（底层 JPEG + 上层 PNG 透明）~~ | ~550KB | **103MB**（膨胀 10x） | ❌ |
+| **单层 JPEG q0.88 @ scale 2.5** | ~500KB | **~500KB**（JPEG 直通） | ✅ |
+
+**最终参数**：
+- 渲染：`html2canvas scale 2.5`（2750×1850 → 239 DPI 印刷级）
+- 格式：`JPEG q0.88`（文字压缩痕迹肉眼不可见）
+- 封面/分隔页：`scale 2 + JPEG q0.88`
+- SOP 页：`scale 2 + PNG`（无图片，PNG 体积可控）
+
+**各页实测**：
+- 封面/分隔：~55-60KB/页
+- 产品页（含图）：~450-630KB/页
+- SOP 页：~200KB/页
+- **合计 12 页 PDF：~7MB**
+
+### 关键发现
+
+1. **jsPDF `addImage(canvas, 'PNG', ...)`**：canvas 对象传参 vs data URL 字符串传参都会触发 PNG → Flate 重编码，膨胀 10x。**JPEG 是唯一直通格式**（DCTDecode pass-through）
+2. **文字清晰度**：239 DPI + JPEG q0.88 下文字约 7MB 压缩痕迹，印刷不可见
+3. **`renderProductPage()` 作用域注意**：内部 `.catch()` 不能引用 `renderNext()` 的 `i` 参数（不在作用域链上）
+
+### 历史方案
+
+| 日期 | 方案 | 结果 |
+|------|------|------|
+| 初版 | scale 3 PNG 单层 | PDF 过大 |
+| 5/30 | 双层抠图叠加（底层 JPEG + 上层 PNG 透明） | 数据 10MB → PDF 103MB（jsPDF PNG 膨胀） |
+| **5/31 终版** | **单层 scale 2.5 JPEG q0.88** | **~7MB PDF，文字印刷级清晰 ✅** |
+
+### 更新入口
+
+`http://localhost:3000/admin.html` → 导出 PDF
+
+## 十一、PDF 封面 LOGO 黑金修复（2026-05-31）
+
+### 问题
+html2canvas v1.4.1 不支持 CSS `filter` 属性，`filter: sepia(100%) saturate(400%) hue-rotate(350deg) brightness(0.85)` 在预览可见但导出丢失。
+
+### 解决方案
+在 `doExport()` 开头用 Canvas API 预处理：
+1. build 函数中 LOGO 加 `data-gold-logo="1"` 标记，去掉 CSS filter
+2. `doExport()` 扫描标记图片 → Canvas `ctx.filter` 实时转为黑金色 data URL → 替换 img.src
+3. html2canvas 直接捕获处理后的像素
+
+### 涉及位置
+admin.html：buildCoverHTML / buildDividerHTML / buildProductHTML / buildSopHTML / buildProductTextHTML + doExport 开头
+
+### 后续修复（2026-05-31）
+
+**Bug 1：`drawImage` 未缩放**
+- `ctx.drawImage(img, 0, 0)` 以原始尺寸（7425×3914）绘制在仅 68×36 的 Canvas 上，只画出左上角一小块
+- 修复：改为 `ctx.drawImage(img, 0, 0, dispW, 36)` 目标缩放
+
+**Bug 2：onload 死循环**
+- data URL 替换 `img.src` 后再次触发 `onload`，递归调用 `processLogo` 无限循环
+- 修复：`processLogo` 内加 `img.onload = null`，onload 回调内加 `this.onload = null`
+
+**Bug 3：封面页 LOGO 仍然红色**
+- 处理完 data URL 后 html2canvas 立即捕获，浏览器可能未完成渲染
+- 修复：在 `renderNext(0)` 前加 `requestAnimationFrame` 确保渲染完成
+
+**清晰度提升**
+- Canvas 预处理从 1x（42px）提升至 **2x（84px）**，html2canvas 有 4x 像素可采样
+- CSS 保持 `height:42px`，浏览器平滑下采样，导出后 LOGO 文字轮廓更锐利
+
+## 十二、代码清理（2026-05-31）
+
+### 删除死代码
+- **`buildProductTextHTML(p)`** — 双层 PNG 方案遗留，与 `buildProductHTML` 90% 相同，未调用 → 删除 ~43 行
+- **`makeTextLayerTransparent(canvas, threshold)`** — 双层 PNG 抠图遗留，未调用 → 删除 ~13 行
+- **`logoPending`** — `doExport()` 中声明的计数器变量，从未读取使用 → 删除
+
+### 抽取共用函数
+- **`versionUrl(filename, ver)`** — 全局函数，统一处理图片 URL 版本化逻辑（`data:/blob:/http` 原样返回，否则加 `?v=`）
+- 替换 4 处重复代码：`imgUrl()`、`previewBgUrl()`、`confirmExportPdf`、`buildProductHTML`
+
+### 保留不动的
+- **`resolveSopIcon` Vue 方法** — 看似冗余（仅转发到全局函数），但 Vue 模板不能直接调用全局函数，必须保留
