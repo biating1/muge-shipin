@@ -198,35 +198,55 @@
 <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 
 <script>
-  // 优先读取后台保存的数据，否则用默认数据
+  // ======== 数据加载：优先 localStorage → products.json 文件 → 空降级 ========
   var saved = localStorage.getItem('muge_products');
   var imgVersion = localStorage.getItem('muge_version') || '1';
-  var DEFAULT_DATA = [{"id":"beef","name":"牛油系列","description":"精选西门塔尔牛种，鲜脂火炼，传统工艺熬制，香味浓郁醇厚","products":[{"id":1,"name":"蜀忆老火锅牛油","subtitle":"PRODUCT · 01","description":"牧哥牛油与杭州川野食品联合为工厂客户推出的定制产品，优选西门塔尔牛种，鲜脂火炼，香味更浓","image":"images/product1.jpg","bgm":"music/Plastic-Sunlight.mp3","video":"https://www.douyin.com/video/7642174138106318134","videoAspect":"9/16","crafts":[{"icon":"🔥","label":"手工熬制"},{"icon":"⏱","label":"8 小时慢熬"},{"icon":"🌶","label":"正宗川味"},{"icon":"🏅","label":"品质认证"}],"specs":[{"label":"规格","value":"20kg / 箱"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}],"scenarios":[{"icon":"🏪","label":"火锅餐饮"},{"icon":"🍲","label":"川味火锅店"},{"icon":"🏠","label":"家庭聚餐"}]}]},{"id":"hotpot","name":"火锅底料","description":"牛油、清油、番茄、菌汤、藤椒等多种口味火锅底料，满足不同餐饮场景","products":[{"id":2,"name":"牛油火锅底料","subtitle":"PRODUCT · 02","description":"传统牛油火锅底料，麻辣鲜香，汤色红亮，适合各类川味火锅场景。","image":"images/product2.jpg","bgm":"music/Velvet-Thunder.mp3","video":"videos/咸蛋海鲜粥.mp4","videoAspect":"9/16","crafts":[{"icon":"🔥","label":"传统工艺"},{"icon":"🌶","label":"麻辣鲜香"},{"icon":"🥘","label":"汤色红亮"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":3,"name":"清油火锅底料","subtitle":"PRODUCT · 03","description":"纯植物油脂炼制，汤色清亮不糊口，麻辣清爽不油腻，适合养生火锅场景。","image":"images/product3.jpg","bgm":"music/Paper-Circuit.mp3","video":"","crafts":[{"icon":"🌿","label":"植物油脂"},{"icon":"💧","label":"清爽不腻"},{"icon":"🌶","label":"麻辣鲜香"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":4,"name":"番茄火锅底料","subtitle":"PRODUCT · 04","description":"新疆日照番茄为原料，酸甜浓郁，汤底可直接饮用，老少皆宜。","image":"images/product4.jpg","bgm":"music/Circuit-Cabbage.mp3","video":"","crafts":[{"icon":"🍅","label":"新疆番茄"},{"icon":"☀","label":"日照充足"},{"icon":"👶","label":"老少皆宜"},{"icon":"💧","label":"汤底可饮"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":5,"name":"菌汤火锅底料","subtitle":"PRODUCT · 05","description":"云南野生菌菇拼配，松茸提鲜、牛肝菌增香，汤色金黄，鲜味醇厚。","image":"images/product1.jpg","bgm":"music/Reverb-Ledger.mp3","video":"","crafts":[{"icon":"🍄","label":"云南野菌"},{"icon":"⭐","label":"松茸提鲜"},{"icon":"⏱","label":"慢火炖煮"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":6,"name":"麻辣香锅底料","subtitle":"PRODUCT · 06","description":"多种辣椒黄金配比，搭配十余种香辛料，干锅翻炒酱香浓郁、辣而不燥。","image":"images/product2.jpg","bgm":"music/Velvet-Thunder.mp3","video":"videos/咸蛋海鲜粥.mp4","videoAspect":"9/16","crafts":[{"icon":"🌶","label":"多椒配比"},{"icon":"🧂","label":"十余种香辛料"},{"icon":"🔥","label":"酱香浓郁"},{"icon":"✅","label":"辣而不燥"}],"specs":[{"label":"规格","value":"1kg / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]},{"id":7,"name":"藤椒火锅底料","subtitle":"PRODUCT · 07","description":"洪雅鲜藤椒入料，清香麻爽，入口微麻回甘，夏季火锅的上选之品。","image":"images/product1.jpg","bgm":"music/Plastic-Sunlight.mp3","video":"","crafts":[{"icon":"🌿","label":"洪雅藤椒"},{"icon":"❄","label":"鲜麻清爽"}],"specs":[{"label":"规格","value":"500g / 袋"},{"label":"保质期","value":"12 个月"},{"label":"储存方式","value":"阴凉干燥处保存"}]}]},{"id":"fish","name":"烤鱼料","description":"专为烤鱼场景研发，酱香浓郁，入味透彻，适用于各类烤鱼餐饮","products":[]},{"id":"lobster","name":"龙虾料","description":"小龙虾调味料，麻辣鲜香，入味快，适合夜宵排档和餐饮门店","products":[]},{"id":"soup","name":"汤料","description":"多种汤底调味料，骨汤、菌汤、番茄汤等，一料多用","products":[]}];
-  const PRODUCT_DATA = saved ? JSON.parse(saved) : DEFAULT_DATA;
+  var PRODUCT_DATA = saved ? JSON.parse(saved) : [];
 
   // 自动迁移旧路径（bare filename → images/music/videos/ 前缀）
   if (saved) {
-    var needSave = false;
-    PRODUCT_DATA.forEach(function (s) {
-      s.products.forEach(function (p) {
-        ['image', 'bgm', 'video'].forEach(function (key) {
-          var val = p[key];
-          if (!val || val.indexOf('/') !== -1 || val.indexOf('data:') === 0 || val.indexOf('http') === 0) return;
-          if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(val)) { p[key] = 'images/' + val; needSave = true; }
-          else if (/\.mp3$/i.test(val)) { p[key] = 'music/' + val; needSave = true; }
-          else if (/\.mp4$/i.test(val)) { p[key] = 'videos/' + val; needSave = true; }
+    (function migrate() {
+      var needSave = false;
+      PRODUCT_DATA.forEach(function (s) {
+        s.products.forEach(function (p) {
+          ['image', 'bgm', 'video'].forEach(function (key) {
+            var val = p[key];
+            if (!val || val.indexOf('/') !== -1 || val.indexOf('data:') === 0 || val.indexOf('http') === 0) return;
+            if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(val)) { p[key] = 'images/' + val; needSave = true; }
+            else if (/\.mp3$/i.test(val)) { p[key] = 'music/' + val; needSave = true; }
+            else if (/\.mp4$/i.test(val)) { p[key] = 'videos/' + val; needSave = true; }
+          });
+          // 迁移旧 .webp 图片路径 → .jpg（测试图→原图）
+          if (p.image && /\.webp$/i.test(p.image)) {
+            p.image = p.image.replace(/\.webp$/i, '.jpg');
+            needSave = true;
+          }
+          // 迁移旧 SOP 数据（无 materials/auxiliaries 字段）
+          if (p.sop && p.sop.steps && !p.sop.materials) { p.sop.materials = []; needSave = true; }
+          if (p.sop && p.sop.steps && !p.sop.auxiliaries) { p.sop.auxiliaries = []; needSave = true; }
         });
-        // 迁移旧 .webp 图片路径 → .jpg（测试图→原图）
-        if (p.image && /\.webp$/i.test(p.image)) {
-          p.image = p.image.replace(/\.webp$/i, '.jpg');
-          needSave = true;
-        }
-        // 迁移旧 SOP 数据（无 materials/auxiliaries 字段）
-        if (p.sop && p.sop.steps && !p.sop.materials) { p.sop.materials = []; needSave = true; }
-        if (p.sop && p.sop.steps && !p.sop.auxiliaries) { p.sop.auxiliaries = []; needSave = true; }
       });
-    });
-    if (needSave) { localStorage.setItem('muge_products', JSON.stringify(PRODUCT_DATA)); }
+      if (needSave) { localStorage.setItem('muge_products', JSON.stringify(PRODUCT_DATA)); }
+    })();
+  }
+
+  // 没有 localStorage 数据 → 从 products.json 加载（支持 GitHub Pages 静态部署）
+  if (!saved) {
+    (function() {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'products.json?_=' + Date.now(), false); // 同步等待，简化 Vue 初始化
+      try {
+        xhr.send();
+        if (xhr.status === 200) {
+          var parsed = JSON.parse(xhr.responseText);
+          if (Array.isArray(parsed) && parsed.length) {
+            PRODUCT_DATA = parsed;
+          }
+        }
+      } catch(e) {
+        // 文件不可用时静默降级为空数组
+      }
+    })();
   }
 </script>
 
