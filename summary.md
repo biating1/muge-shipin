@@ -1,6 +1,6 @@
 # 项目总结
 
-> 最后更新：2026-05-31（代码清理：删除死代码 + 抽取 versionUrl 共用函数）
+> 最后更新：2026-05-31（Step 14 数据同步 + 视频自动压缩）
 
 ---
 
@@ -24,7 +24,7 @@
 | 数据流 | JS 内嵌默认值 → localStorage 覆盖 → 后台修改即时生效 |
 | Excel | SheetJS (xlsx) v0.20.0 CDN |
 | PDF | html2canvas v1.4.1 + jsPDF v2.5.1，逐页渲染，`[292, 196]` mm 横版 |
-| 后端 | 暂无（Step 14 待做：Express + SQLite） |
+| 后端 | Express（静态文件 + API 接口：保存数据/视频压缩），SQLite 待加入 |
 
 **视频方案**：B站 → 中间层弹窗；抖音 → 弹窗 + `target="_blank"`；直链 mp4 → 原生 `<video>`
 
@@ -58,7 +58,9 @@
 | 13 | 后台管理系统（含排序/批量操作/PDF 导出） | ✅ |
 | 13.5 | Excel 批量导入导出 + 应用场景字段 | ✅ |
 | 14 | Express + SQLite 后端 | ⏳ |
-| 15 | GitHub Pages 部署上线 | ⏳ |
+| 14.5 | **数据同步改造**：admin → POST → products.json → index fetch 实时加载 | ✅ |
+| 14.6 | **视频自动压缩**：server.js 中间件，lazy 压缩 + .cache 缓存 | ✅ |
+| 15 | GitHub Pages 部署上线 | ✅ |
 
 ---
 
@@ -241,11 +243,12 @@
 | 大图 | product1/5/7（各 21.6MB JPEG，6777×4518） | WebP q85 + 5000px 宽 | ~964KB |
 | 小图 | product2/3/4/6（各 200-300KB） | 不转换，保持原样 | 原样 |
 | 封面图 | 封面3.png（4MB，1920×1080） | WebP 无损 | ~1,420KB |
-| 视频 | 咸蛋海鲜粥.mp4（71MB，1分09秒） | ffmpeg 1080p H.264 CRF 23 | ~30-40MB |
+| 视频 | 咸蛋海鲜粥.mp4（71MB，1分09秒） | server.js 中间件自动压缩（lazy，首次请求触发） | **20MB**（-72%）|
 | 音乐 | ~5MB mp3 | **不压缩** | 原样 |
 
 - cwebp.exe 已下载在 `%TEMP%\libwebp\`
-- ffmpeg 待下载（网络限制，后续加入 optimize.ps1）
+- ffmpeg 已下载：`ffmpeg/ffmpeg-master-latest-win64-gpl-shared/bin/ffmpeg.exe`
+- 压缩缓存目录：`videos/.cache/`（git 跟踪，上线后访客也享受压缩）
 - 原始文件备份到 `resources-original/`
 
 ### Logo 集成
@@ -288,19 +291,21 @@
 - 视频号需扫码 → 无法嵌入网页
 - **最终方案**：自托管 mp4 + 原生 `<video>`
 
-### 实施步骤（2026-05-30 已完成）
+### 实施步骤（2026-05-31 已上线）
 
 | # | 步骤 | 状态 | 说明 |
 |---|------|------|------|
 | 1 | 图片压缩 + `optimize.ps1` | ✅ | WebP: product1/5/7 (21MB→964KB)，封面3 (4MB→1.4MB)，备份到 resources-original/ |
 | 2 | `.gitignore` | ✅ | 排除 admin.html/server.ps1/backup-*/resources-original/ |
-| 3 | 前端 PDF 一键导出按钮 | ✅ | index.html 导航栏"下载产品手册"，复用 html2canvas+jsPDF，自动导出全系列 |
+| 3 | 前端 PDF 一键导出按钮 | ⏳ | 待重新设计（曾加过但已移除） |
 | 4 | Logo 集成 | ✅ | 前端 navbar 原色 logo.png，PDF 封面暗金 filter（`sepia+saturate+hue-rotate+brightness`） |
 | 5 | PDF 性能优化 | ✅ | scale 2x→1x，实时进度标签，空闲避让 setTimeout(30ms)，取消中止渲染 |
 | 6 | GitHub Pages 配置 | ✅ | 创建 README.md + deploy.ps1，含完整操作说明 |
 | 7 | `deploy.ps1` | ✅ | 双击一键 git add→commit→push→Pages 自动更新 |
 | 8 | 微信浏览器兼容 | ✅ | PDF 导出前检测 MicroMessenger，引导用户"在浏览器打开" |
-| 9 | 推送上线 | ⏳ | 需用户安装 Git + 创建 GitHub 仓库后运行 `deploy.ps1` |
+| 9 | 推送上线 | ✅ | 已推送至 https://biating1.github.io/muge-shipin/ |
+| 10 | 数据同步（admin ↔ products.json） | ✅ | 2026-05-31 改造：admin POST 保存 → server 写入 → index fetch 加载 |
+| 11 | 视频自动压缩 | ✅ | 2026-05-31 改造：server.js 中间件，lazy 压缩，71MB→20MB |
 
 ### 部署条件
 
@@ -313,9 +318,11 @@
 ## 九、下一步
 
 - ~~**部署上线**：已完成代码准备和脚本，待用户安装 Git 并创建仓库后一键推送~~
-- **推送上线**：用户安装 Git → 创建 GitHub 仓库 → 运行 `deploy.ps1`
-- **Step 14**：Express + SQLite 后端（部署完成后再做）
-- **视频压缩**：下载 ffmpeg 后运行 `optimize.ps1` 自动压缩视频
+- ~~**数据同步**：admin → products.json → index fetch，线上线下统一数据源~~ ✅
+- ~~**视频压缩**：server.js 中间件 lazy 压缩 + .cache 缓存，无需手动操作~~ ✅
+- **前端 PDF 一键导出按钮**：index.html 导航栏加"下载产品手册"（曾加过但已移除，需重新设计）
+- **Step 14**：Express + SQLite 后端（当前 products.json + API 已满足基本需求，SQLite 用于更复杂的查询和权限）
+- **SOP 数据填充**：后台可编辑，目前仅有"蜀忆老火锅牛油"一个产品有 SOP，其余待补充
 
 ---
 
@@ -435,3 +442,76 @@ admin.html：buildCoverHTML / buildDividerHTML / buildProductHTML / buildSopHTML
 
 ### 保留不动的
 - **`resolveSopIcon` Vue 方法** — 看似冗余（仅转发到全局函数），但 Vue 模板不能直接调用全局函数，必须保留
+
+---
+
+## 十三、经验教训（2026-05-31）
+
+> 本轮：Step 14（Express + SQLite 前置改造）、视频自动压缩、数据同步上线
+
+### 1. localStorage 前后台共享的陷阱
+
+| 问题 | 详解 |
+|------|------|
+| **不同端口数据隔离** | 浏览器 localStorage 按 origin（协议+端口）隔离。`localhost:8000` 和 `localhost:3000` 的数据不互通，同一台机器的两个端口可能数据完全不同 |
+| **GitHub Pages 不共享 localStorage** | admin 编辑的数据存到浏览器 localStorage，GitHub Pages 访客看不到。线上永远是 `index.html` 中硬编码的数据 |
+| **无法恢复** | 端口关闭后该端口的 localStorage 数据无法恢复（除非用户浏览器未清缓存且重新启动该端口） |
+
+**教训**：纯前端方案（localStorage + 硬编码 JSON）只能单机演示。**只要涉及线上展示，数据必须写入文件**才能 git push 同步。
+
+### 2. 数据写入方式：原子写入防损坏
+
+```js
+// ❌ 危险：直接覆盖，写入中断会损坏文件
+fs.writeFileSync(target, JSON.stringify(data));
+
+// ✅ 安全：写临时文件 → rename 覆盖（原子操作）
+fs.writeFileSync(tmp, JSON.stringify(data));
+fs.renameSync(tmp, target);
+```
+
+### 3. API 测试的副作用
+
+测试 `POST /api/save-data -d '[]'` **真的写入了一个空数组到 products.json**，然后 `git add -A` 把空文件提交了。SOP 数据丢失。
+
+**教训**：
+- API 测试用 `-d '{}'` 或特殊标记（如 `{_test: true}`），不要用真实路径
+- 或者开发环境用独立的 `products-dev.json`
+- git push 前 `git diff` 检查一下关键数据文件
+
+### 4. Express 中间件顺序
+
+```
+// ❌ 错误：express.static 在后面，静态文件先拦截了请求
+app.use(express.static(...));        // intercepts /videos/xxx.mp4 first
+app.get('/videos/:filename', ...);   // never reached
+
+// ✅ 正确：自定义路由在 static 之前
+app.get('/videos/:filename', ...);   // custom middleware first
+app.use(express.static(...));        // fallback to static
+```
+
+### 5. UTF-8 BOM 问题
+
+`admin.html` 开头有多重 UTF-8 BOM 字节（`EF BB BF` 重复 7 次），导致 `Edit` 工具字符串匹配失败。部分编辑器（如记事本）保存 .html 文件时可能写入 BOM。
+
+**解决办法**：用 Node.js 脚本一次性 strip BOM 后重新保存（`charCodeAt(0) === 0xFEFF` 时 slice(1)）。
+
+### 6. 视频压缩方案选择
+
+| 方案 | 优点 | 缺点 |
+|------|------|------|
+| ✅ **Lazy 压缩（首次请求触发）** | 无需预处理，访客不等待；后续请求命中缓存 | 首次请求返回原片（大） |
+| ❌ **启动时全量压缩** | 首次访客直接命中缓存 | 启动慢几秒到几分钟 |
+| ❌ **手动 ffmpeg 命令** | 最可控 | 需要用户操作 |
+
+最终选择 **Lazy 压缩 + 启动时扫描**：启动时扫描已有缓存，无缓存的视频等第一次请求再压。
+
+### 7. .gitignore 策略影响功能可用性
+
+- `server.js` 被 gitignore → API 接口只在 `localhost:3000` 可用，GitHub Pages 上无后端
+- `admin.html` 被 gitignore → 后台管理不上公网（安全），但数据同步只能走文件写入
+- `products.json` **不要 gitignore** → 是连接本地编辑和线上展示的桥梁
+
+**关键原则**：数据文件（JSON/DB）永远不要 gitignore，脚本文件（server.js/admin.html）可以按需忽略。
+
