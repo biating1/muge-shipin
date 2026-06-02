@@ -8,8 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-  </style>
 </head>
 <body>
 
@@ -360,6 +358,7 @@
         if (!series || !series.products) return [];
         return series.products.filter(function (p) { return p.published !== false; });
       },
+
       imgUrl(filename) {
         if (!filename) return '';
         if (filename.indexOf('data:') === 0) return filename;
