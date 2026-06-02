@@ -87,7 +87,375 @@
                 "content": ""
               }
             ]
-          }
+          },
+          "published": true
+        },
+        {
+          "_seriesIdx": 1,
+          "name": "牧哥干式鲜牛油",
+          "subtitle": "PRODUCT · 08",
+          "description": "选用高品质生脂，精炼过程采用干式脱胶工艺替代脱酸和水洗，减少了精炼过程带来的香味的损耗，最大程度保留醇厚脂香",
+          "image": "images/干式牛油20kg.png",
+          "bgm": "music/Velvet-Thunder.mp3",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🧂",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "🌶",
+              "label": "干式脱胶"
+            },
+            {
+              "icon": "🥘",
+              "label": "无水精炼"
+            },
+            {
+              "icon": "❄",
+              "label": "急冷捏合技术"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "20kg / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "重庆老火锅炒制"
+            }
+          ],
+          "sop": null,
+          "id": 8,
+          "videoAspect": "9/16"
+        },
+        {
+          "name": "牧哥干式鲜牛油",
+          "subtitle": "PRODUCT · 09",
+          "description": "选用高品质生脂，精炼过程采用干式脱胶工艺替代脱酸和水洗，减少了精炼过程带来的香味的损耗，最大程度保留醇厚脂香",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "",
+              "label": "干式脱胶"
+            },
+            {
+              "icon": "",
+              "label": "无水精炼"
+            },
+            {
+              "icon": "",
+              "label": "4.0螺旋水凝工艺"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "5kg×4 / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "",
+              "label": "重庆老火锅炒制"
+            }
+          ],
+          "sop": null,
+          "id": 9
+        },
+        {
+          "name": "牧哥原香老火锅牛油",
+          "subtitle": "PRODUCT · 10",
+          "description": "延续传统老火锅技艺，以4.0螺旋水凝工艺替代急冷捏合，使得牛油结晶均匀，脂香浓郁且产品稳定。",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "",
+              "label": "4.0螺旋水凝工艺"
+            },
+            {
+              "icon": "",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "",
+              "label": "物理六脱工艺"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "20kg / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "",
+              "label": "重庆老火锅炒制"
+            }
+          ],
+          "sop": null,
+          "id": 10,
+          "published": false
+        },
+        {
+          "name": "牧哥老火锅牛油",
+          "subtitle": "PRODUCT · 11",
+          "description": "优选中国本土黄牛体脂率不低于90%的腰肚油，耐高温、越煮越香，脂香醇厚，回味悠长",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "",
+              "label": "物理六脱工艺"
+            },
+            {
+              "icon": "",
+              "label": "急冷捏合技术"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "20kg / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "",
+              "label": "重庆老火锅炒制"
+            }
+          ],
+          "sop": null,
+          "id": 11
+        },
+        {
+          "name": "牧哥餐饮定制老火锅牛油",
+          "subtitle": "PRODUCT · 12",
+          "description": "优选中国本土黄牛体脂率不低于90%的腰肚油，耐高温、耐久煮，脂香醇厚，回味悠长\n小包装方便炒料、打锅使用，为餐饮定制",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "",
+              "label": "物理六脱工艺"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "5kg×4 / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "",
+              "label": "重庆老火锅炒制"
+            }
+          ],
+          "sop": null,
+          "id": 12
+        },
+        {
+          "name": "金牧哥珍品牛油",
+          "subtitle": "PRODUCT · 13",
+          "description": "精选体脂率不低于90%的腰肚油，采用负压低温真空粹取，脂香浓郁，色泽清亮\n\n油脂指标稳定，口感爽口，无浓厚油脂感，适宜川渝外客户",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "",
+              "label": "物理六脱工艺"
+            },
+            {
+              "icon": "",
+              "label": "急冷捏合技术"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "20kg / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "",
+              "label": "川渝以外的地区火锅底料炒制"
+            }
+          ],
+          "sop": null,
+          "id": 13
+        },
+        {
+          "name": "牧哥精品牛油",
+          "subtitle": "PRODUCT · 14",
+          "description": "增强六脱工艺，脂香独特，色泽清亮，满足川渝外地区多元口味、大型连锁工厂等定制需求",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "",
+              "label": "物理六脱工艺"
+            },
+            {
+              "icon": "",
+              "label": "急冷捏合技术"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "20kg / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "",
+              "label": "川渝以外的地区火锅底料炒制"
+            },
+            {
+              "icon": "",
+              "label": "工厂底料炒制"
+            }
+          ],
+          "sop": null,
+          "id": 14
+        },
+        {
+          "name": "牧哥精炼羊油",
+          "subtitle": "PRODUCT · 15",
+          "description": "纯羊油，满足火锅底料调味、工业制药等生产需求",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "",
+              "label": "物理六脱工艺"
+            },
+            {
+              "icon": "",
+              "label": "急冷捏合技术"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "5kg×4 / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "",
+              "label": "制药"
+            },
+            {
+              "icon": "",
+              "label": "工厂火锅底料调味"
+            }
+          ],
+          "sop": null,
+          "id": 15
         }
       ]
     },
@@ -353,7 +721,210 @@
       "name": "汤料",
       "description": "多种汤底调味料，骨汤、菌汤、番茄汤等，一料多用",
       "products": []
+    },
+    {
+      "id": "____",
+      "name": "定制牛油",
+      "description": "",
+      "products": [
+        {
+          "name": "牧哥精炼老火锅牛油",
+          "subtitle": "PRODUCT · 16",
+          "description": "为工厂、餐饮连锁提供的定制化精制油脂，产品高性价比",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "",
+              "label": "负压真空萃取"
+            },
+            {
+              "icon": "",
+              "label": "物理六脱工艺"
+            },
+            {
+              "icon": "",
+              "label": "急冷捏合技术"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "20kg / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "",
+              "label": "定制服务"
+            },
+            {
+              "icon": "",
+              "label": "大型工厂底料加工"
+            }
+          ],
+          "sop": null,
+          "id": 16
+        },
+        {
+          "name": "蜀忆老火锅牛油",
+          "subtitle": "PRODUCT · 17",
+          "description": "牧哥牛油与杭州川野食品联合为工厂客户推出的定制产品，优选西门塔尔牛种，鲜脂火炼，香味更浓。",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "",
+              "label": "物理六脱工艺"
+            },
+            {
+              "icon": "",
+              "label": "急冷捏合技术"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "20kg / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "",
+              "label": "定制服务"
+            },
+            {
+              "icon": "",
+              "label": "大型工厂底料加工"
+            }
+          ],
+          "sop": null,
+          "id": 17
+        },
+        {
+          "name": "蜀歌原香老火锅牛油",
+          "subtitle": "PRODUCT · 19",
+          "description": "特种油脂定制产品，可定制牛油熔点等特性。\n优选生脂、出品稳定，保留牛油固有香气，脂香满溢。",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "",
+              "label": "急冷捏合技术"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "20kg / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "",
+              "label": "定制服务"
+            },
+            {
+              "icon": "",
+              "label": "大型工厂底料加工"
+            }
+          ],
+          "sop": null,
+          "id": 19
+        }
+      ]
+    },
+    {
+      "id": "____",
+      "name": "打锅牛油",
+      "description": "",
+      "products": [
+        {
+          "name": "牧哥原香打锅牛油",
+          "subtitle": "PRODUCT · 18",
+          "description": "精选老火锅牛油原料，装饰锅底，快速提升锅底风味，加量不加价",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "",
+              "label": "物理六脱工艺"
+            },
+            {
+              "icon": "",
+              "label": "自然冷却"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "55g×120 / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "",
+              "label": "装饰锅底"
+            },
+            {
+              "icon": "",
+              "label": "提升风味"
+            }
+          ],
+          "sop": null,
+          "id": 18
+        }
+      ]
     }
   ],
+  "_about": "",
   "_slogan": "火锅整体解决方案服务商"
 }

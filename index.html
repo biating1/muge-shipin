@@ -53,7 +53,8 @@
 
   <!-- 产品展示区域 -->
   <main>
-    <section v-for="(s, si) in seriesList" :key="s.id"
+    <template v-for="(s, si) in seriesList" :key="s.id">
+    <section v-if="visibleProducts(s).length"
              :id="'series-' + s.id"
              class="series-section" :class="{ 'series-alt': si % 2 === 1 }">
       <div class="series-banner">
@@ -65,8 +66,8 @@
       </div>
       <div class="container">
         <div class="card-grid">
-          <template v-if="s.products.length">
-            <div v-for="(p, pi) in s.products" :key="p.id"
+          <template v-if="visibleProducts(s).length">
+            <div v-for="(p, pi) in visibleProducts(s)" :key="p.id"
                  class="card" :style="'animation-delay:' + (pi * 0.10) + 's'"
                  @click="openModal(p)">
               <img :src="imgUrl(p.image)" :alt="p.name" loading="lazy"
@@ -97,6 +98,7 @@
         </div>
       </div>
     </section>
+    </template>
   </main>
 
   <!-- 产品详情弹窗 -->
@@ -353,6 +355,10 @@
           }
         }
         return product.subtitle || '';
+      },
+      visibleProducts(series) {
+        if (!series || !series.products) return [];
+        return series.products.filter(function (p) { return p.published !== false; });
       },
       imgUrl(filename) {
         if (!filename) return '';

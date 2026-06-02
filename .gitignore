@@ -57,8 +57,17 @@ images/*.webp
 # 本地计划文档
 产品展示网页实施计划.md
 
-# 重复文件（根部，images/ 下为正式文件）
+# 重复文件
 盾牌.png
+
+# 项目经验总结（内含密码，不可推送）
+summary.md
+
+# Excel 数据清洗/测试表
+数据清洗/
+
+# 临时测试图
+images/product1_tmp.jpg
 
 # 测试脚本
 test-*.js
