@@ -900,7 +900,22 @@
       "id": "fish",
       "name": "烤鱼料",
       "description": "专为烤鱼场景研发，酱香浓郁，入味透彻，适用于各类烤鱼餐饮",
-      "products": []
+      "products": [
+        {
+          "id": 20,
+          "name": "蒜香",
+          "subtitle": "PRODUCT · 20",
+          "description": "",
+          "image": "",
+          "bgm": "music/Circuit-Cabbage.mp3",
+          "video": "",
+          "videoAspect": "9/16",
+          "crafts": [],
+          "specs": [],
+          "scenarios": [],
+          "published": true
+        }
+      ]
     },
     {
       "id": "lobster",
