@@ -7,7 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="style.css?v=20260602">
 </head>
 <body>
 
@@ -71,9 +72,12 @@
               <img :src="imgUrl(p.image)" :alt="p.name" loading="lazy"
                    @load="onImgLoad"
                    @error="onImgError($event, p)">
+              <img v-if="p.packaging" class="card-packaging" :src="imgUrl(p.packaging)" alt="包装效果图" @error="onPkgError($event)">
               <div class="card-body">
                 <div class="card-intro">
-                  <h3>{{ p.name }}</h3>
+                  <div class="card-name-row">
+                    <h3>{{ p.name }}</h3>
+                  </div>
                   <p class="card-subtitle">{{ getDisplaySubtitle(p) }}</p>
                   <p class="card-desc">{{ p.description }}</p>
                 </div>
@@ -103,7 +107,10 @@
   <div class="modal-overlay" :class="{ hidden: !selectedProduct }" @click.self="closeModal">
     <div class="modal" ref="modalBox" v-if="selectedProduct" @scroll="onModalScroll">
       <button class="modal-close" @click="closeModal">&times;</button>
-      <img class="modal-image" :src="imgUrl(selectedProduct.image)" :alt="selectedProduct.name" loading="eager">
+      <div class="modal-image-wrap">
+        <img class="modal-image" :src="imgUrl(selectedProduct.image)" :alt="selectedProduct.name" loading="eager">
+        <img v-if="selectedProduct.packaging" class="modal-packaging" :src="imgUrl(selectedProduct.packaging)" alt="包装效果图" @error="onPkgError($event)">
+      </div>
       <div class="modal-scroll-indicator" v-show="showOilDrop">
         <div class="modal-oil-drop" ref="oilDrop" :style="{ top: oilDropY + 'px' }"></div>
         <div class="modal-oil-trail" ref="oilTrail" :style="{ top: '20px', height: Math.max(oilDropY - 20, 4) + 'px' }"></div>
@@ -368,6 +375,9 @@
       onImgError(e, product) {
         e.target.classList.add('img-error');
         e.target.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect fill="#F4EFE6" width="400" height="300"/><text fill="#C0B8A8" font-family="sans-serif" font-size="14" text-anchor="middle" x="200" y="145">图片加载失败</text><text fill="#D8442C" font-family="sans-serif" font-size="24" text-anchor="middle" x="200" y="170">' + (product ? product.name : '') + '</text></svg>');
+      },
+      onPkgError(e) {
+        e.target.style.display = 'none';
       },
 
       // === 弹窗 ===

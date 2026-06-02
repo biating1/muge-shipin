@@ -10,7 +10,7 @@
           "name": "牧哥干式鲜牛油",
           "subtitle": "PRODUCT · 08",
           "description": "选用高品质生脂，精炼过程采用干式脱胶工艺替代脱酸和水洗，减少了精炼过程带来的香味的损耗，最大程度保留醇厚脂香",
-          "image": "images/干式牛油20kg.png",
+          "image": "images/微信图片_20251209151902_1685_15.jpg",
           "bgm": "music/Velvet-Thunder.mp3",
           "video": "",
           "crafts": [
@@ -53,14 +53,16 @@
           ],
           "sop": null,
           "id": 8,
-          "videoAspect": "9/16"
+          "videoAspect": "9/16",
+          "packaging": "images/干式牛油20kg(1).png"
         },
         {
+          "_seriesIdx": 1,
           "name": "牧哥干式鲜牛油",
           "subtitle": "PRODUCT · 09",
           "description": "选用高品质生脂，精炼过程采用干式脱胶工艺替代脱酸和水洗，减少了精炼过程带来的香味的损耗，最大程度保留醇厚脂香",
-          "image": "",
-          "bgm": "",
+          "image": "images/干式背景图.png",
+          "bgm": "music/Paper-Circuit.mp3",
           "video": "",
           "crafts": [
             {
@@ -101,7 +103,8 @@
             }
           ],
           "sop": null,
-          "id": 9
+          "id": 9,
+          "packaging": "images/微信图片_20260602162727_450_5(1).png"
         },
         {
           "_seriesIdx": 0,
@@ -155,57 +158,31 @@
             }
           ],
           "sop": {
-            "materials": [
-              "牛生脂"
-            ],
+            "materials": [],
             "auxiliaries": [],
-            "steps": [
-              {
-                "type": "熬制",
-                "icon": "product",
-                "title": "",
-                "content": ""
-              },
-              {
-                "type": "脱酸",
-                "icon": "main",
-                "title": "",
-                "content": ""
-              },
-              {
-                "type": "脱胶",
-                "icon": "aux",
-                "title": "",
-                "content": ""
-              },
-              {
-                "type": "调节指标",
-                "icon": "process",
-                "title": "",
-                "content": ""
-              }
-            ]
+            "steps": []
           },
           "published": true
         },
         {
+          "_seriesIdx": 3,
           "name": "牧哥老火锅牛油",
           "subtitle": "PRODUCT · 11",
           "description": "优选中国本土黄牛体脂率不低于90%的腰肚油，耐高温、越煮越香，脂香醇厚，回味悠长",
-          "image": "",
+          "image": "images/1780410155865_qu8e0n.jpg",
           "bgm": "",
           "video": "",
           "crafts": [
             {
-              "icon": "",
+              "icon": "🧂",
               "label": "负压低温真空粹取"
             },
             {
-              "icon": "",
+              "icon": "💧",
               "label": "物理六脱工艺"
             },
             {
-              "icon": "",
+              "icon": "❄",
               "label": "急冷捏合技术"
             }
           ],
@@ -230,7 +207,8 @@
             }
           ],
           "sop": null,
-          "id": 11
+          "id": 11,
+          "packaging": "images/èç«éçæ²¹.png"
         },
         {
           "name": "牧哥原香老火锅牛油",
