@@ -64,40 +64,126 @@
         </div>
       </div>
       <div class="container">
-        <div class="card-grid">
-          <template v-if="visibleProducts(s).length">
-            <div v-for="(p, pi) in visibleProducts(s)" :key="p.id"
-                 class="card" :style="'animation-delay:' + (pi * 0.10) + 's'"
-                 @click="openModal(p)">
-              <img :src="imgUrl(p.image)" :alt="p.name" loading="lazy"
-                   @load="onImgLoad"
-                   @error="onImgError($event, p)">
-              <img v-if="p.packaging" class="card-packaging" :src="imgUrl(p.packaging)" alt="包装效果图" @error="onPkgError($event)">
-              <div class="card-body">
-                <div class="card-intro">
-                  <div class="card-name-row">
-                    <h3>{{ p.name }}</h3>
+        <!-- 无风味 → 平铺展示 -->
+        <template v-if="!s.flavors || !s.flavors.length">
+          <div class="card-grid">
+            <template v-if="visibleProducts(s).length">
+              <div v-for="(p, pi) in visibleProducts(s)" :key="p.id"
+                   class="card" :style="'animation-delay:' + (pi * 0.10) + 's'"
+                   @click="openModal(p)">
+                <img :src="imgUrl(p.image)" :alt="p.name" loading="lazy"
+                     @load="onImgLoad"
+                     @error="onImgError($event, p)">
+                <img v-if="p.packaging" class="card-packaging" :src="imgUrl(p.packaging)" alt="包装效果图" @error="onPkgError($event)">
+                <div class="card-body">
+                  <div class="card-intro">
+                    <div class="card-name-row">
+                      <h3>{{ p.name }}</h3>
+                    </div>
+                    <p class="card-subtitle">{{ getDisplaySubtitle(p) }}</p>
+                    <p class="card-desc">{{ p.description }}</p>
                   </div>
-                  <p class="card-subtitle">{{ getDisplaySubtitle(p) }}</p>
-                  <p class="card-desc">{{ p.description }}</p>
-                </div>
-                <div class="card-craft">
-                  <div v-for="c in p.crafts" class="craft-item">
-                    <span class="craft-icon">{{ c.icon }}</span>
-                    <span class="craft-label">{{ c.label }}</span>
+                  <div class="card-craft">
+                    <div v-for="c in p.crafts" class="craft-item">
+                      <span class="craft-icon">{{ c.icon }}</span>
+                      <span class="craft-label">{{ c.label }}</span>
+                    </div>
+                  </div>
+                  <div class="card-specs">
+                    <div v-for="s in p.specs" class="spec-row">
+                      <span class="spec-label">{{ s.label }}</span>
+                      <span class="spec-value">{{ s.value }}</span>
+                    </div>
                   </div>
                 </div>
-                <div class="card-specs">
-                  <div v-for="s in p.specs" class="spec-row">
-                    <span class="spec-label">{{ s.label }}</span>
-                    <span class="spec-value">{{ s.value }}</span>
+              </div>
+            </template>
+            <p v-else style="grid-column:1/-1;text-align:center;color:var(--color-ink-muted);padding:var(--space-8) 0;font-family:var(--font-mono);font-size:var(--text-sm);letter-spacing:0.1em;">暂无产品，敬请期待</p>
+          </div>
+        </template>
+        <!-- 有风味 → 按风味分组展示 -->
+        <template v-else>
+          <div v-for="flavor in s.flavors" :key="flavor.id" class="flavor-group">
+            <div class="flavor-header">
+              <span class="flavor-line"></span>
+              <span class="flavor-name">{{ flavor.name }}</span>
+              <span class="flavor-line"></span>
+            </div>
+            <div class="card-grid">
+              <template v-if="productsByFlavor(s, flavor.id).length">
+                <div v-for="(p, pi) in productsByFlavor(s, flavor.id)" :key="p.id"
+                     class="card" :style="'animation-delay:' + (pi * 0.10) + 's'"
+                     @click="openModal(p)">
+                  <img :src="imgUrl(p.image)" :alt="p.name" loading="lazy"
+                       @load="onImgLoad"
+                       @error="onImgError($event, p)">
+                  <img v-if="p.packaging" class="card-packaging" :src="imgUrl(p.packaging)" alt="包装效果图" @error="onPkgError($event)">
+                  <div class="card-body">
+                    <div class="card-intro">
+                      <div class="card-name-row">
+                        <h3>{{ p.name }}</h3>
+                      </div>
+                      <p class="card-subtitle">{{ getDisplaySubtitle(p) }}</p>
+                      <p class="card-desc">{{ p.description }}</p>
+                    </div>
+                    <div class="card-craft">
+                      <div v-for="c in p.crafts" class="craft-item">
+                        <span class="craft-icon">{{ c.icon }}</span>
+                        <span class="craft-label">{{ c.label }}</span>
+                      </div>
+                    </div>
+                    <div class="card-specs">
+                      <div v-for="s in p.specs" class="spec-row">
+                        <span class="spec-label">{{ s.label }}</span>
+                        <span class="spec-value">{{ s.value }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </template>
+              <p v-else style="grid-column:1/-1;text-align:center;color:var(--color-ink-muted);padding:var(--space-6) 0;font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.1em;">该风味暂无已上架产品</p>
+            </div>
+          </div>
+          <!-- 未分配风味的产品 -->
+          <div v-if="unflavoredProducts(s).length" class="flavor-group">
+            <div class="flavor-header">
+              <span class="flavor-line"></span>
+              <span class="flavor-name">其他</span>
+              <span class="flavor-line"></span>
+            </div>
+            <div class="card-grid">
+              <div v-for="(p, pi) in unflavoredProducts(s)" :key="p.id"
+                   class="card" :style="'animation-delay:' + (pi * 0.10) + 's'"
+                   @click="openModal(p)">
+                <img :src="imgUrl(p.image)" :alt="p.name" loading="lazy"
+                     @load="onImgLoad"
+                     @error="onImgError($event, p)">
+                <img v-if="p.packaging" class="card-packaging" :src="imgUrl(p.packaging)" alt="包装效果图" @error="onPkgError($event)">
+                <div class="card-body">
+                  <div class="card-intro">
+                    <div class="card-name-row">
+                      <h3>{{ p.name }}</h3>
+                    </div>
+                    <p class="card-subtitle">{{ getDisplaySubtitle(p) }}</p>
+                    <p class="card-desc">{{ p.description }}</p>
+                  </div>
+                  <div class="card-craft">
+                    <div v-for="c in p.crafts" class="craft-item">
+                      <span class="craft-icon">{{ c.icon }}</span>
+                      <span class="craft-label">{{ c.label }}</span>
+                    </div>
+                  </div>
+                  <div class="card-specs">
+                    <div v-for="s in p.specs" class="spec-row">
+                      <span class="spec-label">{{ s.label }}</span>
+                      <span class="spec-value">{{ s.value }}</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </template>
-          <p v-else style="grid-column:1/-1;text-align:center;color:var(--color-ink-muted);padding:var(--space-8) 0;font-family:var(--font-mono);font-size:var(--text-sm);letter-spacing:0.1em;">暂无产品，敬请期待</p>
-        </div>
+          </div>
+        </template>
       </div>
     </section>
     </template>
@@ -242,6 +328,8 @@
           // 迁移旧 SOP 数据（无 materials/auxiliaries 字段）
           if (p.sop && p.sop.steps && !p.sop.materials) { p.sop.materials = []; needSave = true; }
           if (p.sop && p.sop.steps && !p.sop.auxiliaries) { p.sop.auxiliaries = []; needSave = true; }
+          // 迁移：确保 flavors 字段存在（风味分区功能）
+          if (!s.flavors) { s.flavors = []; }
         });
       });
       if (needSave) { localStorage.setItem('muge_products', JSON.stringify(PRODUCT_DATA)); }
@@ -364,6 +452,22 @@
       visibleProducts(series) {
         if (!series || !series.products) return [];
         return series.products.filter(function (p) { return p.published !== false; });
+      },
+      // 按风味获取已上架产品
+      productsByFlavor(series, flavorId) {
+        if (!series || !series.products) return [];
+        return series.products.filter(function (p) {
+          return p.flavorId === flavorId && p.published !== false;
+        });
+      },
+      // 获取未分配风味或风味已删除的产品
+      unflavoredProducts(series) {
+        if (!series || !series.products) return [];
+        var valid = {};
+        if (series.flavors) { series.flavors.forEach(function (f) { valid[f.id] = true; }); }
+        return series.products.filter(function (p) {
+          return (!p.flavorId || !valid[p.flavorId]) && p.published !== false;
+        });
       },
 
       imgUrl(filename) {

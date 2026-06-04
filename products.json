@@ -2,8 +2,8 @@
   "series": [
     {
       "id": "beef",
-      "name": "牛油系列",
-      "description": "精选西门塔尔牛种，鲜脂火炼，传统工艺熬制，香味浓郁醇厚",
+      "name": "动物油脂系列",
+      "description": "耐高温—不怕煮的好牛油",
       "products": [
         {
           "_seriesIdx": 1,
@@ -19,7 +19,7 @@
               "label": "负压低温真空粹取"
             },
             {
-              "icon": "🌶",
+              "icon": "☀",
               "label": "干式脱胶"
             },
             {
@@ -54,7 +54,8 @@
           "sop": null,
           "id": 8,
           "videoAspect": "9/16",
-          "packaging": "images/干式牛油20kg(1).png"
+          "packaging": "images/干式牛油20kg(1).png",
+          "flavorId": "flavor_1"
         },
         {
           "_seriesIdx": 1,
@@ -62,23 +63,23 @@
           "subtitle": "PRODUCT · 09",
           "description": "选用高品质生脂，精炼过程采用干式脱胶工艺替代脱酸和水洗，减少了精炼过程带来的香味的损耗，最大程度保留醇厚脂香",
           "image": "images/干式背景图.png",
-          "bgm": "music/Paper-Circuit.mp3",
+          "bgm": "music/Plastic-Sunlight.mp3",
           "video": "",
           "crafts": [
             {
-              "icon": "",
+              "icon": "🧂",
               "label": "负压低温真空粹取"
             },
             {
-              "icon": "",
+              "icon": "☀",
               "label": "干式脱胶"
             },
             {
-              "icon": "",
+              "icon": "🔥",
               "label": "无水精炼"
             },
             {
-              "icon": "",
+              "icon": "🏅",
               "label": "4.0螺旋水凝工艺"
             }
           ],
@@ -98,71 +99,14 @@
           ],
           "scenarios": [
             {
-              "icon": "",
+              "icon": "🥘",
               "label": "重庆老火锅炒制"
             }
           ],
           "sop": null,
           "id": 9,
-          "packaging": "images/微信图片_20260602162727_450_5(1).png"
-        },
-        {
-          "_seriesIdx": 0,
-          "id": 1,
-          "name": "蜀忆老火锅牛油",
-          "subtitle": "PRODUCT · 01",
-          "description": "牧哥牛油与杭州川野食品联合为工厂客户推出的定制产品，优选西门塔尔牛种，鲜脂火炼，香味更浓",
-          "image": "images/product1.jpg",
-          "bgm": "music/Plastic-Sunlight.mp3",
-          "video": "https://www.bilibili.com/video/BV115DDBkEvD/",
-          "crafts": [
-            {
-              "icon": "🔥",
-              "label": "手工熬制"
-            },
-            {
-              "icon": "⏱",
-              "label": "8 小时慢熬"
-            },
-            {
-              "icon": "🌶",
-              "label": "正宗川味"
-            },
-            {
-              "icon": "🏅",
-              "label": "品质认证"
-            }
-          ],
-          "specs": [
-            {
-              "label": "规格",
-              "value": "20kg / 箱"
-            },
-            {
-              "label": "保质期",
-              "value": "12 个月"
-            },
-            {
-              "label": "储存方式",
-              "value": "阴凉干燥处保存"
-            }
-          ],
-          "scenarios": [
-            {
-              "icon": "🏪",
-              "label": "工厂定制"
-            },
-            {
-              "icon": "🥘",
-              "label": "老火锅炒制"
-            }
-          ],
-          "sop": {
-            "materials": [],
-            "auxiliaries": [],
-            "steps": []
-          },
-          "published": true
+          "packaging": "images/微信图片_20260602162727_450_5(1).png",
+          "flavorId": "flavor_1"
         },
         {
           "_seriesIdx": 3,
@@ -170,7 +114,7 @@
           "subtitle": "PRODUCT · 11",
           "description": "优选中国本土黄牛体脂率不低于90%的腰肚油，耐高温、越煮越香，脂香醇厚，回味悠长",
           "image": "images/1780410155865_qu8e0n.jpg",
-          "bgm": "",
+          "bgm": "music/Velvet-Thunder.mp3",
           "video": "",
           "crafts": [
             {
@@ -208,301 +152,28 @@
           ],
           "sop": null,
           "id": 11,
-          "packaging": "images/èç«éçæ²¹.png"
-        },
-        {
-          "name": "牧哥原香老火锅牛油",
-          "subtitle": "PRODUCT · 10",
-          "description": "延续传统老火锅技艺，以4.0螺旋水凝工艺替代急冷捏合，使得牛油结晶均匀，脂香浓郁且产品稳定。",
-          "image": "",
-          "bgm": "",
-          "video": "",
-          "crafts": [
-            {
-              "icon": "",
-              "label": "4.0螺旋水凝工艺"
-            },
-            {
-              "icon": "",
-              "label": "负压低温真空粹取"
-            },
-            {
-              "icon": "",
-              "label": "物理六脱工艺"
-            }
-          ],
-          "specs": [
-            {
-              "label": "规格",
-              "value": "20kg / 箱"
-            },
-            {
-              "label": "保质期",
-              "value": "12 个月"
-            },
-            {
-              "label": "储存方式",
-              "value": "阴凉干燥处保存"
-            }
-          ],
-          "scenarios": [
-            {
-              "icon": "",
-              "label": "重庆老火锅炒制"
-            }
-          ],
-          "sop": null,
-          "id": 10,
-          "published": true
-        },
-        {
-          "name": "牧哥餐饮定制老火锅牛油",
-          "subtitle": "PRODUCT · 12",
-          "description": "优选中国本土黄牛体脂率不低于90%的腰肚油，耐高温、耐久煮，脂香醇厚，回味悠长\n小包装方便炒料、打锅使用，为餐饮定制",
-          "image": "",
-          "bgm": "",
-          "video": "",
-          "crafts": [
-            {
-              "icon": "",
-              "label": "负压低温真空粹取"
-            },
-            {
-              "icon": "",
-              "label": "物理六脱工艺"
-            }
-          ],
-          "specs": [
-            {
-              "label": "规格",
-              "value": "5kg×4 / 箱"
-            },
-            {
-              "label": "保质期",
-              "value": "12 个月"
-            },
-            {
-              "label": "储存方式",
-              "value": "阴凉干燥处保存"
-            }
-          ],
-          "scenarios": [
-            {
-              "icon": "",
-              "label": "重庆老火锅炒制"
-            }
-          ],
-          "sop": null,
-          "id": 12
-        },
-        {
-          "name": "金牧哥珍品牛油",
-          "subtitle": "PRODUCT · 13",
-          "description": "精选体脂率不低于90%的腰肚油，采用负压低温真空粹取，脂香浓郁，色泽清亮\n\n油脂指标稳定，口感爽口，无浓厚油脂感，适宜川渝外客户",
-          "image": "",
-          "bgm": "",
-          "video": "",
-          "crafts": [
-            {
-              "icon": "",
-              "label": "负压低温真空粹取"
-            },
-            {
-              "icon": "",
-              "label": "物理六脱工艺"
-            },
-            {
-              "icon": "",
-              "label": "急冷捏合技术"
-            }
-          ],
-          "specs": [
-            {
-              "label": "规格",
-              "value": "20kg / 箱"
-            },
-            {
-              "label": "保质期",
-              "value": "12 个月"
-            },
-            {
-              "label": "储存方式",
-              "value": "阴凉干燥处保存"
-            }
-          ],
-          "scenarios": [
-            {
-              "icon": "",
-              "label": "川渝以外的地区火锅底料炒制"
-            }
-          ],
-          "sop": null,
-          "id": 13
-        },
-        {
-          "name": "牧哥精品牛油",
-          "subtitle": "PRODUCT · 14",
-          "description": "增强六脱工艺，脂香独特，色泽清亮，满足川渝外地区多元口味、大型连锁工厂等定制需求",
-          "image": "",
-          "bgm": "",
-          "video": "",
-          "crafts": [
-            {
-              "icon": "",
-              "label": "负压低温真空粹取"
-            },
-            {
-              "icon": "",
-              "label": "物理六脱工艺"
-            },
-            {
-              "icon": "",
-              "label": "急冷捏合技术"
-            }
-          ],
-          "specs": [
-            {
-              "label": "规格",
-              "value": "20kg / 箱"
-            },
-            {
-              "label": "保质期",
-              "value": "12 个月"
-            },
-            {
-              "label": "储存方式",
-              "value": "阴凉干燥处保存"
-            }
-          ],
-          "scenarios": [
-            {
-              "icon": "",
-              "label": "川渝以外的地区火锅底料炒制"
-            },
-            {
-              "icon": "",
-              "label": "工厂底料炒制"
-            }
-          ],
-          "sop": null,
-          "id": 14
-        },
-        {
-          "name": "牧哥精炼羊油",
-          "subtitle": "PRODUCT · 15",
-          "description": "纯羊油，满足火锅底料调味、工业制药等生产需求",
-          "image": "",
-          "bgm": "",
-          "video": "",
-          "crafts": [
-            {
-              "icon": "",
-              "label": "负压低温真空粹取"
-            },
-            {
-              "icon": "",
-              "label": "物理六脱工艺"
-            },
-            {
-              "icon": "",
-              "label": "急冷捏合技术"
-            }
-          ],
-          "specs": [
-            {
-              "label": "规格",
-              "value": "5kg×4 / 箱"
-            },
-            {
-              "label": "保质期",
-              "value": "12 个月"
-            },
-            {
-              "label": "储存方式",
-              "value": "阴凉干燥处保存"
-            }
-          ],
-          "scenarios": [
-            {
-              "icon": "",
-              "label": "制药"
-            },
-            {
-              "icon": "",
-              "label": "工厂火锅底料调味"
-            }
-          ],
-          "sop": null,
-          "id": 15
-        },
-        {
-          "_seriesIdx": 0,
-          "name": "牧哥精炼老火锅牛油",
-          "subtitle": "PRODUCT · 16",
-          "description": "为工厂、餐饮连锁提供的定制化精制油脂，产品高性价比",
-          "image": "",
-          "bgm": "",
-          "video": "",
-          "crafts": [
-            {
-              "icon": "",
-              "label": "负压真空萃取"
-            },
-            {
-              "icon": "",
-              "label": "物理六脱工艺"
-            },
-            {
-              "icon": "",
-              "label": "急冷捏合技术"
-            }
-          ],
-          "specs": [
-            {
-              "label": "规格",
-              "value": "20kg / 箱"
-            },
-            {
-              "label": "保质期",
-              "value": "12 个月"
-            },
-            {
-              "label": "储存方式",
-              "value": "阴凉干燥处保存"
-            }
-          ],
-          "scenarios": [
-            {
-              "icon": "",
-              "label": "定制服务"
-            },
-            {
-              "icon": "",
-              "label": "大型工厂底料加工"
-            }
-          ],
-          "sop": null,
-          "id": 16
+          "packaging": "images/èç«éçæ²¹.png",
+          "flavorId": "flavor_1"
         },
         {
           "_seriesIdx": 0,
           "name": "蜀忆老火锅牛油",
           "subtitle": "PRODUCT · 17",
           "description": "牧哥牛油与杭州川野食品联合为工厂客户推出的定制产品，优选西门塔尔牛种，鲜脂火炼，香味更浓。",
-          "image": "",
-          "bgm": "",
+          "image": "images/1780457104629_vrietu.jpg",
+          "bgm": "music/Reverb-Ledger.mp3",
           "video": "",
           "crafts": [
             {
-              "icon": "",
+              "icon": "🧂",
               "label": "负压低温真空粹取"
             },
             {
-              "icon": "",
+              "icon": "💧",
               "label": "物理六脱工艺"
             },
             {
-              "icon": "",
+              "icon": "❄",
               "label": "急冷捏合技术"
             }
           ],
@@ -522,16 +193,308 @@
           ],
           "scenarios": [
             {
-              "icon": "",
+              "icon": "⭐",
               "label": "定制服务"
             },
             {
-              "icon": "",
+              "icon": "🏪",
               "label": "大型工厂底料加工"
             }
           ],
           "sop": null,
-          "id": 17
+          "id": 17,
+          "packaging": "images/1780457113407_hx31w3.png",
+          "flavorId": "flavor_1"
+        },
+        {
+          "_seriesIdx": 4,
+          "name": "牧哥原香老火锅牛油",
+          "subtitle": "PRODUCT · 10",
+          "description": "延续传统老火锅技艺，以4.0螺旋水凝工艺替代急冷捏合，使得牛油结晶均匀，脂香浓郁且产品稳定。",
+          "image": "images/1780456251738_rjyebe.jpg",
+          "bgm": "music/Paper-Circuit.mp3",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🏅",
+              "label": "4.0螺旋水凝工艺"
+            },
+            {
+              "icon": "🧂",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "💧",
+              "label": "物理六脱工艺"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "20kg / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "重庆老火锅炒制"
+            }
+          ],
+          "sop": null,
+          "id": 10,
+          "published": false,
+          "packaging": "images/1780456757104_sbl51i.jpg",
+          "flavorId": "flavor_1"
+        },
+        {
+          "_seriesIdx": 5,
+          "name": "牧哥餐饮定制老火锅牛油",
+          "subtitle": "PRODUCT · 12",
+          "description": "优选中国本土黄牛体脂率不低于90%的腰肚油，耐高温、耐久煮，脂香醇厚，回味悠长\n小包装方便炒料、打锅使用，为餐饮定制",
+          "image": "images/1780456311228_yw2ht0.jpg",
+          "bgm": "music/Reverb-Ledger.mp3",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🧂",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "💧",
+              "label": "物理六脱工艺"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "5kg×4 / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "重庆老火锅炒制"
+            }
+          ],
+          "sop": null,
+          "id": 12,
+          "packaging": "images/1780456903338_3y6pes.png",
+          "flavorId": "flavor_1"
+        },
+        {
+          "_seriesIdx": 6,
+          "name": "金牧哥珍品牛油",
+          "subtitle": "PRODUCT · 13",
+          "description": "精选体脂率不低于90%的腰肚油，采用负压低温真空粹取，脂香浓郁，色泽清亮\n\n油脂指标稳定，口感爽口，无浓厚油脂感，适宜川渝外客户",
+          "image": "images/1780456372131_zp3f0i.jpg",
+          "bgm": "music/Circuit-Cabbage.mp3",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🧂",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "💧",
+              "label": "物理六脱工艺"
+            },
+            {
+              "icon": "❄",
+              "label": "急冷捏合技术"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "20kg / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🍲",
+              "label": "川渝以外的地区火锅底料炒制"
+            }
+          ],
+          "sop": null,
+          "id": 13,
+          "packaging": "images/1780456391978_6r6p43.png",
+          "flavorId": "flavor_2"
+        },
+        {
+          "_seriesIdx": 7,
+          "name": "牧哥精品牛油",
+          "subtitle": "PRODUCT · 14",
+          "description": "增强六脱工艺，脂香独特，色泽清亮，满足川渝外地区多元口味、大型连锁工厂等定制需求",
+          "image": "images/1780473721998_y27pcv.jpg",
+          "bgm": "music/Velvet-Thunder.mp3",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🧂",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "💧",
+              "label": "物理六脱工艺"
+            },
+            {
+              "icon": "❄",
+              "label": "急冷捏合技术"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "20kg / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🍲",
+              "label": "川渝以外的地区火锅底料炒制"
+            },
+            {
+              "icon": "🏪",
+              "label": "工厂底料炒制"
+            }
+          ],
+          "sop": null,
+          "id": 14,
+          "packaging": "images/1780456445606_cdwgxz.png",
+          "published": false
+        },
+        {
+          "_seriesIdx": 8,
+          "name": "牧哥精炼羊油",
+          "subtitle": "PRODUCT · 15",
+          "description": "纯羊油，满足火锅底料调味、工业制药等生产需求",
+          "image": "images/1780456487483_2in82t.jpg",
+          "bgm": "music/Reverb-Ledger.mp3",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🧂",
+              "label": "负压低温真空粹取"
+            },
+            {
+              "icon": "💧",
+              "label": "物理六脱工艺"
+            },
+            {
+              "icon": "🏅",
+              "label": "4.0螺旋水凝工艺"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "5kg×4 / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "✅",
+              "label": "制药"
+            },
+            {
+              "icon": "🏪",
+              "label": "工厂火锅底料调味"
+            }
+          ],
+          "sop": null,
+          "id": 15,
+          "packaging": "images/1780456499988_nmvbbe.png"
+        },
+        {
+          "_seriesIdx": 0,
+          "name": "牧哥精炼老火锅牛油",
+          "subtitle": "PRODUCT · 16",
+          "description": "为工厂、餐饮连锁提供的定制化精制油脂，产品高性价比",
+          "image": "images/1780473846009_tmpi13.jpg",
+          "bgm": "music/Plastic-Sunlight.mp3",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🧂",
+              "label": "负压真空萃取"
+            },
+            {
+              "icon": "💧",
+              "label": "物理六脱工艺"
+            },
+            {
+              "icon": "❄",
+              "label": "急冷捏合技术"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "20kg / 箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "✅",
+              "label": "定制服务"
+            },
+            {
+              "icon": "🏪",
+              "label": "大型工厂底料加工"
+            }
+          ],
+          "sop": null,
+          "id": 16,
+          "packaging": "images/1780458006201_lpyn7x.png",
+          "flavorId": "flavor_2"
         },
         {
           "_seriesIdx": 0,
@@ -576,27 +539,28 @@
             }
           ],
           "sop": null,
-          "id": 19
+          "id": 19,
+          "published": false
         },
         {
           "_seriesIdx": 0,
           "name": "牧哥原香打锅牛油",
           "subtitle": "PRODUCT · 18",
           "description": "精选老火锅牛油原料，装饰锅底，快速提升锅底风味，加量不加价",
-          "image": "",
-          "bgm": "",
+          "image": "images/1780473649671_u6ftts.jpg",
+          "bgm": "music/Reverb-Ledger.mp3",
           "video": "",
           "crafts": [
             {
-              "icon": "",
+              "icon": "🧂",
               "label": "负压低温真空粹取"
             },
             {
-              "icon": "",
+              "icon": "💧",
               "label": "物理六脱工艺"
             },
             {
-              "icon": "",
+              "icon": "⏱",
               "label": "自然冷却"
             }
           ],
@@ -616,52 +580,283 @@
           ],
           "scenarios": [
             {
-              "icon": "",
+              "icon": "⭐",
               "label": "装饰锅底"
             },
             {
-              "icon": "",
+              "icon": "🌿",
               "label": "提升风味"
             }
           ],
           "sop": null,
-          "id": 18
+          "id": 18,
+          "packaging": "images/1780458643273_xri65j.png",
+          "flavorId": "flavor_1"
+        }
+      ],
+      "flavors": [
+        {
+          "id": "flavor_1",
+          "name": "老火锅风味"
+        },
+        {
+          "id": "flavor_2",
+          "name": "精炼风味"
         }
       ]
     },
     {
       "id": "hotpot",
       "name": "火锅底料",
-      "description": "牛油、清油、番茄、菌汤、藤椒等多种口味火锅底料，满足不同餐饮场景",
+      "description": "老火锅、飘香、香料、清油等多种口味火锅底料，满足不同餐饮场景",
       "products": [
         {
-          "_seriesIdx": 0,
-          "id": 2,
-          "name": "牛油火锅底料",
-          "subtitle": "PRODUCT · 02",
-          "description": "传统牛油火锅底料，麻辣鲜香，汤色红亮，适合各类川味火锅场景。",
-          "image": "images/product2.jpg",
-          "bgm": "music/Velvet-Thunder.mp3",
-          "video": "videos/咸蛋海鲜粥.mp4",
-          "videoAspect": "9/16",
+          "name": "沸腾老火锅底料1号",
+          "subtitle": "PRODUCT · 21",
+          "description": "地道重庆老火锅风味，选牧哥明星牛油，采用高品质辣椒花椒，汤色红亮，脂香味足，越煮越入味",
+          "flavorId": "flavor_1",
+          "image": "",
+          "bgm": "",
+          "video": "",
           "crafts": [
             {
+              "icon": "🏅",
+              "label": "12道工艺"
+            },
+            {
               "icon": "🔥",
-              "label": "传统工艺"
+              "label": "3小时炒制"
             },
             {
-              "icon": "🌶",
-              "label": "麻辣鲜香"
+              "icon": "⏱",
+              "label": "5小时焖制"
             },
             {
-              "icon": "🥘",
-              "label": "汤色红亮"
+              "icon": "🔥",
+              "label": "炒制全温控"
             }
           ],
           "specs": [
             {
               "label": "规格",
-              "value": "500g / 袋"
+              "value": "500g×30 /箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "重庆老火锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：沸腾老火锅底料1号500g（1袋）",
+              "沸腾老火锅红油1号1500g（3袋）"
+            ],
+            "auxiliaries": [
+              "辅料：蜀歌火锅专用调味粉1号80g、开水1500g、柱红3号/天鹰小椒35g、小葱2节、花椒（武都）20g、打锅牛油55g"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加入沸腾老火锅底料1号500g（1袋）、沸腾老火锅红油1号1500g（3袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、小葱2节、打锅花椒（武都）20g、蜀歌火锅专用调味粉1号80g（1袋）、打锅牛油55g；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水1500g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 21
+        },
+        {
+          "name": "沸腾火锅底料3号",
+          "subtitle": "PRODUCT · 22",
+          "description": "一体复合料，香料风味突出，油脂风味足，价格适中，川渝外火锅应用优选",
+          "flavorId": "flavor_1",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🌶",
+              "label": "20余种香料配置"
+            },
+            {
+              "icon": "⏱",
+              "label": "8小时焖制"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "500g×30 /箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "川渝外火锅"
+            },
+            {
+              "icon": "🥘",
+              "label": "水火锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：沸腾火锅底料3号500g（1袋）",
+              "沸腾火锅红油3号500g（1袋）",
+              "产品：沸腾火锅底料3号500g（1袋）",
+              "沸腾火锅红油3号1500g（3袋）"
+            ],
+            "auxiliaries": [
+              "辅料：开水2000g、石柱红3号/天鹰小椒35g、花椒（武都）20g、小葱2节",
+              "辅料：开水2000g、石柱红3号/天鹰小椒35g、花椒（武都）20g、小葱2节"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加入沸腾火锅底料3号500g（1袋）、沸腾火锅红油3号500g（1袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、打锅花椒（武都）20g、小葱2节；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水2000g，烧至红油融化，水烧开即可。"
+              },
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤3",
+                "content": "在锅底加入沸腾火锅底料3号500g（1袋）、沸腾火锅红油3号1500g（3袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、打锅花椒（武都）20g、小葱2节。"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤4",
+                "content": "倒入开水2000g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 22
+        },
+        {
+          "name": "火锅底料（沸腾厚脂型1号）",
+          "subtitle": "PRODUCT · 23",
+          "description": "选用牧哥明星牛油，高温炒制，激发辣椒复合风味，且焦香与脂香味突出。",
+          "flavorId": "flavor_1",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🔥",
+              "label": "高温炒制"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "500g×30 /箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "川渝火锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：火锅底料（沸腾厚脂型1号）500g（1袋）",
+              "火锅红油（沸腾椒香型1号）1500g（3袋）"
+            ],
+            "auxiliaries": [
+              "辅料：火锅调味粉80g（1袋）、石柱红3号35g、茂汶红花椒 20g、姜片3片、小葱头2段、打锅牛油55g"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加火锅底料（沸腾厚脂型1号）500g（1袋）、火锅红油（沸腾椒香型1号）1500g（3袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、姜片3片、小葱2节、打锅花椒（武都/茂汶）20g、蜀歌火锅专用调味粉1号80g（1袋）、打锅牛油55g；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水1500g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 23,
+          "published": false
+        },
+        {
+          "name": "沸腾火锅底料2号",
+          "subtitle": "PRODUCT · 24",
+          "description": "功能底料，应用场景丰富。选用牧哥明星牛油，采用高品质辣椒花椒，风味飘香，久煮不散",
+          "flavorId": "flavor_3",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🌶",
+              "label": "20余种香料配置"
+            },
+            {
+              "icon": "⏱",
+              "label": "8小时焖制"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "500g×30 /箱"
             },
             {
               "label": "保质期",
@@ -679,114 +874,88 @@
             },
             {
               "icon": "🍲",
-              "label": "冒菜"
+              "label": "麻辣烫"
+            },
+            {
+              "icon": "🍚",
+              "label": "中餐烧菜"
+            },
+            {
+              "icon": "🍳",
+              "label": "干锅"
             }
-          ]
+          ],
+          "sop": {
+            "materials": [
+              "产品：沸腾火锅底料2号500g（1袋）",
+              "沸腾老火锅红油1号1000g（2袋）",
+              "产品：沸腾火锅底料2号500g（1袋）"
+            ],
+            "auxiliaries": [
+              "辅料：开水2000g、石柱红3号/天鹰小椒35g、花椒（武都）20g、小葱2节",
+              "辅料：开水2000g、石柱红3号/天鹰小椒35g、花椒（武都）20g、小葱2节"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加入沸腾2号火锅底料500g（1袋）、沸腾1号老火锅红油1000g（2袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、打锅花椒（武都花椒）20g、小葱2节；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水2000g，烧至红油融化，水烧开即可。"
+              },
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤3",
+                "content": "在锅底加入沸腾火锅底料2号500g（1袋）、打锅花椒（武都）20g、打锅辣椒（石柱红3号/天鹰小椒）35g、小葱2节；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤4",
+                "content": "倒入开水2000g，烧至红油融化，水烧开即可。"
+              },
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤5",
+                "content": "红油按需添加"
+              }
+            ]
+          },
+          "id": 24
         },
         {
-          "id": 3,
-          "name": "清油火锅底料",
-          "subtitle": "PRODUCT · 03",
-          "description": "纯植物油脂炼制，汤色清亮不糊口，麻辣清爽不油腻，适合养生火锅场景。",
-          "image": "images/product3.jpg",
-          "bgm": "music/Paper-Circuit.mp3",
+          "name": "火锅底料（沸腾12号）",
+          "subtitle": "PRODUCT · 25",
+          "description": "沸腾火锅底料2号升级版。功能底料，应用场景丰富。选用牧哥高端牛油干式鲜牛油，脂香升级，飘香风味持久。",
+          "flavorId": "flavor_3",
+          "image": "",
+          "bgm": "",
           "video": "",
           "crafts": [
-            {
-              "icon": "🌿",
-              "label": "植物油脂"
-            },
-            {
-              "icon": "💧",
-              "label": "清爽不腻"
-            },
             {
               "icon": "🌶",
-              "label": "麻辣鲜香"
-            }
-          ],
-          "specs": [
-            {
-              "label": "规格",
-              "value": "500g / 袋"
-            },
-            {
-              "label": "保质期",
-              "value": "12 个月"
-            },
-            {
-              "label": "储存方式",
-              "value": "阴凉干燥处保存"
-            }
-          ]
-        },
-        {
-          "id": 4,
-          "name": "番茄火锅底料",
-          "subtitle": "PRODUCT · 04",
-          "description": "新疆日照番茄为原料，酸甜浓郁，汤底可直接饮用，老少皆宜。",
-          "image": "images/product4.jpg",
-          "bgm": "music/Circuit-Cabbage.mp3",
-          "video": "",
-          "crafts": [
-            {
-              "icon": "🍅",
-              "label": "新疆番茄"
-            },
-            {
-              "icon": "☀",
-              "label": "日照充足"
-            },
-            {
-              "icon": "👶",
-              "label": "老少皆宜"
-            },
-            {
-              "icon": "💧",
-              "label": "汤底可饮"
-            }
-          ],
-          "specs": [
-            {
-              "label": "规格",
-              "value": "500g / 袋"
-            },
-            {
-              "label": "保质期",
-              "value": "12 个月"
-            },
-            {
-              "label": "储存方式",
-              "value": "阴凉干燥处保存"
-            }
-          ]
-        },
-        {
-          "id": 5,
-          "name": "菌汤火锅底料",
-          "subtitle": "PRODUCT · 05",
-          "description": "云南野生菌菇拼配，松茸提鲜、牛肝菌增香，汤色金黄，鲜味醇厚。",
-          "image": "images/product1.jpg",
-          "bgm": "music/Reverb-Ledger.mp3",
-          "video": "",
-          "crafts": [
-            {
-              "icon": "🍄",
-              "label": "云南野菌"
-            },
-            {
-              "icon": "⭐",
-              "label": "松茸提鲜"
+              "label": "20余种香料配置"
             },
             {
               "icon": "⏱",
-              "label": "慢火炖煮"
+              "label": "8小时焖制"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
             }
           ],
           "specs": [
             {
               "label": "规格",
-              "value": "500g / 袋"
+              "value": "500g×30 /箱"
             },
             {
               "label": "保质期",
@@ -796,38 +965,167 @@
               "label": "储存方式",
               "value": "阴凉干燥处保存"
             }
-          ]
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "地摊火锅"
+            },
+            {
+              "icon": "🍲",
+              "label": "麻辣烫"
+            },
+            {
+              "icon": "🍚",
+              "label": "中餐烧菜"
+            },
+            {
+              "icon": "🍳",
+              "label": "干锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：火锅底料（沸腾12号）500g（1袋）",
+              "产品：沸腾火锅底料2号500g（1袋）",
+              "火锅红油（沸腾椒香型1号）1000g（2袋）"
+            ],
+            "auxiliaries": [
+              "辅料：石柱红5号35g、茂汶红花椒 20g、姜片3片、小葱头2段、打锅牛油55g",
+              "辅料：开水2000g、石柱红3号/天鹰小椒35g、花椒（武都）20g、小葱2节、姜片3片"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加火锅底料（沸腾12号）500g（1袋）、打锅花椒20g、打锅辣椒（石柱红3号/天鹰小椒）35g、小葱2节、姜片3片；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水2000g，烧至红油融化，水烧开即可。"
+              },
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤3",
+                "content": "红油按需添加"
+              },
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤4",
+                "content": "在锅底加入火锅底料（沸腾12号）500g（1袋）、火锅红油（沸腾椒香型1号）1000g、打锅辣椒（石柱红3号/天鹰小椒）35g、打锅花椒（武都花椒）20g、小葱2、姜片3片；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤5",
+                "content": "倒入开水2000g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 25
         },
         {
-          "id": 6,
-          "name": "麻辣香锅底料",
-          "subtitle": "PRODUCT · 06",
-          "description": "多种辣椒黄金配比，搭配十余种香辛料，干锅翻炒酱香浓郁、辣而不燥。",
-          "image": "images/product2.jpg",
-          "bgm": "music/Velvet-Thunder.mp3",
+          "name": "沸腾荞荞妹火锅底料1号",
+          "subtitle": "PRODUCT · 26",
+          "description": "地道重庆地摊火锅，低成本高性价比，百搭性强，汤色红亮，风味稳定",
+          "flavorId": "flavor_3",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "❄",
+              "label": "3重降温"
+            },
+            {
+              "icon": "⏱",
+              "label": "8小时焖制"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "500g×30 /箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "地摊火锅"
+            },
+            {
+              "icon": "🥘",
+              "label": "串串火锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：沸腾荞荞妹火锅底料1号500g（1袋）",
+              "沸腾火锅红油（沸腾千椒香11号）500g（1袋）"
+            ],
+            "auxiliaries": [
+              "辅料：开水2500g、石柱红3号/天鹰小椒35g、花椒（武都）20g、小葱2节"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加入沸腾荞荞妹火锅底料1号500g（1袋）、沸腾火锅红油（沸腾千椒香11号）500g（1袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、小葱2节、打锅花椒（武都）20g；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水2500g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 26
+        },
+        {
+          "name": "火锅底料（沸腾老火锅10号）",
+          "subtitle": "PRODUCT · 27",
+          "description": "追求火锅飘香，选用牧哥明星牛油，采用高品质辣椒花椒，加入老坛泡菜，提升综合风味，且锅底飘香。",
+          "flavorId": "flavor_3",
+          "image": "",
+          "bgm": "",
           "video": "",
           "crafts": [
             {
               "icon": "🌶",
-              "label": "多椒配比"
+              "label": "20余种香料配置"
             },
             {
-              "icon": "🧂",
-              "label": "十余种香辛料"
+              "icon": "⏱",
+              "label": "8小时焖制"
             },
             {
               "icon": "🔥",
-              "label": "酱香浓郁"
-            },
-            {
-              "icon": "✅",
-              "label": "辣而不燥"
+              "label": "炒制全温控"
             }
           ],
           "specs": [
             {
               "label": "规格",
-              "value": "1kg / 袋"
+              "value": "500g×30 /箱"
             },
             {
               "label": "保质期",
@@ -837,30 +1135,61 @@
               "label": "储存方式",
               "value": "阴凉干燥处保存"
             }
-          ]
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "川渝火锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：火锅底料（沸腾老火锅10号）500g（1袋）",
+              "火锅红油（沸腾椒香型1号）1000g（2袋）"
+            ],
+            "auxiliaries": [
+              "辅料：石柱红5号 35g、花椒（武都/茂汶） 20g、姜片3片、小葱头2段、打锅牛油55g"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加火锅底料（沸腾老火锅10号）500g（1袋）、火锅红油（沸腾椒香型1号）1000g（2袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、小葱2节、姜片3片、打锅花椒（武都/茂汶）20g、打锅牛油55g；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水2000g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 27
         },
         {
-          "id": 7,
-          "name": "藤椒火锅底料",
-          "subtitle": "PRODUCT · 07",
-          "description": "洪雅鲜藤椒入料，清香麻爽，入口微麻回甘，夏季火锅的上选之品。",
-          "image": "images/product1.jpg",
-          "bgm": "music/Plastic-Sunlight.mp3",
+          "_seriesIdx": 7,
+          "name": "沸腾火锅底料（沸腾大师派12号）",
+          "subtitle": "PRODUCT · 28",
+          "description": "20余种香料复配，香料风味和牛油脂香释放，麻辣鲜香",
+          "flavorId": "flavor_7",
+          "image": "",
+          "bgm": "",
           "video": "",
           "crafts": [
             {
-              "icon": "🌿",
-              "label": "洪雅藤椒"
+              "icon": "🌶",
+              "label": "20余种香料配置"
             },
             {
-              "icon": "❄",
-              "label": "鲜麻清爽"
+              "icon": "🔥",
+              "label": "炒制全温控"
             }
           ],
           "specs": [
             {
               "label": "规格",
-              "value": "500g / 袋"
+              "value": "500g×30 /箱"
             },
             {
               "label": "保质期",
@@ -870,14 +1199,680 @@
               "label": "储存方式",
               "value": "阴凉干燥处保存"
             }
-          ]
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "川渝外火锅"
+            },
+            {
+              "icon": "🥘",
+              "label": "水火锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：沸腾火锅底料（沸腾大师派12号）500g（1袋）",
+              "沸腾火锅红油（沸腾大师派12号）1500g（3袋）"
+            ],
+            "auxiliaries": [
+              "辅料：蜀歌火锅专用调味粉1号80g（1袋）、开水1500g、石柱红3号/天鹰小椒35g、花椒（武都）20g、小葱2节、打锅牛油55g"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加入沸腾火锅底料（沸腾大师派12号）500g（1袋）、沸腾火锅红油（沸腾大师派12号）1500g（3袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、小葱2节、打锅花椒（武都）20g、蜀歌火锅专用调味粉1号80g（1袋）、打锅牛油55g；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水1500g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 28
+        },
+        {
+          "_seriesIdx": 8,
+          "name": "火锅底料（沸腾老火锅23号）",
+          "subtitle": "PRODUCT · 29",
+          "description": "20余种香料复配，香料风味与牛油脂香深度融合，相互激发，香气复合饱满，麻辣鲜香。",
+          "flavorId": "flavor_7",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🌶",
+              "label": "20余种香料配置"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "500g×30 /箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "川渝外火锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：火锅底料（沸腾老火锅23号）500g（1袋）",
+              "产品：火锅底料（沸腾老火锅23号）500g（1袋）",
+              "火锅红油（沸腾老火锅23号）1000g（2袋）"
+            ],
+            "auxiliaries": [
+              "辅料：石柱红5号35g、茂汶红花椒 20g、姜片3片、小葱头2段、打锅牛油55g",
+              "辅料：石柱红3号35g、茂汶红花椒 20g、姜片3片、小葱头2段、打锅牛油55g"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加火锅底料（沸腾老火锅23号）500g（1袋）、打锅花椒20g、打锅辣椒（石柱红3号/天鹰小椒）35g、小葱2节、姜片3片；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水2000g，烧至红油融化，水烧开即可。"
+              },
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤3",
+                "content": "红油按需添加"
+              },
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤4",
+                "content": "在锅底加火锅底料（沸腾老火锅23号）500g（1袋）、火锅红油（沸腾老火锅23号）1000g（2袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、小葱2节、打锅花椒（武都/茂汶）20g、打锅牛油55g；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤5",
+                "content": "倒入开水2000g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 29
+        },
+        {
+          "name": "沸腾火锅底料（沸腾千椒香11号）",
+          "subtitle": "PRODUCT · 30",
+          "description": "5种高品质辣椒复配，色泽红润，椒香层次分明",
+          "flavorId": "flavor_2",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🌶",
+              "label": "5种辣椒复配"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "500g×30 /箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "川渝火锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：沸腾火锅底料（沸腾千椒香11号）500g（1袋）",
+              "沸腾火锅红油（沸腾千椒香11号）1500g（3袋）"
+            ],
+            "auxiliaries": [
+              "辅料：蜀歌火锅专用调味粉1号80g（1袋）、开水1500g、石柱红3号/天鹰小椒35g、花椒（武都）20g、小葱2节、打锅牛油55g"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加入沸腾火锅底料（沸腾千椒香11号）500g（1袋）、沸腾火锅红油（沸腾千椒香11号）1500g（3袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、小葱2节、打锅花椒（武都）20g、蜀歌火锅专用调味粉1号80g（1袋）、打锅牛油55g；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水1500g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 30
+        },
+        {
+          "name": "火锅底料（沸腾椒香型1号）",
+          "subtitle": "PRODUCT · 31",
+          "description": "千椒香11号升级版。高品质辣椒复配，色泽红润，椒香层次分明，辣味足",
+          "flavorId": "flavor_2",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🌶",
+              "label": "5种辣椒复配"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "20kg /箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "川渝火锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：火锅底料（沸腾椒香型1号）500g（1袋）",
+              "沸腾火锅红油（沸腾椒香1号）1500g（3袋）"
+            ],
+            "auxiliaries": [
+              "辅料：火锅调味粉80g（1袋）、开水1500g、石柱红3号/天鹰小椒35g、花椒（武都）20g、小葱2节、打锅牛油55g"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加入火锅底料（沸腾椒香型1号）500g（1袋）、沸腾火锅红油（沸腾椒香1号）1500g（3袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、小葱2节、打锅花椒（武都）20g、蜀歌火锅专用调味粉1号80g（1袋）、打锅牛油55g；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水1500g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 31
+        },
+        {
+          "name": "火锅底料（沸腾老火锅8号）",
+          "subtitle": "PRODUCT · 32",
+          "description": "椒香风味火锅底料，突出川辣，色泽红润，椒香层次分明",
+          "flavorId": "flavor_2",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🌶",
+              "label": "辣椒复配"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "500g×30 /箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "川渝火锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：火锅底料（沸腾老火锅8号）500g（1袋）",
+              "火锅红油（沸腾老火锅8号）1500g（3袋）"
+            ],
+            "auxiliaries": [
+              "辅料：火锅调味粉80g（1袋）、石柱红5号35g、茂汶红花椒 20g、姜片3片、小葱头2段、打锅牛油55g"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加火锅底料（沸腾老火锅8号）500g（1袋）、火锅红油（沸腾老火锅8号）1500g（3袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、小葱2节、打锅花椒（武都/茂汶）20g、火锅调味粉80g（1袋）、打锅牛油55g；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水1500g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 32
+        },
+        {
+          "name": "沸腾伯牙茉莉火锅底料",
+          "subtitle": "PRODUCT · 33",
+          "description": "优选花朵肥大茉莉，自然生长，传统晾晒，入口茉莉花清香，香气久煮不散，牛油脂香味与茉莉花香味同时凸显",
+          "flavorId": "",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🔥",
+              "label": "低温炒制"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "500g×30 /箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "新派火锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：沸腾伯牙茉莉火锅底料500g（1袋）",
+              "沸腾火锅红油（沸腾千椒香11号）500g（1袋）"
+            ],
+            "auxiliaries": [
+              "辅料：开水1250g、干茉莉花5g"
+            ],
+            "steps": [
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤1",
+                "content": "在锅底加入沸腾伯牙茉莉火锅底料500g（1袋）、5g茉莉花倒入锅中;"
+              },
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤2",
+                "content": "红油按需添加沸腾火锅红油（沸腾千椒香11号）；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤3",
+                "content": "倒入开水2500g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 33
+        },
+        {
+          "name": "沸腾新会陈皮火锅底料",
+          "subtitle": "PRODUCT · 34",
+          "description": "优选新会核心产地陈皮，陈皮降燥的药理功能，让火锅更解腻，锅底主打健康。既有陈皮的甘香味，又有油脂香味，口感层次丰富",
+          "flavorId": "",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🔥",
+              "label": "低温炒制"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "500g×30 /箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "新派火锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：沸腾新会陈皮火锅底料500g（1袋）",
+              "沸腾火锅红油（沸腾千椒香11号）500g（1袋）"
+            ],
+            "auxiliaries": [
+              "辅料：开水2500g、陈皮5g"
+            ],
+            "steps": [
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤1",
+                "content": "在锅底加入沸腾新会陈皮火锅底料500g（1袋）、沸腾红油千椒香11号500g（1袋）、5g陈皮丝倒入锅中；"
+              },
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤2",
+                "content": "红油按需添加沸腾火锅红油（沸腾千椒香11号）；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤3",
+                "content": "倒入开水2500g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 34
+        },
+        {
+          "name": "火锅底料（沸腾蜀香型1号）",
+          "subtitle": "PRODUCT · 35",
+          "description": "地道传统风味，承袭重庆老火锅的醇厚底蕴，增加足量老坛泡椒，发酵气息浓郁。牛油香浓，麻辣浓郁，锅底红亮，久煮不浑。",
+          "flavorId": "flavor_4",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "🧂",
+              "label": "乳酸风味复配"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "500g×30 /箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "地摊火锅"
+            },
+            {
+              "icon": "🥘",
+              "label": "串串火锅"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：火锅底料（沸腾蜀香型1号）500g（1袋）",
+              "火锅红油（沸腾椒香型1号）1500g（3袋）"
+            ],
+            "auxiliaries": [
+              "辅料：火锅调味粉80g（1袋）、开水1500g、石柱红5号35g、茂汶红花椒 20g、姜片3片、小葱头2段、打锅牛油55g"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加火锅底料（沸腾蜀香型1号）500g（1袋）、火锅红油（沸腾椒香型1号）1500g（3袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、小葱2节、打锅花椒（武都/茂汶）20g、蜀歌火锅专用调味粉1号80g（1袋）、打锅牛油55g；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水1500g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 35
+        },
+        {
+          "name": "清油火锅底料（飞鱼1号）",
+          "subtitle": "PRODUCT · 36",
+          "description": "清油火锅、美蛙鱼头火锅优选，优质辣椒花椒，麻辣纯正且植物油清香突出",
+          "flavorId": "flavor_6",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "❄",
+              "label": "3重降温"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "500g×30 /箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "清油火锅"
+            },
+            {
+              "icon": "🍲",
+              "label": "麻辣烫"
+            },
+            {
+              "icon": "🐸",
+              "label": "美蛙鱼头"
+            },
+            {
+              "icon": "🍳",
+              "label": "干锅"
+            }
+          ],
+          "sop": null,
+          "id": 36
+        },
+        {
+          "name": "火锅底料（沸腾清油1号）",
+          "subtitle": "PRODUCT · 37",
+          "description": "清油火锅、美蛙鱼头火锅优选，优质辣椒花椒，麻辣纯正且植物油清香突出",
+          "flavorId": "flavor_6",
+          "image": "",
+          "bgm": "",
+          "video": "",
+          "crafts": [
+            {
+              "icon": "❄",
+              "label": "3重降温"
+            },
+            {
+              "icon": "🔥",
+              "label": "炒制全温控"
+            }
+          ],
+          "specs": [
+            {
+              "label": "规格",
+              "value": "500g×30 /箱"
+            },
+            {
+              "label": "保质期",
+              "value": "12 个月"
+            },
+            {
+              "label": "储存方式",
+              "value": "阴凉干燥处保存"
+            }
+          ],
+          "scenarios": [
+            {
+              "icon": "🥘",
+              "label": "清油火锅"
+            },
+            {
+              "icon": "🍲",
+              "label": "麻辣烫"
+            },
+            {
+              "icon": "🐸",
+              "label": "美蛙鱼头"
+            }
+          ],
+          "sop": {
+            "materials": [
+              "产品：火锅底料（沸腾清油1号）500g（1袋）",
+              "火锅红油（沸腾清油1号）1000g（2袋）"
+            ],
+            "auxiliaries": [
+              "辅料：青小米辣100g、红小米辣50g、鲜青花椒20g、香菜段10g、老姜片3片、小葱头30g、大蒜颗10g、青花椒3g"
+            ],
+            "steps": [
+              {
+                "type": "准备",
+                "icon": "📋",
+                "title": "步骤1",
+                "content": "在锅底加火锅底料（沸腾清油1号）500g（1袋）、火锅红油（沸腾清油1号）1000g（2袋）、青小米辣100g、红小米辣50g、鲜青花椒20g、香菜段10g、老姜片3片、小葱头30g、大蒜颗10g、青花椒3g；"
+              },
+              {
+                "type": "煮制",
+                "icon": "🔥",
+                "title": "步骤2",
+                "content": "倒入开水1500g，烧至红油融化，水烧开即可。"
+              }
+            ]
+          },
+          "id": 37
+        }
+      ],
+      "flavors": [
+        {
+          "id": "flavor_1",
+          "name": "老火锅风味"
+        },
+        {
+          "id": "flavor_2",
+          "name": "椒香风味"
+        },
+        {
+          "id": "flavor_3",
+          "name": "飘香风味"
+        },
+        {
+          "id": "flavor_4",
+          "name": "泡椒风味"
+        },
+        {
+          "id": "flavor_5",
+          "name": "时令季节风味"
+        },
+        {
+          "id": "flavor_6",
+          "name": "清油风味"
+        },
+        {
+          "id": "flavor_7",
+          "name": "香料风味"
         }
       ]
     },
     {
       "id": "fish",
       "name": "烤鱼料",
-      "description": "专为烤鱼场景研发，酱香浓郁，入味透彻，适用于各类烤鱼餐饮",
+      "description": "专为烤鱼场景研发，酱香浓郁，入味透彻，适用于各类烤鱼餐饮，出品稳出餐快",
       "products": [
         {
           "id": 20,
@@ -893,12 +1888,13 @@
           "scenarios": [],
           "published": true
         }
-      ]
+      ],
+      "flavors": []
     },
     {
       "id": "lobster",
       "name": "龙虾料",
-      "description": "小龙虾调味料，麻辣鲜香，入味快，适合夜宵排档和餐饮门店",
+      "description": "小龙虾调味料，麻辣鲜香入味快，蒜香风味汤汁浓郁，适合夜宵排档和餐饮门店",
       "products": []
     },
     {

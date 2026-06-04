@@ -121,6 +121,46 @@ body {
   margin-right: auto;
 }
 
+/* ======== 口味/风味分区标题 ======== */
+.flavor-group {
+  margin-bottom: var(--space-10);
+}
+
+.flavor-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  padding-top: var(--space-4);
+}
+
+.flavor-line {
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(to right, transparent, var(--color-accent) 20%, var(--color-accent) 80%, transparent);
+  opacity: 0.3;
+}
+
+.flavor-name {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-ink);
+  white-space: nowrap;
+  letter-spacing: 0.08em;
+  padding: 0 var(--space-2);
+}
+
+/* 手机端风味标题缩小 */
+@media (max-width: 640px) {
+  .flavor-name {
+    font-size: var(--text-base);
+  }
+  .flavor-group {
+    margin-bottom: var(--space-8);
+  }
+}
+
 /* ======== 页面头部 Hero ======== */
 .hero {
   text-align: center;
