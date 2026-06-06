@@ -103,7 +103,7 @@
         </template>
         <!-- 有风味 → 按风味分组展示 -->
         <template v-else>
-          <div v-for="flavor in s.flavors" :key="flavor.id" class="flavor-group">
+          <div v-for="flavor in flavorsWithProducts(s)" :key="flavor.id" class="flavor-group">
             <div class="flavor-header">
               <span class="flavor-line"></span>
               <span class="flavor-name">{{ flavor.name }}</span>
@@ -237,37 +237,39 @@
             </div>
           </div>
         </div>
-        <!-- SOP 操作流程 -->
-        <div class="modal-sop" v-if="selectedProduct.sop && ((selectedProduct.sop.steps && selectedProduct.sop.steps.length > 0) || (selectedProduct.sop.materials && selectedProduct.sop.materials.length > 0) || (selectedProduct.sop.auxiliaries && selectedProduct.sop.auxiliaries.length > 0))">
-          <div class="modal-sop-toggle" :class="{ open: sopExpanded }" @click="sopExpanded = !sopExpanded">
-            <span class="sop-arrow">▶</span>
-            <span>操作流程（SOP）</span>
-            <span style="font-size:11px;color:var(--color-ink-muted);" v-if="selectedProduct.sop.steps && selectedProduct.sop.steps.length">共 {{ selectedProduct.sop.steps.length }} 步</span>
-          </div>
-          <div class="modal-sop-body" :class="{ open: sopExpanded }">
-            <!-- 主料 + 辅料 -->
-            <div class="modal-sop-ingredients" v-if="(selectedProduct.sop.materials && selectedProduct.sop.materials.length) || (selectedProduct.sop.auxiliaries && selectedProduct.sop.auxiliaries.length)">
-              <div class="modal-sop-ing-grid">
-                <div class="modal-sop-ing-block" v-if="selectedProduct.sop.materials && selectedProduct.sop.materials.length">
-                  <div class="modal-sop-ing-title">主 料<span class="modal-sop-ing-en">Main Ingredients</span></div>
-                  <div class="modal-sop-ing-item" v-for="(m, mi) in selectedProduct.sop.materials" :key="'m'+mi">{{ m }}</div>
-                </div>
-                <div class="modal-sop-ing-block" v-if="selectedProduct.sop.auxiliaries && selectedProduct.sop.auxiliaries.length">
-                  <div class="modal-sop-ing-title">辅 料<span class="modal-sop-ing-en">Auxiliary Ingredients</span></div>
-                  <div class="modal-sop-ing-item" v-for="(a, ai) in selectedProduct.sop.auxiliaries" :key="'a'+ai">{{ a }}</div>
+        <!-- SOP 操作流程（多做法） -->
+        <div v-if="selectedProduct.sops && selectedProduct.sops.length">
+          <div v-for="(sopItem, sopIdx) in selectedProduct.sops" :key="'sop'+sopIdx" class="modal-sop" style="margin-top:4px;">
+            <div class="modal-sop-toggle" :class="{ open: sopExpanded[sopIdx] }" @click="toggleSop(sopIdx)">
+              <span class="sop-arrow">▶</span>
+              <span>{{ sopItem.name || '操作流程（SOP）' }}</span>
+              <span style="font-size:11px;color:var(--color-ink-muted);" v-if="sopItem.steps && sopItem.steps.length">共 {{ sopItem.steps.length }} 步</span>
+            </div>
+            <div class="modal-sop-body" :class="{ open: sopExpanded[sopIdx] }">
+              <!-- 主料 + 辅料 -->
+              <div class="modal-sop-ingredients" v-if="(sopItem.materials && sopItem.materials.length) || (sopItem.auxiliaries && sopItem.auxiliaries.length)">
+                <div class="modal-sop-ing-grid">
+                  <div class="modal-sop-ing-block" v-if="sopItem.materials && sopItem.materials.length">
+                    <div class="modal-sop-ing-title">主 料<span class="modal-sop-ing-en">Main Ingredients</span></div>
+                    <div class="modal-sop-ing-item" v-for="(m, mi) in sopItem.materials" :key="'m'+sopIdx+'_'+mi">{{ m }}</div>
+                  </div>
+                  <div class="modal-sop-ing-block" v-if="sopItem.auxiliaries && sopItem.auxiliaries.length">
+                    <div class="modal-sop-ing-title">辅 料<span class="modal-sop-ing-en">Auxiliary Ingredients</span></div>
+                    <div class="modal-sop-ing-item" v-for="(a, ai) in sopItem.auxiliaries" :key="'a'+sopIdx+'_'+ai">{{ a }}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <!-- 步骤 -->
-            <div class="modal-sop-steps" v-if="selectedProduct.sop.steps && selectedProduct.sop.steps.length > 0">
-              <div v-for="(step, i) in selectedProduct.sop.steps" :key="i" class="modal-sop-step">
-                <div class="modal-sop-icon">
-                  <img v-if="step.icon && resolveSopIcon(step.icon)" :src="resolveSopIcon(step.icon)" alt="">
-                </div>
-                <div class="modal-sop-info">
-                  <div class="modal-sop-type">{{ step.type }}</div>
-                  <div class="modal-sop-title">{{ step.title }}</div>
-                  <div class="modal-sop-content">{{ step.content }}</div>
+              <!-- 步骤 -->
+              <div class="modal-sop-steps" v-if="sopItem.steps && sopItem.steps.length > 0">
+                <div v-for="(step, i) in sopItem.steps" :key="'step'+sopIdx+'_'+i" class="modal-sop-step">
+                  <div class="modal-sop-icon">
+                    <img v-if="step.icon && resolveSopIcon(step.icon)" :src="resolveSopIcon(step.icon)" alt="">
+                  </div>
+                  <div class="modal-sop-info">
+                    <div class="modal-sop-type">{{ step.type }}</div>
+                    <div class="modal-sop-title">{{ step.title }}</div>
+                    <div class="modal-sop-content">{{ step.content }}</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -287,7 +289,7 @@
   <div class="video-overlay" :class="{ hidden: !showVideo }" @click.self="closeVideo">
     <div class="video-container" ref="videoContainer" :style="{ aspectRatio: videoAspect }" v-if="showVideo">
       <button class="video-close" @click="closeVideo">&times;</button>
-      <iframe ref="videoFrame" :src="embedVideoUrl" allowfullscreen></iframe>
+      <iframe ref="videoFrame" :src="embedVideoUrl" allow="autoplay; fullscreen" allowfullscreen></iframe>
     </div>
   </div>
 
@@ -328,6 +330,12 @@
           // 迁移旧 SOP 数据（无 materials/auxiliaries 字段）
           if (p.sop && p.sop.steps && !p.sop.materials) { p.sop.materials = []; needSave = true; }
           if (p.sop && p.sop.steps && !p.sop.auxiliaries) { p.sop.auxiliaries = []; needSave = true; }
+          // 迁移单 SOP → 多 SOP 数组（sop → sops）
+          if (p.sop && !p.sops) {
+            p.sops = [{ name: '工艺流程', materials: p.sop.materials || [], auxiliaries: p.sop.auxiliaries || [], steps: p.sop.steps || [] }];
+            delete p.sop;
+            needSave = true;
+          }
           // 迁移：确保 flavors 字段存在（风味分区功能）
           if (!s.flavors) { s.flavors = []; }
         });
@@ -418,7 +426,7 @@
         oilDropY: 20,
         showOilDrop: true,
         scrollTimer: null,
-        sopExpanded: false
+        sopExpanded: {}
       };
     },
 
@@ -469,6 +477,15 @@
           return (!p.flavorId || !valid[p.flavorId]) && p.published !== false;
         });
       },
+      // 只返回有已上架产品的风味
+      flavorsWithProducts(series) {
+        if (!series || !series.flavors) return [];
+        return series.flavors.filter(function (f) {
+          return series.products && series.products.some(function (p) {
+            return p.flavorId === f.id && p.published !== false;
+          });
+        });
+      },
 
       imgUrl(filename) {
         if (!filename) return '';
@@ -491,7 +508,7 @@
           if (this.musicPlaying) this.$refs.bgm.play().catch(function(){});
         }
         this.selectedProduct = product;
-        this.sopExpanded = false;
+        this.sopExpanded = {};
         document.body.style.overflow = 'hidden';
         var self = this;
         nextTick(function () {
@@ -501,12 +518,16 @@
 
       closeModal() {
         this.selectedProduct = null;
-        this.sopExpanded = false;
+        this.sopExpanded = {};
         document.body.style.overflow = '';
       },
 
       resolveSopIcon(icon) {
         return resolveSopIcon(icon);
+      },
+      toggleSop(idx) {
+        var val = this.sopExpanded[idx];
+        this.sopExpanded = Object.assign({}, this.sopExpanded, { [idx]: !val });
       },
 
       // === 油滴滚动指示器 ===
