@@ -691,7 +691,7 @@
           "subtitle": "PRODUCT · 22",
           "description": "一体复合料，香料风味突出，油脂风味足，价格适中，川渝外火锅应用优选",
           "flavorId": "flavor_1",
-          "image": "",
+          "image": "images/1782115749543_tz2pio.jpg",
           "bgm": "",
           "video": "",
           "crafts": [
@@ -770,13 +770,13 @@
               "steps": [
                 {
                   "type": "准备",
-                  "icon": "",
+                  "icon": "product",
                   "title": "步骤1",
                   "content": "在锅底加入沸腾火锅底料3号500g（1袋）、沸腾火锅红油3号500g（1袋）、打锅辣椒（石柱红3号/天鹰小椒）35g、打锅花椒（武都）20g、小葱2节；"
                 },
                 {
                   "type": "煮制",
-                  "icon": "",
+                  "icon": "process",
                   "title": "步骤2",
                   "content": "倒入开水2000g，烧至红油融化，水烧开即可。"
                 }
@@ -785,11 +785,12 @@
           ]
         },
         {
+          "_seriesIdx": 2,
           "name": "火锅底料（沸腾厚脂型1号）",
           "subtitle": "PRODUCT · 23",
           "description": "选用牧哥明星牛油，高温炒制，激发辣椒复合风味，且焦香与脂香味突出。",
           "flavorId": "flavor_1",
-          "image": "",
+          "image": "images/1782115763983_b1yq8a.jpg",
           "bgm": "",
           "video": "",
           "crafts": [
@@ -852,11 +853,12 @@
           ]
         },
         {
+          "_seriesIdx": 3,
           "name": "沸腾火锅底料2号",
           "subtitle": "PRODUCT · 24",
           "description": "功能底料，应用场景丰富。选用牧哥明星牛油，采用高品质辣椒花椒，风味飘香，久煮不散",
           "flavorId": "flavor_3",
-          "image": "",
+          "image": "images/1782115777636_we7gz6.jpg",
           "bgm": "",
           "video": "",
           "crafts": [
@@ -954,11 +956,12 @@
           ]
         },
         {
+          "_seriesIdx": 4,
           "name": "火锅底料（沸腾12号）",
           "subtitle": "PRODUCT · 25",
           "description": "沸腾火锅底料2号升级版。功能底料，应用场景丰富。选用牧哥高端牛油干式鲜牛油，脂香升级，飘香风味持久。",
           "flavorId": "flavor_3",
-          "image": "",
+          "image": "images/1782115791188_u3efqj.jpg",
           "bgm": "",
           "video": "",
           "crafts": [
@@ -1130,11 +1133,12 @@
           ]
         },
         {
+          "_seriesIdx": 6,
           "name": "火锅底料（沸腾老火锅10号）",
           "subtitle": "PRODUCT · 27",
           "description": "追求火锅飘香，选用牧哥明星牛油，采用高品质辣椒花椒，加入老坛泡菜，提升综合风味，且锅底飘香。",
           "flavorId": "flavor_3",
-          "image": "",
+          "image": "images/1782115802538_5ir5cc.jpg",
           "bgm": "",
           "video": "",
           "crafts": [
@@ -1205,7 +1209,7 @@
           "subtitle": "PRODUCT · 28",
           "description": "20余种香料复配，香料风味和牛油脂香释放，麻辣鲜香",
           "flavorId": "flavor_7",
-          "image": "",
+          "image": "images/1782115815105_dhiz1m.jpg",
           "bgm": "",
           "video": "",
           "crafts": [
@@ -1276,7 +1280,7 @@
           "subtitle": "PRODUCT · 29",
           "description": "20余种香料复配，香料风味与牛油脂香深度融合，相互激发，香气复合饱满，麻辣鲜香。",
           "flavorId": "flavor_7",
-          "image": "",
+          "image": "images/1782115828672_0ygzoq.jpg",
           "bgm": "",
           "video": "",
           "crafts": [
@@ -1358,11 +1362,12 @@
           ]
         },
         {
+          "_seriesIdx": 9,
           "name": "沸腾火锅底料（沸腾千椒香11号）",
           "subtitle": "PRODUCT · 30",
           "description": "5种高品质辣椒复配，色泽红润，椒香层次分明",
           "flavorId": "flavor_2",
-          "image": "",
+          "image": "images/1782116251029_e4ob8a.jpg",
           "bgm": "",
           "video": "",
           "crafts": [
@@ -1400,7 +1405,7 @@
             {
               "name": "工艺流程",
               "materials": [
-                "产品：沸腾火锅底料（沸腾千椒香11号）500g（1袋）",
+                "沸腾火锅底料（沸腾千椒香11号）500g（1袋）",
                 "沸腾火锅红油（沸腾千椒香11号）1500g（3袋）"
               ],
               "auxiliaries": [
@@ -1560,7 +1565,7 @@
           "name": "沸腾伯牙茉莉火锅底料",
           "subtitle": "PRODUCT · 33",
           "description": "优选花朵肥大茉莉，自然生长，传统晾晒，入口茉莉花清香，香气久煮不散，牛油脂香味与茉莉花香味同时凸显",
-          "flavorId": "",
+          "flavorId": "flavor_5",
           "image": "images/1780747540749_xja0en.jpg",
           "bgm": "",
           "video": "",
@@ -1633,7 +1638,7 @@
           "name": "沸腾新会陈皮火锅底料",
           "subtitle": "PRODUCT · 34",
           "description": "优选新会核心产地陈皮，陈皮降燥的药理功能，让火锅更解腻，锅底主打健康。既有陈皮的甘香味，又有油脂香味，口感层次丰富",
-          "flavorId": "",
+          "flavorId": "flavor_5",
           "image": "images/1780747573484_xysh0a.jpg",
           "bgm": "music/Paper-Circuit.mp3",
           "video": "",
@@ -1772,11 +1777,12 @@
           ]
         },
         {
+          "_seriesIdx": 15,
           "name": "清油火锅底料（飞鱼1号）",
           "subtitle": "PRODUCT · 36",
           "description": "清油火锅、美蛙鱼头火锅优选，优质辣椒花椒，麻辣纯正且植物油清香突出",
           "flavorId": "flavor_6",
-          "image": "",
+          "image": "images/1782115841864_210ksp.jpg",
           "bgm": "",
           "video": "",
           "crafts": [
@@ -1826,12 +1832,13 @@
           "packaging": "images/包装-清油火锅底料.png"
         },
         {
+          "_seriesIdx": 16,
           "name": "火锅底料（沸腾清油1号）",
           "subtitle": "PRODUCT · 37",
           "description": "清油火锅、美蛙鱼头火锅优选，优质辣椒花椒，麻辣纯正且植物油清香突出",
           "flavorId": "flavor_6",
-          "image": "",
-          "bgm": "",
+          "image": "images/1782116308057_m56onu.jpg",
+          "bgm": "music/Paper-Circuit.mp3",
           "video": "",
           "crafts": [
             {
@@ -1937,11 +1944,12 @@
       "description": "专为烤鱼场景研发，酱香浓郁，入味透彻，适用于各类烤鱼餐饮，出品稳出餐快",
       "products": [
         {
+          "_seriesIdx": 0,
           "name": "沸腾香辣烤鱼调料1号",
           "subtitle": "PRODUCT · 44",
           "description": "香辛料粉质细腻，渗透鱼肉入味，口齿留香。标准化炒制风味稳定",
-          "image": "",
-          "bgm": "",
+          "image": "images/1782108918383_uxf3zt.jpg",
+          "bgm": "music/Plastic-Sunlight.mp3",
           "video": "",
           "videoAspect": "9/16",
           "crafts": [
@@ -1980,10 +1988,9 @@
           ],
           "published": true,
           "id": 44,
-          "_seriesIdx": 0,
           "sops": [
             {
-              "name": "工艺流程",
+              "name": "香辣烤鱼",
               "materials": [
                 "产品：沸腾香辣烤鱼调料1号250g（1袋）",
                 "主料：整鱼（1.2-1.5kg）"
@@ -1996,35 +2003,36 @@
               "steps": [
                 {
                   "type": "准备",
-                  "icon": "🧂",
+                  "icon": "product",
                   "title": "步骤1",
                   "content": "将鱼洗净，改花刀。用盐、胡椒粉、洋葱、老姜片、料酒拌匀（出汁），加入适量清水，放入洗净的鱼腌制浸泡20分钟；"
                 },
                 {
                   "type": "准备",
-                  "icon": "📋",
+                  "icon": "product",
                   "title": "步骤2",
                   "content": "将洋葱切丝放入烤鱼盘垫底150克左右。"
                 },
                 {
                   "type": "准备",
-                  "icon": "📋",
+                  "icon": "main",
                   "title": "步骤3",
                   "content": "将鱼（用烤鱼夹）放在碳火上烤至两面金黄（表皮脆、鱼皮起泡）后放在烤鱼盘上待用；"
                 },
                 {
                   "type": "煮制",
-                  "icon": "🔥",
+                  "icon": "main",
                   "title": "步骤4",
                   "content": "取锅加入适量色拉油将藕片、土豆片、魔芋片下锅炒制，加入盐，炒香后倒入烤鱼盘垫底。"
                 },
                 {
                   "type": "煮制",
-                  "icon": "🔥",
+                  "icon": "process",
                   "title": "步骤5",
                   "content": "取锅烧油至五成油温，依次放入辣椒节、花椒、老姜、大蒜、炒制辣椒变色加入沸腾香辣烤鱼调料1号250克，水500克烧开熬制40秒淋在鱼上，用芝麻、葱花，芹菜节，装饰摆盘即可。"
                 }
-              ]
+              ],
+              "video": "https://www.bilibili.com/video/BV1W57P6cEY3/?share_source=copy_web&vd_source=df16900d40c45430d832dd4a11954c13"
             }
           ]
         },
@@ -2076,7 +2084,7 @@
           "packaging": "",
           "sops": [
             {
-              "name": "工艺流程",
+              "name": "蒜香烤鱼",
               "materials": [
                 "产品：沸腾蒜香烤鱼调料250g（1袋）",
                 "食材准备",
@@ -2094,27 +2102,28 @@
                   "type": "准备",
                   "icon": "🧂",
                   "title": "步骤1",
-                  "content": "腌鱼\\n将整鱼改花刀，用腌鱼调料（辣椒节、花椒、老姜、大蒜、盐、胡椒、味精、鸡精、白酒、水）和辅料（洋葱、小葱、香菜、芹菜）进行腌制；\\n腌制三十分钟。"
+                  "content": "腌鱼\n将整鱼改花刀，用腌鱼调料（辣椒节、花椒、老姜、大蒜、盐、胡椒、味精、鸡精、白酒、水）和辅料（洋葱、小葱、香菜、芹菜）进行腌制；\n腌制三十分钟。"
                 },
                 {
                   "type": "准备",
                   "icon": "📋",
                   "title": "步骤2",
-                  "content": "烤制\\n取出腌制好的鱼，烤鱼刷油烤制，烤制表皮金黄酥脆即可取出。"
+                  "content": "烤制\n取出腌制好的鱼，烤鱼刷油烤制，烤制表皮金黄酥脆即可取出。"
                 },
                 {
                   "type": "准备",
                   "icon": "📋",
                   "title": "步骤3",
-                  "content": "处理配菜\\n将配菜（土豆、莲藕）焯水炸熟，魔芋汆水。\\n所有洋葱、芹菜条及处理好的所有配菜铺在烤盘底，放上烤鱼备用。"
+                  "content": "处理配菜\n将配菜（土豆、莲藕）焯水炸熟，魔芋汆水。\n所有洋葱、芹菜条及处理好的所有配菜铺在烤盘底，放上烤鱼备用。"
                 },
                 {
                   "type": "煮制",
                   "icon": "🔥",
                   "title": "步骤4",
-                  "content": "炒料并淋制\\n起锅烧油，部分大蒜100g，碎炒制微黄；\\n放入沸腾工坊蒜蓉底料250g，再下入剩余蒜蓉，放入啤酒250ml ；\\n调味（依次放入糖2g、生粉水15g、大葱圈50g、青红辣椒圈30g）400ml开水，大火收汁；\\n随后把调味料淋制烤鱼上。"
+                  "content": "炒料并淋制\n起锅烧油，部分大蒜100g，碎炒制微黄；\n放入沸腾工坊蒜蓉底料250g，再下入剩余蒜蓉，放入啤酒250ml ；\n调味（依次放入糖2g、生粉水15g、大葱圈50g、青红辣椒圈30g）400ml开水，大火收汁；\n随后把调味料淋制烤鱼上。"
                 }
-              ]
+              ],
+              "video": "https://www.bilibili.com/video/BV1La7P6UE5d/?share_source=copy_web&vd_source=df16900d40c45430d832dd4a11954c13"
             }
           ]
         },
@@ -2165,7 +2174,7 @@
           "id": 46,
           "sops": [
             {
-              "name": "工艺流程",
+              "name": "泡椒烤鱼",
               "materials": [
                 "产品：沸腾泡椒烤鱼调料250g（1袋）",
                 "食材准备",
@@ -2183,27 +2192,28 @@
                   "type": "准备",
                   "icon": "🧂",
                   "title": "步骤1",
-                  "content": "腌鱼\\n将整鱼改花刀，用腌鱼调料（辣椒节、花椒、老姜、大蒜、盐、胡椒、味精、鸡精、白酒、水）和辅料（洋葱、小葱、香菜、芹菜）进行腌制；\\n腌制三十分钟。"
+                  "content": "腌鱼\n将整鱼改花刀，用腌鱼调料（辣椒节、花椒、老姜、大蒜、盐、胡椒、味精、鸡精、白酒、水）和辅料（洋葱、小葱、香菜、芹菜）进行腌制；\n腌制三十分钟。"
                 },
                 {
                   "type": "准备",
                   "icon": "📋",
                   "title": "步骤2",
-                  "content": "烤制\\n取出腌制好的鱼，烤鱼刷油烤制，烤制表皮金黄酥脆即可取出。"
+                  "content": "烤制\n取出腌制好的鱼，烤鱼刷油烤制，烤制表皮金黄酥脆即可取出。"
                 },
                 {
                   "type": "准备",
                   "icon": "📋",
                   "title": "步骤3",
-                  "content": "处理配菜\\n将配菜（土豆、莲藕）焯水炸熟，魔芋汆水。\\n所有洋葱、芹菜条及处理好的所有配菜铺在烤盘底，放上烤鱼备用。"
+                  "content": "处理配菜\n将配菜（土豆、莲藕）焯水炸熟，魔芋汆水。\n所有洋葱、芹菜条及处理好的所有配菜铺在烤盘底，放上烤鱼备用。"
                 },
                 {
                   "type": "煮制",
                   "icon": "🔥",
                   "title": "步骤4",
-                  "content": "炒料并淋制\\n起锅烧油，依次放入大蒜、老姜、泡姜爆香，随后放入粗泡椒节；\\n随后放入沸腾工坊泡椒底料，放入啤酒烧开，放入灯笼泡椒煸炒；\\n加入400ml水，放入葱段大火收汁；\\n随后把调味料淋制烤鱼上；\\n放入青花椒点缀。"
+                  "content": "炒料并淋制\n起锅烧油，依次放入大蒜、老姜、泡姜爆香，随后放入粗泡椒节；\n随后放入沸腾工坊泡椒底料，放入啤酒烧开，放入灯笼泡椒煸炒；\n加入400ml水，放入葱段大火收汁；\n随后把调味料淋制烤鱼上；\n放入青花椒点缀。"
                 }
-              ]
+              ],
+              "video": "https://www.bilibili.com/video/BV1La7P6UEpT/?share_source=copy_web&vd_source=df16900d40c45430d832dd4a11954c13"
             }
           ]
         }
@@ -2270,7 +2280,7 @@
           "id": 47,
           "sops": [
             {
-              "name": "工艺流程",
+              "name": "香辣小龙虾",
               "materials": [
                 "产品：沸腾香辣龙虾调料100g",
                 "主料：净虾800g"
@@ -2289,7 +2299,7 @@
                   "type": "准备",
                   "icon": "📋",
                   "title": "步骤2",
-                  "content": "加入1500g色拉油，油温升至170℃炸20秒，放入冰水备用\\n炒制："
+                  "content": "加入1500g色拉油，油温升至170℃炸20秒，放入冰水备用\n"
                 },
                 {
                   "type": "煮制",
@@ -2309,7 +2319,9 @@
                   "title": "步骤5",
                   "content": "大火收汁亮油，出锅。"
                 }
-              ]
+              ],
+              "videoAspect": "9/16",
+              "video": "https://www.bilibili.com/video/BV1u37Q6BEwk/?share_source=copy_web&vd_source=b26b3d659f97a9e9e208f46c9eebafb0"
             }
           ]
         },
@@ -2364,7 +2376,7 @@
           "id": 48,
           "sops": [
             {
-              "name": "工艺流程",
+              "name": "蒜香小龙虾做法",
               "materials": [
                 "产品：沸腾蒜香龙虾调料150g",
                 "主料：净虾800g"
@@ -2383,7 +2395,7 @@
                   "type": "准备",
                   "icon": "product",
                   "title": "步骤2",
-                  "content": "加入1500g色拉油，油温升至170℃炸20秒，放入冰水备用\\n炒制："
+                  "content": "加入1500g色拉油，油温升至170℃炸20秒，放入冰水备用\n"
                 },
                 {
                   "type": "煮制",
@@ -2403,7 +2415,8 @@
                   "title": "步骤5",
                   "content": "加入生粉水5g、收汁装盘"
                 }
-              ]
+              ],
+              "video": "https://www.bilibili.com/video/BV1457Q6iEfb/?share_source=copy_web&vd_source=b26b3d659f97a9e9e208f46c9eebafb0"
             }
           ]
         },
@@ -2458,7 +2471,7 @@
           "id": 49,
           "sops": [
             {
-              "name": "工艺流程",
+              "name": "油焖小龙虾",
               "materials": [
                 "产品：沸腾油焖龙虾调料100g",
                 "主料：净虾800g"
@@ -2477,7 +2490,7 @@
                   "type": "准备",
                   "icon": "main",
                   "title": "步骤2",
-                  "content": "加入1500g色拉油，油温升至170℃炸20秒，放入冰水备用\\n炒制："
+                  "content": "加入1500g色拉油，油温升至170℃炸20秒，放入冰水备用"
                 },
                 {
                   "type": "煮制",
@@ -2503,7 +2516,8 @@
                   "title": "步骤6",
                   "content": "大火收汁亮油，出锅。"
                 }
-              ]
+              ],
+              "video": "https://www.bilibili.com/video/BV18g7Q6uEgT/?share_source=copy_web&vd_source=b26b3d659f97a9e9e208f46c9eebafb0"
             }
           ]
         },
@@ -2562,7 +2576,7 @@
           "id": 50,
           "sops": [
             {
-              "name": "工艺流程",
+              "name": "十三香小龙虾",
               "materials": [
                 "产品：沸腾十三香龙虾调料100g",
                 "主料：净虾800g"
@@ -2581,7 +2595,7 @@
                   "type": "准备",
                   "icon": "📋",
                   "title": "步骤2",
-                  "content": "加入1500g色拉油，油温升至170℃炸20秒，放入冰水备用\\n炒制："
+                  "content": "加入1500g色拉油，油温升至170℃炸20秒，放入冰水备用"
                 },
                 {
                   "type": "煮制",
@@ -2607,7 +2621,8 @@
                   "title": "步骤6",
                   "content": "大火收汁亮油，出锅。"
                 }
-              ]
+              ],
+              "video": "https://www.bilibili.com/video/BV1bg7Q6uEvP/?share_source=copy_web&vd_source=b26b3d659f97a9e9e208f46c9eebafb0"
             }
           ]
         }

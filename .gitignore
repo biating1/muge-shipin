@@ -74,3 +74,6 @@ images/product1_tmp.jpg
 
 # 测试脚本
 test-*.js
+
+# 分享用 PPT（与项目代码分离）
+ppt-share/

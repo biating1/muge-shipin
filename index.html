@@ -244,6 +244,9 @@
               <span class="sop-arrow">▶</span>
               <span>{{ sopItem.name || '操作流程（SOP）' }}</span>
               <span style="font-size:11px;color:var(--color-ink-muted);" v-if="sopItem.steps && sopItem.steps.length">共 {{ sopItem.steps.length }} 步</span>
+              <button class="sop-video-btn" v-if="getSopVideo(sopItem)" @click.stop="openVideo(sopItem)" title="观看教学视频">
+                <span class="play-icon-sm"></span> 教学视频
+              </button>
             </div>
             <div class="modal-sop-body" :class="{ open: sopExpanded[sopIdx] }">
               <!-- 主料 + 辅料 -->
@@ -263,23 +266,18 @@
               <div class="modal-sop-steps" v-if="sopItem.steps && sopItem.steps.length > 0">
                 <div v-for="(step, i) in sopItem.steps" :key="'step'+sopIdx+'_'+i" class="modal-sop-step">
                   <div class="modal-sop-icon">
-                    <img v-if="step.icon && resolveSopIcon(step.icon)" :src="resolveSopIcon(step.icon)" alt="">
+                    <img v-if="step.icon && isSopIconImage(step.icon)" :src="resolveSopIcon(step.icon)" alt="">
+                    <img v-else :src="resolveSopIcon(getDefaultSopIcon(step.type))" alt="">
                   </div>
                   <div class="modal-sop-info">
                     <div class="modal-sop-type">{{ step.type }}</div>
                     <div class="modal-sop-title">{{ step.title }}</div>
-                    <div class="modal-sop-content">{{ step.content }}</div>
+                    <div class="modal-sop-content">{{ formatStepContent(step.content) }}</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="modal-actions">
-          <button class="btn-video" @click="openVideo(selectedProduct)">
-            <span class="play-icon"></span>
-            观看教学视频
-          </button>
         </div>
       </div>
     </div>
@@ -330,6 +328,28 @@
           // 迁移旧 SOP 数据（无 materials/auxiliaries 字段）
           if (p.sop && p.sop.steps && !p.sop.materials) { p.sop.materials = []; needSave = true; }
           if (p.sop && p.sop.steps && !p.sop.auxiliaries) { p.sop.auxiliaries = []; needSave = true; }
+          // 迁移 SOP 视频路径
+          if (p.sops) {
+            p.sops.forEach(function (sop) {
+              if (sop.video && sop.video.indexOf('/') === -1 && sop.video.indexOf('data:') !== 0 && sop.video.indexOf('http') !== 0) {
+                sop.video = 'videos/' + sop.video;
+                needSave = true;
+              }
+            });
+          }
+          // 迁移：步骤内容中 \n 文本 → 实际换行
+          function normalizeContent(obj) {
+            if (obj && obj.steps) {
+              obj.steps.forEach(function (st) {
+                if (st.content && st.content.indexOf('\\n') !== -1) {
+                  st.content = st.content.replace(/\\n/g, '\n');
+                  needSave = true;
+                }
+              });
+            }
+          }
+          normalizeContent(p.sop);
+          (p.sops || []).forEach(normalizeContent);
           // 迁移单 SOP → 多 SOP 数组（sop → sops）
           if (p.sop && !p.sops) {
             p.sops = [{ name: '工艺流程', materials: p.sop.materials || [], auxiliaries: p.sop.auxiliaries || [], steps: p.sop.steps || [] }];
@@ -404,6 +424,23 @@
     if (SOP_ICONS[icon]) return SOP_ICONS[icon];
     return icon;
   }
+  function isSopIconImage(icon) {
+    var src = resolveSopIcon(icon);
+    return !!(src && (src.indexOf('data:') === 0 || src.indexOf('http') === 0 || src.indexOf('blob:') === 0));
+  }
+  function getDefaultSopIcon(type) {
+    var t = (type || '').trim();
+    if (/产品|准备/.test(t)) return 'product';
+    if (/主料/.test(t)) return 'main';
+    if (/辅料/.test(t)) return 'aux';
+    if (/加工|流程|炒制|熬制/.test(t)) return 'process';
+    if (/质检|品控|检验/.test(t)) return 'check';
+    return 'process';
+  }
+  function formatStepContent(content) {
+    if (!content) return '';
+    return content.replace(/\\n/g, '\n');
+  }
 
   const { createApp, nextTick } = Vue;
 
@@ -441,7 +478,7 @@
         var bv = this.videoUrl.match(/BV[a-zA-Z0-9]+/);
         if (bv) return 'https://player.bilibili.com/player.html?bvid=' + bv[0] + '&high_quality=1&danmaku=0';
         return this.videoUrl;
-      }
+      },
     },
 
     methods: {
@@ -525,6 +562,15 @@
       resolveSopIcon(icon) {
         return resolveSopIcon(icon);
       },
+      isSopIconImage(icon) {
+        return isSopIconImage(icon);
+      },
+      getDefaultSopIcon(type) {
+        return getDefaultSopIcon(type);
+      },
+      formatStepContent(content) {
+        return formatStepContent(content);
+      },
       toggleSop(idx) {
         var val = this.sopExpanded[idx];
         this.sopExpanded = Object.assign({}, this.sopExpanded, { [idx]: !val });
@@ -552,17 +598,24 @@
       },
 
       // === 视频 ===
-      openVideo(product) {
-        if (!product.video) { alert('该产品暂未上传教学视频'); return; }
-        if (product.video.indexOf('weixin.qq.com') !== -1) {
-          window.open(product.video, '_blank');
+      getSopVideo(sopItem) {
+        if (!sopItem) return '';
+        if (sopItem.video) return sopItem.video;
+        if (this.selectedProduct && this.selectedProduct.video) return this.selectedProduct.video;
+        return '';
+      },
+      openVideo(sopItem) {
+        var videoUrl = this.getSopVideo(sopItem);
+        if (!videoUrl) { alert('该做法暂未关联教学视频'); return; }
+        if (videoUrl.indexOf('weixin.qq.com') !== -1) {
+          window.open(videoUrl, '_blank');
           return;
         }
-        this.videoUrl = product.video;
-        this.videoAspect = product.videoAspect || '9/16';
+        this.videoUrl = videoUrl;
+        // 优先 SOP 级 videoAspect，其次产品级
+        this.videoAspect = sopItem.videoAspect || (this.selectedProduct ? this.selectedProduct.videoAspect : null) || '9/16';
         this.showVideo = true;
         document.body.style.overflow = 'hidden';
-        // 打开视频时暂停背景音乐
         if (this.musicPlaying) {
           this.musicWasPlaying = true;
           this.musicPlaying = false;

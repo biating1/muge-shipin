@@ -117,6 +117,7 @@ img.card-packaging {
   color: var(--color-ink);
   margin-bottom: var(--space-1);
   transition: color var(--transition-normal);
+  white-space: pre-line;
 }
 
 .card:hover .card-body h3 {
