@@ -486,9 +486,11 @@
       getDisplaySubtitle(product) {
         for (var i = 0; i < this.seriesList.length; i++) {
           var s = this.seriesList[i];
+          var visibleIdx = 0;
           for (var j = 0; j < s.products.length; j++) {
+            if (s.products[j].published !== false) visibleIdx++;
             if (s.products[j].id === product.id) {
-              return 'PRODUCT · ' + String(j + 1).padStart(2, '0');
+              return 'PRODUCT · ' + String(visibleIdx).padStart(2, '0');
             }
           }
         }
